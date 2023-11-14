@@ -1,0 +1,28 @@
+{
+    "name": "maxime-rainville/shared-draft-comment",
+    "description": "Allow non-users to comment on shared draft.",
+    "type": "silverstripe-vendormodule",
+    "license": "BSD-3-Clause",
+    "autoload": {
+        "psr-4": {
+            "MaximeRainville\\SharedDraftComment\\": "code/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Maxime Rainville",
+            "email": "maxime@silverstripe.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "silverstripe/sharedraftcontent": "^3",
+        "silverstripe/graphql": "^5"
+    },
+    "extra": {
+        "expose": [
+            "build/static",
+            "client/lang"
+        ]
+    }
+}
