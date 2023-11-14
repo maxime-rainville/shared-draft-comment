@@ -1,3 +1,7 @@
 SilverStripe\ShareDraftContent\Controllers\ShareDraftController:
   extensions:
     -  MaximeRainville\SharedDraftComment\ShareDraftControllerExtension
+
+Page:
+  extensions:
+    -  MaximeRainville\SharedDraftComment\PageRelationExtension
