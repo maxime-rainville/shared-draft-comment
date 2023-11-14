@@ -1,3 +1,15 @@
-Page:
+MaximeRainville\SharedDraftComment\Selection:
+  fields: '*'
+  operations: '*'
+
+MaximeRainville\SharedDraftComment\Comment:
+  fields: '*'
+  operations: '*'
+
+MaximeRainville\SharedDraftComment\Commenter:
+  fields: '*'
+  operations: '*'
+
+MaximeRainville\SharedDraftComment\DomMeta:
   fields: '*'
   operations: '*'
