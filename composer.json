@@ -21,8 +21,7 @@
     },
     "extra": {
         "expose": [
-            "build/static",
-            "client/lang"
+            "build/static"
         ]
     }
 }
