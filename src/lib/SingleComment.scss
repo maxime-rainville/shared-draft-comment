@@ -1,0 +1,25 @@
+.comment {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: dashed 1px #ccc;
+  margin-bottom: 5px;
+
+  &__avatar {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    flex-grow: 0;
+  }
+
+  &__author {
+    flex-grow: 1;
+    flex-basis: 80%;
+    font-size:larger;
+  }
+
+  &__created {
+    flex-basis: 100%;
+    font-size: smaller;
+    font-style: italic;
+  }
+}

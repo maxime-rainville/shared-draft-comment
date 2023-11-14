@@ -1,6 +1,6 @@
 import React from 'react'
 import Highlighter from 'web-highlighter';
-import Thread from '../Thread';
+import Thread from './Thread';
 import { InlineSelection } from './InlineSelection';
 import { Comment } from './Comment';
 

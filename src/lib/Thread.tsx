@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { RootState } from './Store';
+import { RootState } from '../Store';
 import './Thread.scss';
+import SingleComment from './SingleComment';
 
 interface ThreadProps {
   offset: number;
@@ -18,7 +19,7 @@ export default function Thread({offset, comments, onNewComment}: ThreadProps) {
 
     return (
         <div style={{position: 'absolute', top: offset}} className='thread'>
-            {comments.map(({id, text}) => <div key={id} className="comment">{text}</div>)}
+            {comments.map((user) => <SingleComment key={user.id} {...user} />)}
             <div className="new-comment">
                 <textarea value={newComment} onChange={event => setNewComment(event.target.value)}></textarea>
                 <button onClick={postComment}>Post</button>    

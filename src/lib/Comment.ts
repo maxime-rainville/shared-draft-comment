@@ -1,7 +1,9 @@
+import { User } from "./User"
+
 export interface Comment {
 created: Date
 id: string
 text: string
 selectionId: string
-userId: string
+user?: User
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Bubble from './Bubble';
+import Bubble from './lib/Bubble';
 import Highlighter from 'web-highlighter';
 import store, {actions} from './Store';
 import { Provider } from 'react-redux'
@@ -50,11 +50,13 @@ store.dispatch(actions.Selection.register(
 ));
 
 store.dispatch(actions.Selection.recallComment({
-  id: 'comment1',
-  text: 'This is a comment',
-  userId: 'previous',
-  selectionId: '978827c9-2c2a-442c-b2a1-abd7ce6cdfc5',
-  created: new Date('2021-01-01T00:00:00Z')
+  comment: {
+    id: 'comment1',
+    text: 'This is a comment',
+    selectionId: '978827c9-2c2a-442c-b2a1-abd7ce6cdfc5',
+    created: new Date('2021-01-01T00:00:00Z')
+  },
+  userId: 'previous'
 }));
 
 const body = document.querySelector('article')

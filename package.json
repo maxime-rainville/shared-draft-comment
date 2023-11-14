@@ -11,6 +11,7 @@
     "@types/react": "^18.2.30",
     "@types/react-dom": "^18.2.14",
     "hrjs": "^1.5.7",
+    "javascript-time-ago": "^2.5.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",

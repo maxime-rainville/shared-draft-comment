@@ -1,14 +1,7 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import { InlineSelection } from '../lib/InlineSelection'
 import { Comment } from '../lib/Comment'
-
-interface User {
-  id: string
-  name: string
-  email?: string
-  avatar?: string
-  colour?: string
-}
+import { User } from '../lib/User'
 
 export interface SelectionState {
   selections: InlineSelection[],
@@ -20,7 +13,7 @@ export interface SelectionState {
 
 const register = createAction<InlineSelection>('selection/register')
 const commentOn = createAction<string>('selection/comment-on')
-const recallComment = createAction<Comment>('selection/recall-comment')
+const recallComment = createAction<{comment: Comment, userId?: string}>('selection/recall-comment')
 const newComment = createAction<{selectionId: string, text: string}>('selection/new-comment')
 const addUser = createAction<{user: User, active?: Boolean}>('selection/add-user')
 const setCurrentUser = createAction<string>('selection/set-current-user')
@@ -65,11 +58,15 @@ const reducer = createReducer(initial, (builder) => {
           text: action.payload.text,
           id: Math.random().toString(),
           created: new Date(),
-          userId: state.activeUser.id,
+          user: state.activeUser,
         }]
       })
       .addCase(recallComment, (state, action) => {
-        state.comments = [...state.comments, action.payload]
+        const {comment, userId} = action.payload
+        comment.user = state.users.find(u => u.id === userId) || undefined
+        
+        
+        state.comments = [...state.comments, comment]
       })
       .addCase(addUser, (state, {payload: {user, active} }) => {
         let currentUser = state.users.find(u => u.id === user.id)

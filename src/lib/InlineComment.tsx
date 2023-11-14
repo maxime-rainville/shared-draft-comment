@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom/client';
 import Highlighter from 'web-highlighter';
 import CommentContainer from './CommentContainer';
 import { InlineSelection } from './InlineSelection';
-import Bubble from '../Bubble';
+import Bubble from './Bubble';
 import { Comment } from './Comment';
 
+function clearBubble() {
+  let bubble = document.querySelector('.bubble-wrapper');
+  if (bubble !== null) {bubble.remove();}
+}
 
 export function InlineComment(
   getSelections: () => InlineSelection[],
@@ -51,12 +55,11 @@ export function InlineComment(
     refresh()
   });
   
+  
   root.onpointerup = () => {
+    clearBubble()
+
     const selection = document.getSelection();
-
-    let bubble = document.querySelector('.bubble-wrapper');
-    if (bubble !== null) {bubble.remove();}
-
     if (selection === null) return;
     const text = selection.toString();
     if (text !== "") {
@@ -71,7 +74,10 @@ export function InlineComment(
           <Bubble 
             top={rect.top + document.documentElement.scrollTop}
             left={rect.left+rect.width/2} 
-            onClick={() => highlighter.fromRange(selection.getRangeAt(0))} />
+            onClick={() => {
+              highlighter.fromRange(selection.getRangeAt(0))
+              clearBubble()
+            }} />
         </React.StrictMode>
       );
     }
@@ -81,31 +87,3 @@ export function InlineComment(
 
 }
 
-
-
-// import {useState} from 'react'
-// import { useDispatch, useSelector } from 'react-redux';
-// import { SelectionState, actions } from './Store/Selection';
-// import { RootState } from './Store';
-// import Highlighter from 'web-highlighter';
-// import Thread from './Thread';
-
-// interface CommentContainerProps {
-//     highlighter: Highlighter
-// }
-
-// export default function CommentContainer({highlighter}: CommentContainerProps) {
-
-//     const activeSelection = useSelector(({Selection: {selections, activeSelectionId}}: RootState) => selections.find(({id}) => id === activeSelectionId));
-//     const comments = useSelector(({Selection: {comments}}: RootState) => activeSelection && comments.filter(({selectionId}) => selectionId === activeSelection.id));
-//     const dispatch = useDispatch();
-    
-//     if (activeSelection && comments) {
-//         const domElements = highlighter.getDoms(activeSelection.id);
-//         const el = domElements[0];
-//         const offset = window.pageYOffset + el.getBoundingClientRect().top;
-//         return <Thread offset={offset} comments={comments} onNewComment={text => dispatch(actions.newComment(text))}/>;
-//     } else {
-//         return <div>There's active selection</div>;
-//     }
-// }
