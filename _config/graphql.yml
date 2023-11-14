@@ -1,0 +1,25 @@
+---
+Name: shared-draft-comment-graphql
+After: '#graphqlconfig'
+---
+
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\GraphQL\Schema\Schema.shared-draft-comment:
+    class: SilverStripe\GraphQL\Schema\Schema
+    constructor:
+      schemaKey: shared-draft-comment
+  SilverStripe\GraphQL\Controller.shared-draft-comment:
+    class: SilverStripe\GraphQL\Controller
+    constructor:
+      schema: shared-draft-comment
+
+SilverStripe\Control\Director:
+  rules:
+    'shared-draft-comment/graphql':
+      Controller: '%$SilverStripe\GraphQL\Controller.shared-draft-comment'
+
+SilverStripe\GraphQL\Schema\Schema:
+  schemas:
+    shared-draft-comment:
+      src:
+        - 'maxime-rainville/shared-draft-comment: _graphql'
