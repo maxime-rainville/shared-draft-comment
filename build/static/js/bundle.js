@@ -914,6 +914,9 @@ function InlineComment(getSelections, getComments, registerSelection, postCommen
       const activeSelection = selections.find(({
         id
       }) => id === selectionId);
+      selections.forEach(({
+        id
+      }) => id === (activeSelection === null || activeSelection === void 0 ? void 0 : activeSelection.id) ? highlighter.addClass('highlighter-active', id) : highlighter.removeClass('highlighter-active', id));
       getComments(selectionId || '').then(comments => {
         reactRoot.render( /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxDEV)((react__WEBPACK_IMPORTED_MODULE_0___default().StrictMode), {
           children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxDEV)(_CommentContainer__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -923,12 +926,12 @@ function InlineComment(getSelections, getComments, registerSelection, postCommen
             postComment: text => postComment(selectionId || '', text)
           }, void 0, false, {
             fileName: _jsxFileName,
-            lineNumber: 60,
+            lineNumber: 67,
             columnNumber: 13
           }, this)
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 59,
+          lineNumber: 66,
           columnNumber: 13
         }, this));
       });
@@ -942,6 +945,8 @@ function InlineComment(getSelections, getComments, registerSelection, postCommen
   });
   root.onpointerup = () => {
     clearBubble();
+    selectionId = '';
+    refresh();
     const selection = document.getSelection();
     if (selection === null) return;
     const text = selection.toString();
@@ -962,12 +967,12 @@ function InlineComment(getSelections, getComments, registerSelection, postCommen
           }
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 93,
+          lineNumber: 102,
           columnNumber: 11
         }, this)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 92,
+        lineNumber: 101,
         columnNumber: 9
       }, this));
     }
