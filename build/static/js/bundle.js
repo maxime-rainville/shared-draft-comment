@@ -1097,6 +1097,18 @@ function Thread({
 }) {
   _s();
   const [newComment, setNewComment] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [emptyComment, setEmptyComment] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const validateKeyAndContent = e => {
+    if (e.key !== 'Enter') {
+      setEmptyComment(false);
+      return;
+    }
+    if (newComment.length === 0) {
+      setEmptyComment(true);
+      return;
+    }
+    postComment();
+  };
   const postComment = () => {
     setNewComment('');
     onNewComment(newComment);
@@ -1111,37 +1123,33 @@ function Thread({
       ...user
     }, user.id, false, {
       fileName: _jsxFileName,
-      lineNumber: 22,
+      lineNumber: 42,
       columnNumber: 37
     }, this)), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
       className: "new-comment",
-      children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("textarea", {
+      children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("input", {
+        className: `new-comment__field ${emptyComment ? 'new-comment__field--error' : ''}`,
+        placeholder: "Reply",
+        onKeyDown: validateKeyAndContent,
         value: newComment,
         onChange: event => setNewComment(event.target.value)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 24,
+        lineNumber: 44,
         columnNumber: 17
-      }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
-        onClick: postComment,
-        children: "Post"
-      }, void 0, false, {
-        fileName: _jsxFileName,
-        lineNumber: 25,
-        columnNumber: 17
-      }, this)]
-    }, void 0, true, {
+      }, this)
+    }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 23,
+      lineNumber: 43,
       columnNumber: 13
     }, this)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 21,
+    lineNumber: 41,
     columnNumber: 9
   }, this);
 }
-_s(Thread, "4CPgt7oQpkJXYA7nM53m+f+bai8=");
+_s(Thread, "EecFTU893kGJSn3h8NqxpFlGKms=");
 _c = Thread;
 var _c;
 __webpack_require__.$Refresh$.register(_c, "Thread");
@@ -37148,10 +37156,14 @@ code {
   width: max-content; height: 20px;
 }
 
+div#share-draft-content-message {
+  background-color: #FFD966;
+}
+
 .highlighter-active,
 .highlight-mengshou-wrap.highlighter-active {
   background: rgb(153, 250, 255);
-}`, "",{"version":3,"sources":["webpack://./src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;AACpC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,yDAAiY;EACjY,eAAe;EACf,kBAAkB;EAClB,WAAW,EAAE,YAAY;AAC3B;AACA;EACE,uBAAuB;EACvB,YAAY;EACZ,wBAAwB;EACxB,cAAc;EACd,iBAAiB;EACjB,iBAAiB,EAAE,eAAe;EAClC,YAAY;EACZ,kBAAkB,EAAE,YAAY;AAClC;;AAEA;;EAEE,8BAA8B;AAChC","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\n#control {\n  background-image: url(\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width='40px' height='40px'><foreignObject width='40px' height='40px'><div xmlns='http://www.w3.org/1999/xhtml' style='width:40px;height:40px;line-height:40px;text-align:center;color:transparent;text-shadow: 0 0 yellow, 2px 4px black, -1px -1px black;font-size:35px;'>💬</div></foreignObject></svg>\");\n  cursor: pointer;\n  position: absolute;\n  width: 40px; height: 40px;\n}\n#control::before{\n  background-color: black;\n  color: white;\n  content: \" tweet this! \";\n  display: block;\n  font-weight: bold;\n  margin-left: 37px; margin-top: 6px;\n  padding: 2px;\n  width: max-content; height: 20px;\n}\n\n.highlighter-active,\n.highlight-mengshou-wrap.highlighter-active {\n  background: rgb(153, 250, 255);\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;AACpC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,yDAAiY;EACjY,eAAe;EACf,kBAAkB;EAClB,WAAW,EAAE,YAAY;AAC3B;AACA;EACE,uBAAuB;EACvB,YAAY;EACZ,wBAAwB;EACxB,cAAc;EACd,iBAAiB;EACjB,iBAAiB,EAAE,eAAe;EAClC,YAAY;EACZ,kBAAkB,EAAE,YAAY;AAClC;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;;EAEE,8BAA8B;AAChC","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\n#control {\n  background-image: url(\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width='40px' height='40px'><foreignObject width='40px' height='40px'><div xmlns='http://www.w3.org/1999/xhtml' style='width:40px;height:40px;line-height:40px;text-align:center;color:transparent;text-shadow: 0 0 yellow, 2px 4px black, -1px -1px black;font-size:35px;'>💬</div></foreignObject></svg>\");\n  cursor: pointer;\n  position: absolute;\n  width: 40px; height: 40px;\n}\n#control::before{\n  background-color: black;\n  color: white;\n  content: \" tweet this! \";\n  display: block;\n  font-weight: bold;\n  margin-left: 37px; margin-top: 6px;\n  padding: 2px;\n  width: max-content; height: 20px;\n}\n\ndiv#share-draft-content-message {\n  background-color: #FFD966;\n}\n\n.highlighter-active,\n.highlight-mengshou-wrap.highlighter-active {\n  background: rgb(153, 250, 255);\n}"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -37222,8 +37234,11 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, `.comment {
   display: flex;
   flex-wrap: wrap;
-  border-bottom: dashed 1px #ccc;
   margin-bottom: 5px;
+  padding-bottom: 10px;
+}
+.comment + .new-comment {
+  margin-top: 10px;
 }
 .comment__avatar {
   display: inline-block;
@@ -37232,15 +37247,21 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.comment {
   flex-grow: 0;
 }
 .comment__author {
+  color: #8B9098;
   flex-grow: 1;
   flex-basis: 80%;
   font-size: larger;
+  font-weight: bold;
+  margin-left: 5px;
 }
 .comment__created {
   flex-basis: 100%;
   font-size: smaller;
   font-style: italic;
-}`, "",{"version":3,"sources":["webpack://./src/lib/SingleComment.scss"],"names":[],"mappings":"AAAA;EACE,aAAA;EACA,eAAA;EACA,8BAAA;EACA,kBAAA;AACF;AACE;EACE,qBAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AACJ;AAEE;EACE,YAAA;EACA,eAAA;EACA,iBAAA;AAAJ;AAGE;EACE,gBAAA;EACA,kBAAA;EACA,kBAAA;AADJ","sourcesContent":[".comment {\n  display: flex;\n  flex-wrap: wrap;\n  border-bottom: dashed 1px #ccc;\n  margin-bottom: 5px;\n\n  &__avatar {\n    display: inline-block;\n    width: 32px;\n    height: 32px;\n    flex-grow: 0;\n  }\n\n  &__author {\n    flex-grow: 1;\n    flex-basis: 80%;\n    font-size:larger;\n  }\n\n  &__created {\n    flex-basis: 100%;\n    font-size: smaller;\n    font-style: italic;\n  }\n}"],"sourceRoot":""}]);
+}
+.comment__text {
+  margin-top: 5px;
+}`, "",{"version":3,"sources":["webpack://./src/lib/SingleComment.scss"],"names":[],"mappings":"AAEA;EACE,aAAA;EACA,eAAA;EACA,kBAAA;EACA,oBAAA;AADF;AAGI;EACI,gBAAA;AADR;AAIE;EACE,qBAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AAFJ;AAKE;EACE,cApBgB;EAqBhB,YAAA;EACA,eAAA;EACA,iBAAA;EACA,iBAAA;EACA,gBAAA;AAHJ;AAME;EACI,gBAAA;EACA,kBAAA;EACA,kBAAA;AAJN;AAOE;EACI,eAAA;AALN","sourcesContent":["$author-name-color: #8B9098;\n\n.comment {\n  display: flex;\n  flex-wrap: wrap;\n  margin-bottom: 5px;\n  padding-bottom: 10px;\n\n    & + .new-comment {\n        margin-top: 10px;\n    }\n\n  &__avatar {\n    display: inline-block;\n    width: 32px;\n    height: 32px;\n    flex-grow: 0;\n  }\n\n  &__author {\n    color: $author-name-color;\n    flex-grow: 1;\n    flex-basis: 80%;\n    font-size:larger;\n    font-weight: bold;\n    margin-left: 5px;\n  }\n\n  &__created {\n      flex-basis: 100%;\n      font-size: smaller;\n      font-style: italic;\n  }\n\n  &__text {\n      margin-top: 5px;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -37270,16 +37291,34 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.thread {
   background-color: white;
-  border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   color: black;
-  font-size: 20px;
-  padding: 10px;
+  font-size: 12px;
+  padding: 15px;
   position: absolute;
   width: 300px;
   z-index: 100;
   right: 10px;
-}`, "",{"version":3,"sources":["webpack://./src/lib/Thread.scss"],"names":[],"mappings":"AAAA;EACE,uBAAA;EACA,mBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,kBAAA;EACA,YAAA;EACA,YAAA;EACA,WAAA;AACF","sourcesContent":[".thread {\n  background-color: white;\n  border-radius: 10px;\n  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n  color: black;\n  font-size: 20px;\n  padding: 10px;\n  position: absolute;\n  width: 300px;\n  z-index: 100;\n  right: 10px;\n}"],"sourceRoot":""}]);
+}
+.thread .comment:not(:first-of-type) {
+  padding: 10px 20px;
+}
+
+.new-comment__field {
+  background-color: #F4F6F8;
+  border: 1px solid #C8D0DD;
+  border-radius: 25px;
+  font-size: 12px;
+  padding: 4px 15px;
+  width: calc(100% - 30px);
+  height: 22px;
+}
+.new-comment__field--error {
+  background-color: red;
+}
+.new-comment__field::placeholder {
+  color: #A6AAB0;
+}`, "",{"version":3,"sources":["webpack://./src/lib/Thread.scss"],"names":[],"mappings":"AAIA;EACI,uBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,kBAAA;EACA,YAAA;EACA,YAAA;EACA,WAAA;AAHJ;AAKI;EACI,kBAAA;AAHR;;AAQI;EACI,yBArBmB;EAsBnB,yBAAA;EACA,mBAAA;EACA,eAAA;EACA,iBAAA;EACA,wBAAA;EACA,YAAA;AALR;AAOQ;EACI,qBAAA;AALZ;AAQQ;EACI,cAnCG;AA6Bf","sourcesContent":["$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.thread {\n    background-color: white;\n    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n    color: black;\n    font-size: 12px;\n    padding: 15px;\n    position: absolute;\n    width: 300px;\n    z-index: 100;\n    right: 10px;\n\n    & .comment:not(:first-of-type) {\n        padding: 10px 20px;\n    }\n}\n\n.new-comment {\n    &__field {\n        background-color: $comment-field-background;\n        border: 1px solid $comment-filed-border;\n        border-radius: 25px;\n        font-size: 12px;\n        padding: 4px 15px;\n        width: calc(100% - 30px);\n        height: 22px; // minus the padding size\n\n        &--error {\n            background-color: red;\n        }\n\n        &::placeholder {\n            color: $place-holder;\n        }\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
