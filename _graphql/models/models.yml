@@ -1,6 +1,7 @@
 MaximeRainville\SharedDraftComment\Selection:
   fields: '*'
-  operations: '*'
+  operations:
+    '*': true
 
 MaximeRainville\SharedDraftComment\Comment:
   fields: '*'

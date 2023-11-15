@@ -16,7 +16,7 @@ class Selection extends DataObject
      * @var array
      */
      private static $db = [
-        'HighlightedText' => 'HTMLText',
+        'Text' => 'HTMLText',
     ];
 
     private static $has_one = [

@@ -44,7 +44,7 @@ export function reduxBootstrap() {
     const body = document.querySelector('article')
     if (body) {
         const refreshInlineComment = InlineComment(
-            () => store.getState().Selection.selections,
+            () => Promise.resolve(store.getState().Selection.selections),
             (selectionId?: string) => selectionId ?
             store.getState().Selection.comments.filter(c => c.selectionId === selectionId) :
             store.getState().Selection.comments,

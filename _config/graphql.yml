@@ -12,6 +12,12 @@ SilverStripe\Core\Injector\Injector:
     class: SilverStripe\GraphQL\Controller
     constructor:
       schema: shared-draft-comment
+      handler: '%$SilverStripe\GraphQL\QueryHandler\QueryHandlerInterface.shared-draft-comment'
+  SilverStripe\GraphQL\QueryHandler\QueryHandlerInterface.shared-draft-comment:
+    class: SilverStripe\GraphQL\QueryHandler\QueryHandler
+    properties:
+      Middlewares:
+        httpMethod: '%$SilverStripe\GraphQL\Middleware\HTTPMethodMiddleware'
 
 SilverStripe\Control\Director:
   rules:
@@ -23,3 +29,4 @@ SilverStripe\GraphQL\Schema\Schema:
     shared-draft-comment:
       src:
         - 'maxime-rainville/shared-draft-comment: _graphql'
+
