@@ -14,23 +14,34 @@ function clearBubble() {
 export function InlineComment(
   getSelections: () => Promise<InlineSelection[]>,
   getComments: (selectionId?: string) => Promise<Comment[]>,
-  registerSelection: (selection: InlineSelection) => void,
+  registerSelection: (selection: InlineSelection) => Promise<InlineSelection>,
   postComment: (selectionId: string, text: string) => void,
   root: HTMLElement,
 ) {
 
   const highlighter = new Highlighter();
   let selectionId = '';
+  let refresh: () => void
 
   getSelections().then(
     selections => {
-        console.dir('selections')
         selections.forEach(s => highlighter.fromStore(s.startMeta, s.endMeta, s.text, s.id))
         highlighter.on(
             Highlighter.event.CREATE,
             ({sources}) => sources.forEach( (source) => {
+                if (selectionId === source.id) return
                 selectionId = source.id
-                registerSelection(source)
+                registerSelection(source).then(updatedSelection => {
+                    highlighter.remove(selectionId)
+                    selectionId = updatedSelection.id
+                    highlighter.fromStore(
+                        updatedSelection.startMeta,
+                        updatedSelection.endMeta,
+                        updatedSelection.text,
+                        updatedSelection.id
+                    )
+                    refresh()
+                })
             })
         )
     }
@@ -40,7 +51,7 @@ export function InlineComment(
   document.body.appendChild(reactDiv);
 
   const reactRoot = ReactDOM.createRoot(reactDiv);
-  const refresh = () => {
+  refresh = () => {
     getSelections().then(selections => {
       const activeSelection = selections.find(({id}) => id === selectionId)
       getComments(selectionId || '').then(comments => {

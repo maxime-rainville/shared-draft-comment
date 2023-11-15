@@ -50,7 +50,10 @@ export function reduxBootstrap() {
                     store.getState().Selection.comments.filter(c => c.selectionId === selectionId) :
                     store.getState().Selection.comments
             ),
-            (selection: InlineSelection) => store.dispatch(actions.Selection.register(selection)),
+            (selection: InlineSelection) => {
+                store.dispatch(actions.Selection.register(selection))
+                return Promise.resolve(selection)
+            },
             (selectionId: string, content: string) => store.dispatch(actions.Selection.newComment({selectionId, content})),
             body
         );

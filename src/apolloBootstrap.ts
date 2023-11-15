@@ -15,6 +15,16 @@ export async function  apolloBootstrap(pageID: number) {
     const client = new ApolloClient({
         uri: 'shared-draft-comment/graphql',
         cache: new InMemoryCache(),
+        defaultOptions: {
+            watchQuery: {
+              fetchPolicy: 'no-cache',
+              errorPolicy: 'ignore',
+            },
+            query: {
+              fetchPolicy: 'no-cache',
+              errorPolicy: 'all',
+            },
+          }
     });
 
     const user = await recallUser(client);
@@ -41,7 +51,8 @@ export async function  apolloBootstrap(pageID: number) {
                 }
             }
         })
-    )).then(refreshInlineComment);
+        .then(results => results.data?.createSelection)
+    ));
 
 
     const getComments = (selectionID?: string) => client.query({
