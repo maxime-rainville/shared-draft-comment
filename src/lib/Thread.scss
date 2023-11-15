@@ -1,12 +1,39 @@
+$place-holder: #A6AAB0;
+$comment-field-background: #F4F6F8;
+$comment-filed-border: #C8D0DD;
+
 .thread {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-  color: black;
-  font-size: 20px;
-  padding: 10px;
-  position: absolute;
-  width: 300px;
-  z-index: 100;
-  right: 10px;
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    color: black;
+    font-size: 12px;
+    padding: 15px;
+    position: absolute;
+    width: 300px;
+    z-index: 100;
+    right: 10px;
+
+    & .comment:not(:first-of-type) {
+        padding: 10px 20px;
+    }
+}
+
+.new-comment {
+    &__field {
+        background-color: $comment-field-background;
+        border: 1px solid $comment-filed-border;
+        border-radius: 25px;
+        font-size: 12px;
+        padding: 4px 15px;
+        width: calc(100% - 30px);
+        height: 22px; // minus the padding size
+
+        &--error {
+            background-color: red;
+        }
+
+        &::placeholder {
+            color: $place-holder;
+        }
+    }
 }

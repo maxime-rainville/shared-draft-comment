@@ -29,6 +29,10 @@ code {
   width: max-content; height: 20px;
 }
 
+div#share-draft-content-message {
+  background-color: #FFD966;
+}
+
 .highlighter-active,
 .highlight-mengshou-wrap.highlighter-active {
   background: rgb(153, 250, 255);
