@@ -297,6 +297,47 @@ if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Pr
 
 /***/ }),
 
+/***/ "./src/apollo/mutations/postSelectionMutation.ts":
+/*!*******************************************************!*\
+  !*** ./src/apollo/mutations/postSelectionMutation.ts ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   postSelectionMutation: () => (/* binding */ postSelectionMutation)
+/* harmony export */ });
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @apollo/client */ "./node_modules/graphql-tag/lib/index.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+
+const postSelectionMutation = (0,_apollo_client__WEBPACK_IMPORTED_MODULE_0__.gql)`
+mutation postSelection($selection: CreateSelectionInput!) {
+    createSelection(input:$selection) {
+        id
+    }
+}
+`;
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
 /***/ "./src/apollo/queries/getCommentsQuery.ts":
 /*!************************************************!*\
   !*** ./src/apollo/queries/getCommentsQuery.ts ***!
@@ -500,14 +541,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   apolloBootstrap: () => (/* binding */ apolloBootstrap)
 /* harmony export */ });
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/core/ApolloClient.js");
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/cache/inmemory/inMemoryCache.js");
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/core/ApolloClient.js");
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/cache/inmemory/inMemoryCache.js");
 /* harmony import */ var _lib_InlineComment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/InlineComment */ "./src/lib/InlineComment.tsx");
 /* harmony import */ var _apollo_queries_getSelectionsQuery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./apollo/queries/getSelectionsQuery */ "./src/apollo/queries/getSelectionsQuery.ts");
 /* harmony import */ var _apollo_mutations_postDomMetaMutation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apollo/mutations/postDomMetaMutation */ "./src/apollo/mutations/postDomMetaMutation.ts");
 /* harmony import */ var _apollo_queries_getCommentsQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./apollo/queries/getCommentsQuery */ "./src/apollo/queries/getCommentsQuery.ts");
 /* harmony import */ var _apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./apollo/recallUser */ "./src/apollo/recallUser.tsx");
 /* harmony import */ var _apollo_mutations_postCommentMutation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./apollo/mutations/postCommentMutation */ "./src/apollo/mutations/postCommentMutation.ts");
+/* harmony import */ var _apollo_mutations_postSelectionMutation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./apollo/mutations/postSelectionMutation */ "./src/apollo/mutations/postSelectionMutation.ts");
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
@@ -518,11 +560,12 @@ __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/r
 
 
 
+
 async function apolloBootstrap(pageID) {
   let refreshInlineComment;
-  const client = new _apollo_client__WEBPACK_IMPORTED_MODULE_6__.ApolloClient({
+  const client = new _apollo_client__WEBPACK_IMPORTED_MODULE_7__.ApolloClient({
     uri: 'shared-draft-comment/graphql',
-    cache: new _apollo_client__WEBPACK_IMPORTED_MODULE_7__.InMemoryCache()
+    cache: new _apollo_client__WEBPACK_IMPORTED_MODULE_8__.InMemoryCache()
   });
   const user = await (0,_apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__.recallUser)(client);
   const getSelections = () => client.query({
@@ -545,7 +588,7 @@ async function apolloBootstrap(pageID) {
       endMeta
     }
   }) => client.mutate({
-    mutation: _apollo_mutations_postDomMetaMutation__WEBPACK_IMPORTED_MODULE_2__.postDomMetaMutation,
+    mutation: _apollo_mutations_postSelectionMutation__WEBPACK_IMPORTED_MODULE_6__.postSelectionMutation,
     variables: {
       selection: {
         startMetaID: startMeta.id,

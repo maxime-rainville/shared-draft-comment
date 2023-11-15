@@ -6,6 +6,7 @@ import { postDomMetaMutation } from './apollo/mutations/postDomMetaMutation';
 import { getCommentsQuery } from './apollo/queries/getCommentsQuery';
 import { recallUser } from './apollo/recallUser';
 import { postCommentMutation } from './apollo/mutations/postCommentMutation';
+import { postSelectionMutation } from './apollo/mutations/postSelectionMutation';
 
 
 export async function  apolloBootstrap(pageID: number) {
@@ -30,7 +31,7 @@ export async function  apolloBootstrap(pageID: number) {
         variables: {'startMeta': selection.startMeta, 'endMeta': selection.endMeta},
     }).then(({data: {startMeta, endMeta}}) => (
         client.mutate({
-            mutation: postDomMetaMutation,
+            mutation: postSelectionMutation,
             variables: {
                 selection: {
                     startMetaID: startMeta.id,
