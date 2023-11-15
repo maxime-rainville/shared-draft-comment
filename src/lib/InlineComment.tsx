@@ -54,6 +54,13 @@ export function InlineComment(
   refresh = () => {
     getSelections().then(selections => {
       const activeSelection = selections.find(({id}) => id === selectionId)
+
+      selections.forEach(({id}) =>
+        id === activeSelection?.id ?
+        highlighter.addClass('highlighter-active', id) :
+        highlighter.removeClass('highlighter-active', id)
+      )
+
       getComments(selectionId || '').then(comments => {
         reactRoot.render(
             <React.StrictMode>
@@ -77,6 +84,8 @@ export function InlineComment(
 
   root.onpointerup = () => {
     clearBubble()
+    selectionId = ''
+    refresh()
 
     const selection = document.getSelection();
     if (selection === null) return;
