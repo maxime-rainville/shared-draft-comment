@@ -7,7 +7,7 @@ import { getCommentsQuery } from './apollo/queries/getCommentsQuery';
 import { recallUser } from './apollo/recallUser';
 import { postCommentMutation } from './apollo/mutations/postCommentMutation';
 import { postSelectionMutation } from './apollo/mutations/postSelectionMutation';
-
+import { User } from './lib/User';
 
 export async function  apolloBootstrap(pageID: number) {
     let refreshInlineComment: () => void;
@@ -17,17 +17,17 @@ export async function  apolloBootstrap(pageID: number) {
         cache: new InMemoryCache(),
         defaultOptions: {
             watchQuery: {
-              fetchPolicy: 'no-cache',
-              errorPolicy: 'ignore',
+                fetchPolicy: 'no-cache',
+                errorPolicy: 'ignore',
             },
             query: {
-              fetchPolicy: 'no-cache',
-              errorPolicy: 'all',
+                fetchPolicy: 'no-cache',
+                errorPolicy: 'all',
             },
-          }
+        }
     });
 
-    const user = await recallUser(client);
+    let user: User;
 
     const getSelections = () => client.query({
         query: getSelectionsQuery,
@@ -51,7 +51,7 @@ export async function  apolloBootstrap(pageID: number) {
                 }
             }
         })
-        .then(results => results.data?.createSelection)
+            .then(results => results.data?.createSelection)
     ));
 
 
@@ -59,10 +59,16 @@ export async function  apolloBootstrap(pageID: number) {
         query: getCommentsQuery,
         variables: {selectionID}
     }).then(({data: {readComments}}) => readComments.map((comment: { created: string | number | Date; }) => ({...comment, created: new Date(comment.created)})));
-    const postComment = (selectionID: string, content: string) => client.mutate({
-        mutation: postCommentMutation,
-        variables: {comment: {selectionID, content, commenterID: user.id}}
-    }).then(refreshInlineComment);
+    const postComment = (selectionID: string, content: string) => {
+        return recallUser(client).then(newUser => {
+            user = newUser
+        })
+            .then(() => client.mutate({
+                mutation: postCommentMutation,
+                variables: {comment: {selectionID, content, commenterID: user.id}}
+            })).then(refreshInlineComment);
+
+    }
 
     // Start up InlineComment anh link it to our redux store
     const body = document.querySelector('article')
@@ -76,6 +82,3 @@ export async function  apolloBootstrap(pageID: number) {
         );
     }
 }
-
-
-// }
