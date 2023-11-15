@@ -8,8 +8,9 @@ use SilverStripe\View\Requirements;
 
 class ShareDraftControllerExtension extends Extension
 {
-    public function updatePage()
+    public function updatePage($page)
     {
+        Requirements::customScript('var sharedDraftComment = {pageId: ' . $page->ID . '};', 'sharedDraftComment');
         Requirements::javascript('maxime-rainville/shared-draft-comment: build/static/js/bundle.js');
     }
 }

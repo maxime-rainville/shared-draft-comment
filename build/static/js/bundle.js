@@ -160,82 +160,29 @@ if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Pr
 
 /***/ }),
 
-/***/ "./src/index.tsx":
-/*!***********************!*\
-  !*** ./src/index.tsx ***!
-  \***********************/
+/***/ "./src/index.ts":
+/*!**********************!*\
+  !*** ./src/index.ts ***!
+  \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.css */ "./src/index.css");
-/* harmony import */ var _Store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Store */ "./src/Store/index.ts");
-/* harmony import */ var _lib_InlineComment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/InlineComment */ "./src/lib/InlineComment.tsx");
+/* harmony import */ var _reduxBootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reduxBootstrap */ "./src/reduxBootstrap.ts");
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
 
 
-
-// const highlighter = new Highlighter();
-
-// store.subscribe(() => {
-//   const {Selection: {selections, activeSelectionId}} = store.getState();
-//   selections.forEach(
-//     ({id}) => 
-//       id === activeSelectionId ? 
-//         highlighter.addClass('highlighter-active', id) : 
-//         highlighter.removeClass('highlighter-active', id)
-//   )
-// })
-_Store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_1__.actions.Selection.addUser({
-  user: {
-    id: 'previous',
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    colour: '#ff0000'
+window.addEventListener('load', function () {
+  if (window.sharedDraftComment === undefined) {
+    console.log('No sharedDraftComment object found. Using reduxBootstrap');
+    (0,_reduxBootstrap__WEBPACK_IMPORTED_MODULE_1__.reduxBootstrap)();
+  } else {
+    console.log('Apollo magic here');
   }
-}));
-_Store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_1__.actions.Selection.addUser({
-  user: {
-    id: 'active',
-    name: 'Maxime Rainville',
-    email: 'maxime.rainville@example.com',
-    colour: '#00ff00'
-  },
-  active: true
-}));
-_Store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_1__.actions.Selection.register({
-  "startMeta": {
-    "parentTagName": "P",
-    "parentIndex": 1,
-    "textOffset": 39
-  },
-  "endMeta": {
-    "parentTagName": "P",
-    "parentIndex": 1,
-    "textOffset": 61
-  },
-  "text": "Sed rutrum ullamcorper",
-  "id": "978827c9-2c2a-442c-b2a1-abd7ce6cdfc5"
-}));
-_Store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_1__.actions.Selection.recallComment({
-  comment: {
-    id: 'comment1',
-    text: 'This is a comment',
-    selectionId: '978827c9-2c2a-442c-b2a1-abd7ce6cdfc5',
-    created: new Date('2021-01-01T00:00:00Z')
-  },
-  userId: 'previous'
-}));
-const body = document.querySelector('article');
-if (body) {
-  const refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_2__.InlineComment)(() => _Store__WEBPACK_IMPORTED_MODULE_1__["default"].getState().Selection.selections, selectionId => selectionId ? _Store__WEBPACK_IMPORTED_MODULE_1__["default"].getState().Selection.comments.filter(c => c.selectionId === selectionId) : _Store__WEBPACK_IMPORTED_MODULE_1__["default"].getState().Selection.comments, selection => _Store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_1__.actions.Selection.register(selection)), (selectionId, text) => _Store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_1__.actions.Selection.newComment({
-    selectionId,
-    text
-  })), body);
-  _Store__WEBPACK_IMPORTED_MODULE_1__["default"].subscribe(refreshInlineComment);
-}
+});
 
 const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
 const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
@@ -700,6 +647,95 @@ _s(Thread, "4CPgt7oQpkJXYA7nM53m+f+bai8=");
 _c = Thread;
 var _c;
 __webpack_require__.$Refresh$.register(_c, "Thread");
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
+/***/ "./src/reduxBootstrap.ts":
+/*!*******************************!*\
+  !*** ./src/reduxBootstrap.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   reduxBootstrap: () => (/* binding */ reduxBootstrap)
+/* harmony export */ });
+/* harmony import */ var _Store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Store */ "./src/Store/index.ts");
+/* harmony import */ var _lib_InlineComment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/InlineComment */ "./src/lib/InlineComment.tsx");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+
+
+function reduxBootstrap() {
+  // Hydrate our redux store with some data
+  _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.addUser({
+    user: {
+      id: 'previous',
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      colour: '#ff0000'
+    }
+  }));
+  _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.addUser({
+    user: {
+      id: 'active',
+      name: 'Maxime Rainville',
+      email: 'maxime.rainville@example.com',
+      colour: '#00ff00'
+    },
+    active: true
+  }));
+  _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.register({
+    "startMeta": {
+      "parentTagName": "P",
+      "parentIndex": 1,
+      "textOffset": 39
+    },
+    "endMeta": {
+      "parentTagName": "P",
+      "parentIndex": 1,
+      "textOffset": 61
+    },
+    "text": "Sed rutrum ullamcorper",
+    "id": "978827c9-2c2a-442c-b2a1-abd7ce6cdfc5"
+  }));
+  _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.recallComment({
+    comment: {
+      id: 'comment1',
+      text: 'This is a comment',
+      selectionId: '978827c9-2c2a-442c-b2a1-abd7ce6cdfc5',
+      created: new Date('2021-01-01T00:00:00Z')
+    },
+    userId: 'previous'
+  }));
+
+  // Start up InlineComment anh link it to our redux store
+  const body = document.querySelector('article');
+  if (body) {
+    const refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_1__.InlineComment)(() => _Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.selections, selectionId => selectionId ? _Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.comments.filter(c => c.selectionId === selectionId) : _Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.comments, selection => _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.register(selection)), (selectionId, text) => _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.newComment({
+      selectionId,
+      text
+    })), body);
+    _Store__WEBPACK_IMPORTED_MODULE_0__["default"].subscribe(refreshInlineComment);
+  }
+}
 
 const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
 const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
@@ -43871,7 +43907,7 @@ function resolveLocaleLookup(locale) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	__webpack_require__("./node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js");
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.tsx");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.ts");
 /******/ 	
 /******/ })()
 ;
