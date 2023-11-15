@@ -13,16 +13,27 @@ function clearBubble() {
 
 export function InlineComment(
   getSelections: () => Promise<InlineSelection[]>,
-  getComments: (selectionId?: string) => Comment[],
+  getComments: (selectionId?: string) => Promise<Comment[]>,
   registerSelection: (selection: InlineSelection) => void,
   postComment: (selectionId: string, text: string) => void,
   root: HTMLElement,
 ) {
+
   const highlighter = new Highlighter();
   let selectionId = '';
 
   getSelections().then(
-    selections => selections.forEach(s => highlighter.fromStore(s.startMeta, s.endMeta, s.text, s.id))
+    selections => {
+        console.dir('selections')
+        selections.forEach(s => highlighter.fromStore(s.startMeta, s.endMeta, s.text, s.id))
+        highlighter.on(
+            Highlighter.event.CREATE,
+            ({sources}) => sources.forEach( (source) => {
+                selectionId = source.id
+                registerSelection(source)
+            })
+        )
+    }
   );
 
   const reactDiv = document.createElement('div');
@@ -32,27 +43,20 @@ export function InlineComment(
   const refresh = () => {
     getSelections().then(selections => {
       const activeSelection = selections.find(({id}) => id === selectionId)
-      const comments = getComments(selectionId || '');
-      reactRoot.render(
-        <React.StrictMode>
-        <CommentContainer
-            highlighter={highlighter}
-            activeSelection={activeSelection}
-            comments={comments}
-            postComment={(text) => postComment(selectionId || '', text )} />
-        </React.StrictMode>
-      )
+      getComments(selectionId || '').then(comments => {
+        reactRoot.render(
+            <React.StrictMode>
+            <CommentContainer
+                highlighter={highlighter}
+                activeSelection={activeSelection}
+                comments={comments}
+                postComment={(text) => postComment(selectionId || '', text )} />
+            </React.StrictMode>
+        )
+      })
     })
 
   };
-
-  highlighter.on(
-    Highlighter.event.CREATE,
-    ({sources}) => sources.forEach( (source) => {
-      selectionId = source.id
-      registerSelection(source)
-     })
-  );
 
   highlighter.on(Highlighter.event.CLICK, ({id}) => {
     selectionId = id;

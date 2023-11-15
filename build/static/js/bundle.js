@@ -62,17 +62,17 @@ const reducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createReducer)(
     }
     state.comments = [...state.comments, {
       selectionId: action.payload.selectionId,
-      text: action.payload.text,
+      content: action.payload.content,
       id: Math.random().toString(),
       created: new Date(),
-      user: state.activeUser
+      commenter: state.activeUser
     }];
   }).addCase(recallComment, (state, action) => {
     const {
       comment,
       userId
     } = action.payload;
-    comment.user = state.users.find(u => u.id === userId) || undefined;
+    comment.commenter = state.users.find(u => u.id === userId) || undefined;
     state.comments = [...state.comments, comment];
   }).addCase(addUser, (state, {
     payload: {
@@ -160,6 +160,335 @@ if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Pr
 
 /***/ }),
 
+/***/ "./src/apollo/mutations/postCommentMutation.ts":
+/*!*****************************************************!*\
+  !*** ./src/apollo/mutations/postCommentMutation.ts ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   postCommentMutation: () => (/* binding */ postCommentMutation)
+/* harmony export */ });
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @apollo/client */ "./node_modules/graphql-tag/lib/index.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+
+const postCommentMutation = (0,_apollo_client__WEBPACK_IMPORTED_MODULE_0__.gql)`
+mutation postComment($comment: CreateCommentInput!) {
+  createComment(input: $comment) {
+    id
+    created
+    content
+    commenter {
+      id
+      firstName
+      surname
+      hexCode
+    }
+    selectionID
+  }
+}
+`;
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
+/***/ "./src/apollo/mutations/postCommenterMutation.ts":
+/*!*******************************************************!*\
+  !*** ./src/apollo/mutations/postCommenterMutation.ts ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   postCommenterMutation: () => (/* binding */ postCommenterMutation)
+/* harmony export */ });
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @apollo/client */ "./node_modules/graphql-tag/lib/index.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+
+const postCommenterMutation = (0,_apollo_client__WEBPACK_IMPORTED_MODULE_0__.gql)`
+mutation postCommenterMutation($commenter: CreateCommenterInput!) {
+  createCommenter(input: $commenter) {
+    id
+    firstName
+    surname
+  }
+}
+`;
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
+/***/ "./src/apollo/mutations/postDomMetaMutation.ts":
+/*!*****************************************************!*\
+  !*** ./src/apollo/mutations/postDomMetaMutation.ts ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   postDomMetaMutation: () => (/* binding */ postDomMetaMutation)
+/* harmony export */ });
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @apollo/client */ "./node_modules/graphql-tag/lib/index.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+
+const postDomMetaMutation = (0,_apollo_client__WEBPACK_IMPORTED_MODULE_0__.gql)`
+mutation postDomMeta($startMeta: CreateDomMetaInput!, $endMeta: CreateDomMetaInput!) {
+    startMeta: createDomMeta(input: $startMeta) {
+        id
+    }
+    endMeta: createDomMeta(input: $endMeta) {
+        id
+    }
+}
+`;
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
+/***/ "./src/apollo/queries/getCommentsQuery.ts":
+/*!************************************************!*\
+  !*** ./src/apollo/queries/getCommentsQuery.ts ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getCommentsQuery: () => (/* binding */ getCommentsQuery)
+/* harmony export */ });
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @apollo/client */ "./node_modules/graphql-tag/lib/index.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+
+const getCommentsQuery = (0,_apollo_client__WEBPACK_IMPORTED_MODULE_0__.gql)`
+query getComments($selectionID: ID) {
+  readComments(filter: {selectionID: {eq: $selectionID}}) {
+    id
+    content
+    created
+    commenter {
+      id
+      firstName
+      surname
+      hexCode
+
+    }
+  }
+}
+`;
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
+/***/ "./src/apollo/queries/getSelectionsQuery.ts":
+/*!**************************************************!*\
+  !*** ./src/apollo/queries/getSelectionsQuery.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getSelectionsQuery: () => (/* binding */ getSelectionsQuery)
+/* harmony export */ });
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @apollo/client */ "./node_modules/graphql-tag/lib/index.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+
+const getSelectionsQuery = (0,_apollo_client__WEBPACK_IMPORTED_MODULE_0__.gql)`
+query getSelections($pageID: ID) {
+    readSelections(filter: {pageID: {eq: $pageID}}) {
+        id
+        endMeta {
+            created
+            textOffset
+            parentTagName
+            parentIndex
+        }
+        startMeta {
+            created
+            textOffset
+            parentTagName
+            parentIndex
+        }
+        text
+    }
+}
+`;
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
+/***/ "./src/apollo/recallUser.tsx":
+/*!***********************************!*\
+  !*** ./src/apollo/recallUser.tsx ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   recallUser: () => (/* binding */ recallUser)
+/* harmony export */ });
+/* harmony import */ var _lib_UserForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/UserForm */ "./src/lib/UserForm.tsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
+/* harmony import */ var _mutations_postCommenterMutation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mutations/postCommenterMutation */ "./src/apollo/mutations/postCommenterMutation.ts");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/apollo/recallUser.tsx";
+
+
+
+
+
+function askForUser() {
+  return new Promise(resolve => {
+    const rootEl = document.createElement('div');
+    document.body.appendChild(rootEl);
+    const root = react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot(rootEl);
+    const onSubmit = user => {
+      root.unmount();
+      rootEl.remove();
+      resolve(user);
+    };
+    root.render( /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)((react__WEBPACK_IMPORTED_MODULE_1___default().StrictMode), {
+      children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)(_lib_UserForm__WEBPACK_IMPORTED_MODULE_0__["default"], {
+        onSubmit: onSubmit
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 21,
+        columnNumber: 11
+      }, this)
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 20,
+      columnNumber: 9
+    }, this));
+  });
+}
+function recallUser(client) {
+  const commenterJSON = window.sessionStorage.getItem('commenter');
+  if (commenterJSON) {
+    const commenter = JSON.parse(commenterJSON);
+    return Promise.resolve(commenter);
+  }
+  console.dir('ask for user');
+  return askForUser().then(user => client.mutate({
+    mutation: _mutations_postCommenterMutation__WEBPACK_IMPORTED_MODULE_3__.postCommenterMutation,
+    variables: {
+      commenter: user
+    }
+  })).then(results => {
+    const commenter = results.data.createCommenter;
+    console.dir(results);
+    window.sessionStorage.setItem('commenter', JSON.stringify(commenter));
+    return commenter;
+  });
+}
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
 /***/ "./src/apolloBootstrap.ts":
 /*!********************************!*\
   !*** ./src/apolloBootstrap.ts ***!
@@ -171,43 +500,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   apolloBootstrap: () => (/* binding */ apolloBootstrap)
 /* harmony export */ });
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/core/ApolloClient.js");
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/cache/inmemory/inMemoryCache.js");
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @apollo/client */ "./node_modules/graphql-tag/lib/index.js");
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/core/ApolloClient.js");
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/cache/inmemory/inMemoryCache.js");
 /* harmony import */ var _lib_InlineComment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/InlineComment */ "./src/lib/InlineComment.tsx");
+/* harmony import */ var _apollo_queries_getSelectionsQuery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./apollo/queries/getSelectionsQuery */ "./src/apollo/queries/getSelectionsQuery.ts");
+/* harmony import */ var _apollo_mutations_postDomMetaMutation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apollo/mutations/postDomMetaMutation */ "./src/apollo/mutations/postDomMetaMutation.ts");
+/* harmony import */ var _apollo_queries_getCommentsQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./apollo/queries/getCommentsQuery */ "./src/apollo/queries/getCommentsQuery.ts");
+/* harmony import */ var _apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./apollo/recallUser */ "./src/apollo/recallUser.tsx");
+/* harmony import */ var _apollo_mutations_postCommentMutation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./apollo/mutations/postCommentMutation */ "./src/apollo/mutations/postCommentMutation.ts");
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
 
 
-function apolloBootstrap(pageID) {
+
+
+
+
+
+async function apolloBootstrap(pageID) {
   let refreshInlineComment;
-  const client = new _apollo_client__WEBPACK_IMPORTED_MODULE_1__.ApolloClient({
+  const client = new _apollo_client__WEBPACK_IMPORTED_MODULE_6__.ApolloClient({
     uri: 'shared-draft-comment/graphql',
-    cache: new _apollo_client__WEBPACK_IMPORTED_MODULE_2__.InMemoryCache()
+    cache: new _apollo_client__WEBPACK_IMPORTED_MODULE_7__.InMemoryCache()
   });
-  console.log(pageID);
+  const user = await (0,_apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__.recallUser)(client);
   const getSelections = () => client.query({
-    query: (0,_apollo_client__WEBPACK_IMPORTED_MODULE_3__.gql)`
-            query getSelections($pageID: ID) {
-                readSelections(filter: {pageID: {eq: $pageID}}) {
-                    id
-                    endMeta {
-                        created
-                        textOffset
-                        parentTagName
-                        parentIndex
-                    }
-                    startMeta {
-                        created
-                        textOffset
-                        parentTagName
-                        parentIndex
-                    }
-                    text
-                }
-            }
-        `,
+    query: _apollo_queries_getSelectionsQuery__WEBPACK_IMPORTED_MODULE_1__.getSelectionsQuery,
     variables: {
       pageID
     }
@@ -215,19 +534,10 @@ function apolloBootstrap(pageID) {
     return result.data.readSelections;
   });
   const postSelection = selection => client.mutate({
-    mutation: (0,_apollo_client__WEBPACK_IMPORTED_MODULE_3__.gql)`
-            mutation postDomMeta($start: CreateDomMetaInput!, $end: CreateDomMetaInput!) {
-                startMeta: createDomMeta(input:$start) {
-                    id
-                }
-                endMeta: createDomMeta(input:$end) {
-                    id
-                }
-            }
-        `,
+    mutation: _apollo_mutations_postDomMetaMutation__WEBPACK_IMPORTED_MODULE_2__.postDomMetaMutation,
     variables: {
-      start: selection.startMeta,
-      end: selection.endMeta
+      'startMeta': selection.startMeta,
+      'endMeta': selection.endMeta
     }
   }).then(({
     data: {
@@ -235,13 +545,7 @@ function apolloBootstrap(pageID) {
       endMeta
     }
   }) => client.mutate({
-    mutation: (0,_apollo_client__WEBPACK_IMPORTED_MODULE_3__.gql)`
-                mutation postSelection($selection: CreateSelectionInput!) {
-                    createSelection(input:$selection) {
-                        id
-                    }
-                }
-            `,
+    mutation: _apollo_mutations_postDomMetaMutation__WEBPACK_IMPORTED_MODULE_2__.postDomMetaMutation,
     variables: {
       selection: {
         startMetaID: startMeta.id,
@@ -251,11 +555,34 @@ function apolloBootstrap(pageID) {
       }
     }
   })).then(refreshInlineComment);
+  const getComments = selectionID => client.query({
+    query: _apollo_queries_getCommentsQuery__WEBPACK_IMPORTED_MODULE_3__.getCommentsQuery,
+    variables: {
+      selectionID
+    }
+  }).then(({
+    data: {
+      readComments
+    }
+  }) => readComments.map(comment => ({
+    ...comment,
+    created: new Date(comment.created)
+  })));
+  const postComment = (selectionID, content) => client.mutate({
+    mutation: _apollo_mutations_postCommentMutation__WEBPACK_IMPORTED_MODULE_5__.postCommentMutation,
+    variables: {
+      comment: {
+        selectionID,
+        content,
+        commenterID: user.id
+      }
+    }
+  }).then(refreshInlineComment);
 
   // Start up InlineComment anh link it to our redux store
   const body = document.querySelector('article');
   if (body) {
-    refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_0__.InlineComment)(getSelections, selectionId => [], postSelection, (selectionId, text) => {}, body);
+    refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_0__.InlineComment)(getSelections, getComments, postSelection, postComment, body);
   }
 }
 
@@ -496,7 +823,16 @@ function clearBubble() {
 function InlineComment(getSelections, getComments, registerSelection, postComment, root) {
   const highlighter = new (web_highlighter__WEBPACK_IMPORTED_MODULE_2___default())();
   let selectionId = '';
-  getSelections().then(selections => selections.forEach(s => highlighter.fromStore(s.startMeta, s.endMeta, s.text, s.id)));
+  getSelections().then(selections => {
+    console.dir('selections');
+    selections.forEach(s => highlighter.fromStore(s.startMeta, s.endMeta, s.text, s.id));
+    highlighter.on((web_highlighter__WEBPACK_IMPORTED_MODULE_2___default().event).CREATE, ({
+      sources
+    }) => sources.forEach(source => {
+      selectionId = source.id;
+      registerSelection(source);
+    }));
+  });
   const reactDiv = document.createElement('div');
   document.body.appendChild(reactDiv);
   const reactRoot = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(reactDiv);
@@ -505,31 +841,26 @@ function InlineComment(getSelections, getComments, registerSelection, postCommen
       const activeSelection = selections.find(({
         id
       }) => id === selectionId);
-      const comments = getComments(selectionId || '');
-      reactRoot.render( /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxDEV)((react__WEBPACK_IMPORTED_MODULE_0___default().StrictMode), {
-        children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxDEV)(_CommentContainer__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          highlighter: highlighter,
-          activeSelection: activeSelection,
-          comments: comments,
-          postComment: text => postComment(selectionId || '', text)
+      getComments(selectionId || '').then(comments => {
+        reactRoot.render( /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxDEV)((react__WEBPACK_IMPORTED_MODULE_0___default().StrictMode), {
+          children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxDEV)(_CommentContainer__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            highlighter: highlighter,
+            activeSelection: activeSelection,
+            comments: comments,
+            postComment: text => postComment(selectionId || '', text)
+          }, void 0, false, {
+            fileName: _jsxFileName,
+            lineNumber: 49,
+            columnNumber: 13
+          }, this)
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 38,
-          columnNumber: 9
-        }, this)
-      }, void 0, false, {
-        fileName: _jsxFileName,
-        lineNumber: 37,
-        columnNumber: 9
-      }, this));
+          lineNumber: 48,
+          columnNumber: 13
+        }, this));
+      });
     });
   };
-  highlighter.on((web_highlighter__WEBPACK_IMPORTED_MODULE_2___default().event).CREATE, ({
-    sources
-  }) => sources.forEach(source => {
-    selectionId = source.id;
-    registerSelection(source);
-  }));
   highlighter.on((web_highlighter__WEBPACK_IMPORTED_MODULE_2___default().event).CLICK, ({
     id
   }) => {
@@ -558,12 +889,12 @@ function InlineComment(getSelections, getComments, registerSelection, postCommen
           }
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 78,
+          lineNumber: 82,
           columnNumber: 11
         }, this)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 77,
+        lineNumber: 81,
         columnNumber: 9
       }, this));
     }
@@ -617,54 +948,56 @@ var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-
 javascript_time_ago__WEBPACK_IMPORTED_MODULE_2__["default"].addDefaultLocale(javascript_time_ago_locale_en__WEBPACK_IMPORTED_MODULE_3__["default"]);
 const timeAgo = new javascript_time_ago__WEBPACK_IMPORTED_MODULE_2__["default"]('en-US');
 function SingleComment({
-  text,
+  content,
   created,
-  user
+  commenter
 }) {
+  const name = commenter ? `${commenter.firstName} ${commenter.surname}` : 'Anonymous';
+  console.dir(created);
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
     className: "comment",
     children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
       className: "comment__avatar",
       style: {
-        backgroundColor: user === null || user === void 0 ? void 0 : user.colour
+        backgroundColor: commenter === null || commenter === void 0 ? void 0 : commenter.colour
       },
-      children: (user === null || user === void 0 ? void 0 : user.avatar) && /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("img", {
-        src: user.avatar,
-        alt: user.name
+      children: (commenter === null || commenter === void 0 ? void 0 : commenter.avatar) && /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("img", {
+        src: commenter.avatar,
+        alt: name
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 14,
-        columnNumber: 34
+        lineNumber: 17,
+        columnNumber: 39
       }, this)
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 13,
+      lineNumber: 16,
       columnNumber: 13
     }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
       className: "comment__author",
-      children: user === null || user === void 0 ? void 0 : user.name
+      children: name
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 16,
+      lineNumber: 19,
       columnNumber: 13
     }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
       className: "comment__created",
       children: timeAgo.format(created)
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 17,
+      lineNumber: 20,
       columnNumber: 13
     }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
       className: "comment__text",
-      children: text
+      children: content
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 18,
+      lineNumber: 21,
       columnNumber: 13
     }, this)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 12,
+    lineNumber: 15,
     columnNumber: 9
   }, this);
 }
@@ -787,6 +1120,107 @@ if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Pr
 
 /***/ }),
 
+/***/ "./src/lib/UserForm.tsx":
+/*!******************************!*\
+  !*** ./src/lib/UserForm.tsx ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ UserForm)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _UserForm_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserForm.scss */ "./src/lib/UserForm.scss");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/UserForm.tsx",
+  _s = __webpack_require__.$Refresh$.signature();
+
+
+
+function UserForm({
+  onSubmit
+}) {
+  _s();
+  const [firstName, setFirstName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [surname, setSurname] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
+    className: "user-form",
+    children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("label", {
+      children: "First name"
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 16,
+      columnNumber: 13
+    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("input", {
+      type: "text",
+      name: "firstName",
+      value: firstName,
+      onChange: event => setFirstName(event.target.value)
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 17,
+      columnNumber: 13
+    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("label", {
+      children: "Surname"
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 19,
+      columnNumber: 13
+    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("input", {
+      type: "text",
+      name: "surname",
+      value: surname,
+      onChange: event => setSurname(event.target.value)
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 20,
+      columnNumber: 13
+    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("button", {
+      onClick: () => onSubmit({
+        id: '',
+        firstName,
+        surname
+      }),
+      children: "Create User"
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 22,
+      columnNumber: 13
+    }, this)]
+  }, void 0, true, {
+    fileName: _jsxFileName,
+    lineNumber: 15,
+    columnNumber: 9
+  }, this);
+}
+_s(UserForm, "iaa3NfJBCK0WhuC/AwVBYlRo+24=");
+_c = UserForm;
+var _c;
+__webpack_require__.$Refresh$.register(_c, "UserForm");
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
 /***/ "./src/reduxBootstrap.ts":
 /*!*******************************!*\
   !*** ./src/reduxBootstrap.ts ***!
@@ -810,7 +1244,8 @@ function reduxBootstrap() {
   _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.addUser({
     user: {
       id: 'previous',
-      name: 'John Doe',
+      firstName: 'John',
+      surname: 'Doe',
       email: 'john.doe@example.com',
       colour: '#ff0000'
     }
@@ -818,7 +1253,8 @@ function reduxBootstrap() {
   _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.addUser({
     user: {
       id: 'active',
-      name: 'Maxime Rainville',
+      firstName: 'Maxime',
+      surname: 'Rainville',
       email: 'maxime.rainville@example.com',
       colour: '#00ff00'
     },
@@ -841,7 +1277,7 @@ function reduxBootstrap() {
   _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.recallComment({
     comment: {
       id: 'comment1',
-      text: 'This is a comment',
+      content: 'This is a comment',
       selectionId: '978827c9-2c2a-442c-b2a1-abd7ce6cdfc5',
       created: new Date('2021-01-01T00:00:00Z')
     },
@@ -851,9 +1287,9 @@ function reduxBootstrap() {
   // Start up InlineComment anh link it to our redux store
   const body = document.querySelector('article');
   if (body) {
-    const refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_1__.InlineComment)(() => Promise.resolve(_Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.selections), selectionId => selectionId ? _Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.comments.filter(c => c.selectionId === selectionId) : _Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.comments, selection => _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.register(selection)), (selectionId, text) => _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.newComment({
+    const refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_1__.InlineComment)(() => Promise.resolve(_Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.selections), selectionId => Promise.resolve(selectionId ? _Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.comments.filter(c => c.selectionId === selectionId) : _Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.comments), selection => _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.register(selection)), (selectionId, content) => _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.newComment({
       selectionId,
-      text
+      content
     })), body);
     _Store__WEBPACK_IMPORTED_MODULE_0__["default"].subscribe(refreshInlineComment);
   }
@@ -36808,6 +37244,47 @@ ___CSS_LOADER_EXPORT___.locals = {};
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/lib/UserForm.scss":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/lib/UserForm.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.user-form {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  color: black;
+  font-size: 20px;
+  padding: 10px;
+  position: absolute;
+  width: 300px;
+  z-index: 100;
+  margin-left: -150px;
+  top: 50%;
+  left: 50%;
+}`, "",{"version":3,"sources":["webpack://./src/lib/UserForm.scss"],"names":[],"mappings":"AAAA;EACE,uBAAA;EACA,mBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,kBAAA;EACA,YAAA;EACA,YAAA;EACA,mBAAA;EACA,QAAA;EACA,SAAA;AACF","sourcesContent":[".user-form {\n  background-color: white;\n  border-radius: 10px;\n  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n  color: black;\n  font-size: 20px;\n  padding: 10px;\n  position: absolute;\n  width: 300px;\n  z-index: 100;\n  margin-left: -150px;\n  top: 50%;\n  left: 50%;\n}\n"],"sourceRoot":""}]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
@@ -37297,6 +37774,61 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
        /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_Thread_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_Thread_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_Thread_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+
+
+/***/ }),
+
+/***/ "./src/lib/UserForm.scss":
+/*!*******************************!*\
+  !*** ./src/lib/UserForm.scss ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_UserForm_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!../../node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./UserForm.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/lib/UserForm.scss");
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_UserForm_scss__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_UserForm_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_UserForm_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_UserForm_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),

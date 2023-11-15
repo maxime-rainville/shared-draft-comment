@@ -7,15 +7,18 @@ TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
 
-export default function SingleComment({text, created, user}: Comment) {
+export default function SingleComment({content, created, commenter}: Comment) {
+
+    const name = commenter ? `${commenter.firstName} ${commenter.surname}` : 'Anonymous';
+    console.dir(created)
     return (
         <div className="comment">
-            <div className="comment__avatar" style={{backgroundColor: user?.colour}}>
-                {user?.avatar && <img src={user.avatar} alt={user.name}/> }
+            <div className="comment__avatar" style={{backgroundColor: commenter?.colour}}>
+                {commenter?.avatar && <img src={commenter.avatar} alt={name}/> }
             </div>
-            <div className="comment__author">{user?.name}</div>
+            <div className="comment__author">{name}</div>
             <div className="comment__created">{timeAgo.format(created)}</div>
-            <div className="comment__text">{text}</div>
+            <div className="comment__text">{content}</div>
         </div>
     )
 }
