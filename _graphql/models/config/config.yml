@@ -1,0 +1,7 @@
+modelConfig:
+  DataObject:
+    operations:
+      read:
+        plugins:
+          filter: true
+          paginateList: false

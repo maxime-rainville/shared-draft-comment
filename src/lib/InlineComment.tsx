@@ -12,50 +12,58 @@ function clearBubble() {
 }
 
 export function InlineComment(
-  getSelections: () => InlineSelection[],
-  getComments: (selectionId?: string) => Comment[],
+  getSelections: () => Promise<InlineSelection[]>,
+  getComments: (selectionId?: string) => Promise<Comment[]>,
   registerSelection: (selection: InlineSelection) => void,
   postComment: (selectionId: string, text: string) => void,
   root: HTMLElement,
 ) {
+
   const highlighter = new Highlighter();
   let selectionId = '';
 
-  const selections = getSelections();
-  selections.forEach(s => highlighter.fromStore(s.startMeta, s.endMeta, s.text, s.id))
+  getSelections().then(
+    selections => {
+        console.dir('selections')
+        selections.forEach(s => highlighter.fromStore(s.startMeta, s.endMeta, s.text, s.id))
+        highlighter.on(
+            Highlighter.event.CREATE,
+            ({sources}) => sources.forEach( (source) => {
+                selectionId = source.id
+                registerSelection(source)
+            })
+        )
+    }
+  );
 
   const reactDiv = document.createElement('div');
   document.body.appendChild(reactDiv);
 
   const reactRoot = ReactDOM.createRoot(reactDiv);
   const refresh = () => {
-    const activeSelection = getSelections().find(({id}) => id === selectionId);
-    const comments = getComments(selectionId || '');
-    reactRoot.render(
-    <React.StrictMode>
-      <CommentContainer 
-        highlighter={highlighter}
-        activeSelection={activeSelection}
-        comments={comments}
-        postComment={(text) => postComment(selectionId || '', text )} />
-    </React.StrictMode>
-    )
-  };
+    getSelections().then(selections => {
+      const activeSelection = selections.find(({id}) => id === selectionId)
+      getComments(selectionId || '').then(comments => {
+        reactRoot.render(
+            <React.StrictMode>
+            <CommentContainer
+                highlighter={highlighter}
+                activeSelection={activeSelection}
+                comments={comments}
+                postComment={(text) => postComment(selectionId || '', text )} />
+            </React.StrictMode>
+        )
+      })
+    })
 
-  highlighter.on(
-    Highlighter.event.CREATE, 
-    ({sources}) => sources.forEach( (source) => {
-      selectionId = source.id
-      registerSelection(source)
-     })
-  );
+  };
 
   highlighter.on(Highlighter.event.CLICK, ({id}) => {
     selectionId = id;
     refresh()
   });
-  
-  
+
+
   root.onpointerup = () => {
     clearBubble()
 
@@ -71,9 +79,9 @@ export function InlineComment(
       const bubbleRoot = ReactDOM.createRoot(control);
       bubbleRoot.render(
         <React.StrictMode>
-          <Bubble 
+          <Bubble
             top={rect.top + document.documentElement.scrollTop}
-            left={rect.left+rect.width/2} 
+            left={rect.left+rect.width/2}
             onClick={() => {
               highlighter.fromRange(selection.getRangeAt(0))
               clearBubble()

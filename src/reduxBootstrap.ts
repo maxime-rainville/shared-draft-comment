@@ -6,11 +6,11 @@ import { InlineSelection } from './lib/InlineSelection';
 export function reduxBootstrap() {
     // Hydrate our redux store with some data
     store.dispatch(actions.Selection.addUser(
-    {user: {id: 'previous', name: 'John Doe', email: 'john.doe@example.com', colour: '#ff0000'}}
+    {user: {id: 'previous', firstName: 'John', surname: 'Doe', email: 'john.doe@example.com', colour: '#ff0000'}}
     ));
 
     store.dispatch(actions.Selection.addUser(
-    {user: {id: 'active', name: 'Maxime Rainville', email: 'maxime.rainville@example.com', colour: '#00ff00'}, active: true}
+    {user: {id: 'active', firstName: 'Maxime', surname: 'Rainville', email: 'maxime.rainville@example.com', colour: '#00ff00'}, active: true}
     ));
 
     store.dispatch(actions.Selection.register(
@@ -33,7 +33,7 @@ export function reduxBootstrap() {
     store.dispatch(actions.Selection.recallComment({
     comment: {
         id: 'comment1',
-        text: 'This is a comment',
+        content: 'This is a comment',
         selectionId: '978827c9-2c2a-442c-b2a1-abd7ce6cdfc5',
         created: new Date('2021-01-01T00:00:00Z')
     },
@@ -44,12 +44,14 @@ export function reduxBootstrap() {
     const body = document.querySelector('article')
     if (body) {
         const refreshInlineComment = InlineComment(
-            () => store.getState().Selection.selections,
-            (selectionId?: string) => selectionId ?
-            store.getState().Selection.comments.filter(c => c.selectionId === selectionId) :
-            store.getState().Selection.comments,
+            () => Promise.resolve(store.getState().Selection.selections),
+            (selectionId?: string) => Promise.resolve(
+                selectionId ?
+                    store.getState().Selection.comments.filter(c => c.selectionId === selectionId) :
+                    store.getState().Selection.comments
+            ),
             (selection: InlineSelection) => store.dispatch(actions.Selection.register(selection)),
-            (selectionId: string, text: string) => store.dispatch(actions.Selection.newComment({selectionId, text})),
+            (selectionId: string, content: string) => store.dispatch(actions.Selection.newComment({selectionId, content})),
             body
         );
 

@@ -3,7 +3,7 @@ import { User } from "./User"
 export interface Comment {
 created: Date
 id: string
-text: string
+content: string
 selectionId: string
-user?: User
+commenter?: User
 }

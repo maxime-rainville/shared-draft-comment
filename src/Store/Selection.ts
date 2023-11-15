@@ -14,10 +14,10 @@ export interface SelectionState {
 const register = createAction<InlineSelection>('selection/register')
 const commentOn = createAction<string>('selection/comment-on')
 const recallComment = createAction<{comment: Comment, userId?: string}>('selection/recall-comment')
-const newComment = createAction<{selectionId: string, text: string}>('selection/new-comment')
+const newComment = createAction<{selectionId: string, content: string}>('selection/new-comment')
 const addUser = createAction<{user: User, active?: Boolean}>('selection/add-user')
 const setCurrentUser = createAction<string>('selection/set-current-user')
-export const actions = { register, commentOn, newComment, addUser, setCurrentUser, recallComment} 
+export const actions = { register, commentOn, newComment, addUser, setCurrentUser, recallComment}
 
 
 const initial: SelectionState = {
@@ -48,24 +48,24 @@ const reducer = createReducer(initial, (builder) => {
           console.error('No active selection')
           return
         }
-        
+
         if (!state.activeUser) {
           console.error('No active user')
           return
         }
         state.comments = [...state.comments, {
           selectionId: action.payload.selectionId,
-          text: action.payload.text,
+          content: action.payload.content,
           id: Math.random().toString(),
           created: new Date(),
-          user: state.activeUser,
+          commenter: state.activeUser,
         }]
       })
       .addCase(recallComment, (state, action) => {
         const {comment, userId} = action.payload
-        comment.user = state.users.find(u => u.id === userId) || undefined
-        
-        
+        comment.commenter = state.users.find(u => u.id === userId) || undefined
+
+
         state.comments = [...state.comments, comment]
       })
       .addCase(addUser, (state, {payload: {user, active} }) => {
