@@ -317,6 +317,17 @@ const postSelectionMutation = (0,_apollo_client__WEBPACK_IMPORTED_MODULE_0__.gql
 mutation postSelection($selection: CreateSelectionInput!) {
     createSelection(input:$selection) {
         id
+        startMeta {
+            parentIndex
+            parentTagName
+            textOffset
+        }
+        endMeta {
+            parentIndex
+            parentTagName
+            textOffset
+        }
+        text
     }
 }
 `;
@@ -565,7 +576,17 @@ async function apolloBootstrap(pageID) {
   let refreshInlineComment;
   const client = new _apollo_client__WEBPACK_IMPORTED_MODULE_7__.ApolloClient({
     uri: 'shared-draft-comment/graphql',
-    cache: new _apollo_client__WEBPACK_IMPORTED_MODULE_8__.InMemoryCache()
+    cache: new _apollo_client__WEBPACK_IMPORTED_MODULE_8__.InMemoryCache(),
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'ignore'
+      },
+      query: {
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'all'
+      }
+    }
   });
   const user = await (0,_apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__.recallUser)(client);
   const getSelections = () => client.query({
@@ -597,7 +618,10 @@ async function apolloBootstrap(pageID) {
         pageID
       }
     }
-  })).then(refreshInlineComment);
+  }).then(results => {
+    var _results$data;
+    return (_results$data = results.data) === null || _results$data === void 0 ? void 0 : _results$data.createSelection;
+  }));
   const getComments = selectionID => client.query({
     query: _apollo_queries_getCommentsQuery__WEBPACK_IMPORTED_MODULE_3__.getCommentsQuery,
     variables: {
@@ -866,20 +890,26 @@ function clearBubble() {
 function InlineComment(getSelections, getComments, registerSelection, postComment, root) {
   const highlighter = new (web_highlighter__WEBPACK_IMPORTED_MODULE_2___default())();
   let selectionId = '';
+  let refresh;
   getSelections().then(selections => {
-    console.dir('selections');
     selections.forEach(s => highlighter.fromStore(s.startMeta, s.endMeta, s.text, s.id));
     highlighter.on((web_highlighter__WEBPACK_IMPORTED_MODULE_2___default().event).CREATE, ({
       sources
     }) => sources.forEach(source => {
+      if (selectionId === source.id) return;
       selectionId = source.id;
-      registerSelection(source);
+      registerSelection(source).then(updatedSelection => {
+        highlighter.remove(selectionId);
+        selectionId = updatedSelection.id;
+        highlighter.fromStore(updatedSelection.startMeta, updatedSelection.endMeta, updatedSelection.text, updatedSelection.id);
+        refresh();
+      });
     }));
   });
   const reactDiv = document.createElement('div');
   document.body.appendChild(reactDiv);
   const reactRoot = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(reactDiv);
-  const refresh = () => {
+  refresh = () => {
     getSelections().then(selections => {
       const activeSelection = selections.find(({
         id
@@ -893,12 +923,12 @@ function InlineComment(getSelections, getComments, registerSelection, postCommen
             postComment: text => postComment(selectionId || '', text)
           }, void 0, false, {
             fileName: _jsxFileName,
-            lineNumber: 49,
+            lineNumber: 60,
             columnNumber: 13
           }, this)
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 48,
+          lineNumber: 59,
           columnNumber: 13
         }, this));
       });
@@ -932,12 +962,12 @@ function InlineComment(getSelections, getComments, registerSelection, postCommen
           }
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 82,
+          lineNumber: 93,
           columnNumber: 11
         }, this)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 81,
+        lineNumber: 92,
         columnNumber: 9
       }, this));
     }
@@ -1338,7 +1368,10 @@ function reduxBootstrap() {
   // Start up InlineComment anh link it to our redux store
   const body = document.querySelector('article');
   if (body) {
-    const refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_1__.InlineComment)(() => Promise.resolve(_Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.selections), selectionId => Promise.resolve(selectionId ? _Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.comments.filter(c => c.selectionId === selectionId) : _Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.comments), selection => _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.register(selection)), (selectionId, content) => _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.newComment({
+    const refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_1__.InlineComment)(() => Promise.resolve(_Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.selections), selectionId => Promise.resolve(selectionId ? _Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.comments.filter(c => c.selectionId === selectionId) : _Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.comments), selection => {
+      _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.register(selection));
+      return Promise.resolve(selection);
+    }, (selectionId, content) => _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.newComment({
       selectionId,
       content
     })), body);
