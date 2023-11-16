@@ -588,7 +588,7 @@ async function apolloBootstrap(pageID) {
       }
     }
   });
-  let user;
+  const user = await (0,_apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__.recallUser)(client);
   const getSelections = () => client.query({
     query: _apollo_queries_getSelectionsQuery__WEBPACK_IMPORTED_MODULE_1__.getSelectionsQuery,
     variables: {
@@ -635,20 +635,16 @@ async function apolloBootstrap(pageID) {
     ...comment,
     created: new Date(comment.created)
   })));
-  const postComment = (selectionID, content) => {
-    return (0,_apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__.recallUser)(client).then(newUser => {
-      user = newUser;
-    }).then(() => client.mutate({
-      mutation: _apollo_mutations_postCommentMutation__WEBPACK_IMPORTED_MODULE_5__.postCommentMutation,
-      variables: {
-        comment: {
-          selectionID,
-          content,
-          commenterID: user.id
-        }
+  const postComment = (selectionID, content) => client.mutate({
+    mutation: _apollo_mutations_postCommentMutation__WEBPACK_IMPORTED_MODULE_5__.postCommentMutation,
+    variables: {
+      comment: {
+        selectionID,
+        content,
+        commenterID: user.id
       }
-    })).then(refreshInlineComment);
-  };
+    }
+  }).then(refreshInlineComment);
 
   // Start up InlineComment anh link it to our redux store
   const body = document.querySelector('article');
