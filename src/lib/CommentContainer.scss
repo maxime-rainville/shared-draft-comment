@@ -14,7 +14,8 @@ $comment-filed-border: #C8D0DD;
     border-radius: 5px 5px 0 0 ;
 
     & .comment:not(:first-of-type) {
-        padding: 10px 20px;
+        margin-left: 10px;
+        border-left-color: #C8D0DD;
     }
 
     &--header {

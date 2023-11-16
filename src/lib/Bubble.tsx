@@ -9,13 +9,16 @@ interface BubbleProps {
 
 function Bubble({top, left, onClick}: BubbleProps) {
     const style = {
-      top: `calc(${top}px - 48px)`,
-      left: `calc(${left}px)`
+      top: `calc(${top}px - 75px)`,
+      left: `calc(${left}px - 70px)`
     }
     return (
-        <div className="bubble" style={style}>
-            <button className="Bubble-button" onClick={onClick}>Add comment</button>
-        </div>
+        <button
+          style={style}
+          className="bubble modal__button modal__button--primary"
+          onClick={onClick}>
+            Add comment
+        </button>
     );
 }
 

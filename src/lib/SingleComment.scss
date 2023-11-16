@@ -5,6 +5,8 @@ $author-name-color: #8B9098;
   flex-wrap: wrap;
   margin-bottom: 5px;
   padding-bottom: 10px;
+  padding-left: 15px;
+  border-left: solid #003E94 3px;
 
     & + .new-comment {
         margin-top: 10px;

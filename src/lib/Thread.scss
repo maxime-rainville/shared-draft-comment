@@ -4,9 +4,7 @@ $comment-filed-border: #C8D0DD;
 
 .thread {
     margin: 15px;
-    & .comment:not(:first-of-type) {
-        padding: 10px 20px;
-    }
+
 }
 
 .new-comment {

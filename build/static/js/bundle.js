@@ -588,7 +588,7 @@ async function apolloBootstrap(pageID) {
       }
     }
   });
-  const user = await (0,_apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__.recallUser)(client);
+  let user;
   const getSelections = () => client.query({
     query: _apollo_queries_getSelectionsQuery__WEBPACK_IMPORTED_MODULE_1__.getSelectionsQuery,
     variables: {
@@ -635,16 +635,20 @@ async function apolloBootstrap(pageID) {
     ...comment,
     created: new Date(comment.created)
   })));
-  const postComment = (selectionID, content) => client.mutate({
-    mutation: _apollo_mutations_postCommentMutation__WEBPACK_IMPORTED_MODULE_5__.postCommentMutation,
-    variables: {
-      comment: {
-        selectionID,
-        content,
-        commenterID: user.id
+  const postComment = (selectionID, content) => {
+    return (0,_apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__.recallUser)(client).then(newUser => {
+      user = newUser;
+    }).then(() => client.mutate({
+      mutation: _apollo_mutations_postCommentMutation__WEBPACK_IMPORTED_MODULE_5__.postCommentMutation,
+      variables: {
+        comment: {
+          selectionID,
+          content,
+          commenterID: user.id
+        }
       }
-    }
-  }).then(refreshInlineComment);
+    })).then(refreshInlineComment);
+  };
 
   // Start up InlineComment anh link it to our redux store
   const body = document.querySelector('article');
@@ -652,8 +656,6 @@ async function apolloBootstrap(pageID) {
     refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_0__.InlineComment)(getSelections, getComments, postSelection, postComment, body);
   }
 }
-
-// }
 
 const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
 const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
@@ -683,8 +685,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.css */ "./src/index.css");
 /* harmony import */ var _reduxBootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reduxBootstrap */ "./src/reduxBootstrap.ts");
 /* harmony import */ var _apolloBootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apolloBootstrap */ "./src/apolloBootstrap.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var _lib_Modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/Modal */ "./src/lib/Modal.tsx");
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+
+
 
 
 
@@ -698,6 +707,9 @@ window.addEventListener('load', function () {
     (0,_apolloBootstrap__WEBPACK_IMPORTED_MODULE_2__.apolloBootstrap)(window.sharedDraftComment.pageID);
   }
 });
+const modalContainer = document.createElement('div');
+(0,react_dom__WEBPACK_IMPORTED_MODULE_4__.render)( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_lib_Modal__WEBPACK_IMPORTED_MODULE_5__["default"]), modalContainer);
+document.body.appendChild(modalContainer);
 
 const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
 const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
@@ -744,21 +756,14 @@ function Bubble({
   onClick
 }) {
   const style = {
-    top: `calc(${top}px - 48px)`,
-    left: `calc(${left}px)`
+    top: `calc(${top}px - 75px)`,
+    left: `calc(${left}px - 70px)`
   };
-  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
-    className: "bubble",
+  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("button", {
     style: style,
-    children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("button", {
-      className: "Bubble-button",
-      onClick: onClick,
-      children: "Add comment"
-    }, void 0, false, {
-      fileName: _jsxFileName,
-      lineNumber: 17,
-      columnNumber: 13
-    }, this)
+    className: "bubble modal__button modal__button--primary",
+    onClick: onClick,
+    children: "Add comment"
   }, void 0, false, {
     fileName: _jsxFileName,
     lineNumber: 16,
@@ -954,6 +959,68 @@ if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Pr
 
 /***/ }),
 
+/***/ "./src/lib/Cross.tsx":
+/*!***************************!*\
+  !*** ./src/lib/Cross.tsx ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/Cross.tsx";
+
+const Cross = () => {
+  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)("svg", {
+    width: "14",
+    height: "15",
+    viewBox: "0 0 14 15",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)("path", {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M8.45062 7.46156C11.1288 4.78339 13.5844 2.32781 13.6586 2.25361C13.8448 2.06742 13.9568 1.77062 13.9932 1.51022C14.0296 1.21342 13.9176 0.915228 13.7314 0.72903C13.5466 0.542832 13.2498 0.432233 12.9516 0.468633C12.6534 0.468633 12.393 0.617031 12.2082 0.803229C12.1326 0.877428 9.67841 3.333 7.00024 6.01117C4.32207 3.333 1.86789 0.877428 1.79229 0.803229C1.6061 0.617031 1.3079 0.506432 1.0489 0.468633C0.750705 0.432233 0.453908 0.542832 0.26771 0.72903C0.0815124 0.915228 -0.0304863 1.21342 0.00731324 1.51022C0.00731324 1.80702 0.155712 2.06742 0.34191 2.25361C0.416109 2.32781 2.87168 4.78339 5.54985 7.46156C2.87168 10.1397 0.416109 12.5939 0.34191 12.6695C0.155712 12.8557 0.0437128 13.1525 0.00731324 13.4129C-0.0304863 13.7111 0.0815124 14.0079 0.26771 14.1941C0.453908 14.3789 0.750705 14.4909 1.0489 14.4545C1.3471 14.4545 1.6061 14.3061 1.79229 14.1199C1.86789 14.0457 4.32207 11.5901 7.00024 8.91194C9.67841 11.5901 12.1326 14.0457 12.2082 14.1199C12.393 14.3061 12.6912 14.4181 12.9516 14.4545C13.2498 14.4909 13.5466 14.3789 13.7314 14.1941C13.9176 14.0079 14.0296 13.7111 13.9932 13.4129C13.9932 13.1147 13.8448 12.8557 13.6586 12.6695C13.5844 12.5939 11.1288 10.1397 8.45062 7.46156Z",
+      fill: "#4F5861"
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 3,
+      columnNumber: 9
+    }, undefined)
+  }, void 0, false, {
+    fileName: _jsxFileName,
+    lineNumber: 2,
+    columnNumber: 11
+  }, undefined);
+};
+_c = Cross;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Cross);
+var _c;
+__webpack_require__.$Refresh$.register(_c, "Cross");
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
 /***/ "./src/lib/InlineComment.tsx":
 /*!***********************************!*\
   !*** ./src/lib/InlineComment.tsx ***!
@@ -1107,6 +1174,164 @@ if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Pr
 
 /***/ }),
 
+/***/ "./src/lib/Modal.tsx":
+/*!***************************!*\
+  !*** ./src/lib/Modal.tsx ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Modal: () => (/* binding */ Modal),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _modal_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal.scss */ "./src/lib/modal.scss");
+/* harmony import */ var _Cross__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Cross */ "./src/lib/Cross.tsx");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/Modal.tsx",
+  _s = __webpack_require__.$Refresh$.signature();
+
+
+
+
+const Modal = props => {
+  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+    className: "modal",
+    children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+      className: "modal__backdrop"
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 8,
+      columnNumber: 13
+    }, undefined), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+      className: "modal-dialog",
+      "aria-modal": "true",
+      role: "alertdialog",
+      children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+        className: "modal__box",
+        children: props.children
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 10,
+        columnNumber: 17
+      }, undefined)
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 9,
+      columnNumber: 13
+    }, undefined)]
+  }, void 0, true, {
+    fileName: _jsxFileName,
+    lineNumber: 7,
+    columnNumber: 9
+  }, undefined);
+};
+_c = Modal;
+const InfoModal = () => {
+  _s();
+  const [showModal, setShowModal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const closeModal = () => {
+    localStorage.setItem('shared-draft-modal-interaction', 'true');
+    setShowModal(false);
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    // Check if the user has interacted
+    const interactedWithModal = localStorage.getItem('shared-draft-modal-interaction');
+    if (interactedWithModal !== 'true') {
+      setShowModal(true);
+    }
+  }, []);
+  if (!showModal) {
+    return null;
+  }
+  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)(Modal, {
+    children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
+      "aria-label": "Close this modal",
+      type: "button",
+      className: "modal__close",
+      onClick: closeModal,
+      children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)(_Cross__WEBPACK_IMPORTED_MODULE_2__["default"], {}, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 47,
+        columnNumber: 17
+      }, undefined)
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 41,
+      columnNumber: 13
+    }, undefined), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+      className: "modal__container",
+      children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("h2", {
+        className: "modal__header",
+        children: "How to comment"
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 50,
+        columnNumber: 17
+      }, undefined), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+        className: "modal__content",
+        children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("p", {
+          className: "modal__body-text",
+          children: "Click on the speech bubble icon to open the comments panel and highlight the text you want to comment "
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 52,
+          columnNumber: 21
+        }, undefined)
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 51,
+        columnNumber: 17
+      }, undefined)]
+    }, void 0, true, {
+      fileName: _jsxFileName,
+      lineNumber: 49,
+      columnNumber: 13
+    }, undefined), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
+      onClick: closeModal,
+      className: "modal__button modal__button--secondary",
+      children: "Continue"
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 56,
+      columnNumber: 13
+    }, undefined)]
+  }, void 0, true, {
+    fileName: _jsxFileName,
+    lineNumber: 40,
+    columnNumber: 9
+  }, undefined);
+};
+_s(InfoModal, "yDc3Km869gD6lnL/d2JehHdpdes=");
+_c2 = InfoModal;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InfoModal);
+var _c, _c2;
+__webpack_require__.$Refresh$.register(_c, "Modal");
+__webpack_require__.$Refresh$.register(_c2, "InfoModal");
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
 /***/ "./src/lib/SingleComment.tsx":
 /*!***********************************!*\
   !*** ./src/lib/SingleComment.tsx ***!
@@ -1143,16 +1368,27 @@ function SingleComment({
     className: "comment",
     children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
       className: "comment__avatar",
-      style: {
-        backgroundColor: commenter === null || commenter === void 0 ? void 0 : commenter.colour
-      },
-      children: (commenter === null || commenter === void 0 ? void 0 : commenter.avatar) && /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("img", {
-        src: commenter.avatar,
-        alt: name
-      }, void 0, false, {
+      children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        height: "26px",
+        viewBox: "0 0 512 512",
+        children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("style", {
+          children: 'svg{fill:#43536d}'
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 18,
+          columnNumber: 17
+        }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("path", {
+          d: "M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 19,
+          columnNumber: 17
+        }, this)]
+      }, void 0, true, {
         fileName: _jsxFileName,
         lineNumber: 17,
-        columnNumber: 39
+        columnNumber: 13
       }, this)
     }, void 0, false, {
       fileName: _jsxFileName,
@@ -1163,21 +1399,21 @@ function SingleComment({
       children: name
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 19,
+      lineNumber: 22,
       columnNumber: 13
     }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
       className: "comment__created",
       children: timeAgo.format(created)
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 20,
+      lineNumber: 23,
       columnNumber: 13
     }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
       className: "comment__text",
       children: content
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 21,
+      lineNumber: 24,
       columnNumber: 13
     }, this)]
   }, void 0, true, {
@@ -1323,12 +1559,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _UserForm_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserForm.scss */ "./src/lib/UserForm.scss");
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Modal */ "./src/lib/Modal.tsx");
+/* harmony import */ var _modal_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal.scss */ "./src/lib/modal.scss");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
 var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/UserForm.tsx",
   _s = __webpack_require__.$Refresh$.signature();
+
+
 
 
 
@@ -1338,53 +1578,78 @@ function UserForm({
   _s();
   const [firstName, setFirstName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [surname, setSurname] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
-  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
-    className: "user-form",
-    children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("label", {
-      children: "First name"
-    }, void 0, false, {
-      fileName: _jsxFileName,
-      lineNumber: 16,
-      columnNumber: 13
-    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("input", {
-      type: "text",
-      name: "firstName",
-      value: firstName,
-      onChange: event => setFirstName(event.target.value)
-    }, void 0, false, {
+  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)(_Modal__WEBPACK_IMPORTED_MODULE_2__.Modal, {
+    children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("div", {
+      className: "modal__container",
+      children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("h2", {
+        className: "modal__header",
+        children: "Tell us your name"
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 18,
+        columnNumber: 17
+      }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("div", {
+        className: "modal__content",
+        children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("label", {
+          className: "modal__content-label",
+          children: "First name"
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 20,
+          columnNumber: 21
+        }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("input", {
+          className: "modal__field",
+          type: "text",
+          name: "firstName",
+          value: firstName,
+          onChange: event => setFirstName(event.target.value)
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 21,
+          columnNumber: 21
+        }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("label", {
+          className: "modal__content-label",
+          children: "Surname"
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 22,
+          columnNumber: 21
+        }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("input", {
+          className: "modal__field",
+          type: "text",
+          name: "surname",
+          value: surname,
+          onChange: event => setSurname(event.target.value)
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 23,
+          columnNumber: 21
+        }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("button", {
+          className: "modal__button modal__button--primary",
+          onClick: () => onSubmit({
+            id: '',
+            firstName,
+            surname
+          }),
+          children: "Start"
+        }, void 0, false, {
+          fileName: _jsxFileName,
+          lineNumber: 25,
+          columnNumber: 21
+        }, this)]
+      }, void 0, true, {
+        fileName: _jsxFileName,
+        lineNumber: 19,
+        columnNumber: 17
+      }, this)]
+    }, void 0, true, {
       fileName: _jsxFileName,
       lineNumber: 17,
       columnNumber: 13
-    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("label", {
-      children: "Surname"
-    }, void 0, false, {
-      fileName: _jsxFileName,
-      lineNumber: 19,
-      columnNumber: 13
-    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("input", {
-      type: "text",
-      name: "surname",
-      value: surname,
-      onChange: event => setSurname(event.target.value)
-    }, void 0, false, {
-      fileName: _jsxFileName,
-      lineNumber: 20,
-      columnNumber: 13
-    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("button", {
-      onClick: () => onSubmit({
-        id: '',
-        firstName,
-        surname
-      }),
-      children: "Create User"
-    }, void 0, false, {
-      fileName: _jsxFileName,
-      lineNumber: 22,
-      columnNumber: 13
-    }, this)]
-  }, void 0, true, {
+    }, this)
+  }, void 0, false, {
     fileName: _jsxFileName,
-    lineNumber: 15,
+    lineNumber: 16,
     columnNumber: 9
   }, this);
 }
@@ -37333,18 +37598,28 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.bubble {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  color: black;
-  font-size: 20px;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2509803922);
   left: 0;
   top: 0;
   padding: 10px;
   position: absolute;
-  width: 300px;
+  width: 140px;
+  text-align: center;
   z-index: 100;
-}`, "",{"version":3,"sources":["webpack://./src/lib/Bubble.scss"],"names":[],"mappings":"AAAA;EACE,uBAAA;EACA,mBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,OAAA;EAAS,MAAA;EACT,aAAA;EACA,kBAAA;EACA,YAAA;EACA,YAAA;AAEF","sourcesContent":[".bubble {\n  background-color: white;\n  border-radius: 10px;\n  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n  color: black;\n  font-size: 20px;\n  left: 0; top: 0;\n  padding: 10px;\n  position: absolute;\n  width: 300px;\n  z-index: 100;\n}"],"sourceRoot":""}]);
+  /* (B2) BOTTOM "CALLOUT TAIL" */
+}
+.bubble:after {
+  content: "";
+  border: 10px solid transparent;
+  position: absolute;
+  /* (B2-1) DOWN TRIANGLE */
+  border-top-color: #005AE1;
+  border-bottom: 0;
+  /* (B2-2) POSITION AT BOTTOM */
+  bottom: -10px;
+  left: 50%;
+  margin-left: -10px;
+}`, "",{"version":3,"sources":["webpack://./src/lib/Bubble.scss"],"names":[],"mappings":"AAAA;EACE,wDAAA;EACA,OAAA;EAAS,MAAA;EACT,aAAA;EACA,kBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;EAEA,+BAAA;AACF;AAAE;EACE,WAAA;EAEA,8BAAA;EACA,kBAAA;EACA,yBAAA;EACA,yBAAA;EACA,gBAAA;EAEA,8BAAA;EACA,aAAA;EAAe,SAAA;EACf,kBAAA;AACJ","sourcesContent":[".bubble {\n  box-shadow: 0px 3px 10px 0px #00000040;\n  left: 0; top: 0;\n  padding: 10px;\n  position: absolute;\n  width: 140px;\n  text-align: center;\n  z-index: 100;\n\n  /* (B2) BOTTOM \"CALLOUT TAIL\" */\n  &:after {\n    content: \"\";\n\n    border: 10px solid transparent;\n    position: absolute;\n    /* (B2-1) DOWN TRIANGLE */\n    border-top-color: #005AE1;\n    border-bottom: 0;\n\n    /* (B2-2) POSITION AT BOTTOM */\n    bottom: -10px; left: 50%;\n    margin-left: -10px;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -37380,12 +37655,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.comment-container {
   padding: 0;
   position: absolute;
   width: 300px;
-  z-index: 101;
   right: 10px;
   border-radius: 5px 5px 0 0;
 }
 .comment-container .comment:not(:first-of-type) {
-  padding: 10px 20px;
+  margin-left: 10px;
+  border-left-color: #C8D0DD;
 }
 .comment-container--header {
   padding: 15px;
@@ -37422,7 +37697,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.comment-container {
 }
 .new-comment__field::placeholder {
   color: #A6AAB0;
-}`, "",{"version":3,"sources":["webpack://./src/lib/CommentContainer.scss"],"names":[],"mappings":"AAIA;EACI,uBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,UAAA;EACA,kBAAA;EACA,YAAA;EACA,YAAA;EACA,WAAA;EACA,0BAAA;AAHJ;AAKI;EACI,kBAAA;AAHR;AAMI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,eAAA;EACA,gBAAA;EACA,iBAAA;EACA,mBAAA;EACA,gBAAA;EACA,aAAA;AAJR;AAKQ;EACI,WAAA;AAHZ;AAKQ;EACI,YAAA;AAHZ;AAKQ;EACI,qBAAA;AAHZ;;AASI;EACI,yBA3CmB;EA4CnB,yBAAA;EACA,mBAAA;EACA,eAAA;EACA,iBAAA;EACA,wBAAA;EACA,YAAA;AANR;AAQQ;EACI,qBAAA;AANZ;AASQ;EACI,cAzDG;AAkDf","sourcesContent":["$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.comment-container {\n    background-color: white;\n    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n    color: black;\n    font-size: 12px;\n    padding: 0;\n    position: absolute;\n    width: 300px;\n    z-index: 101;\n    right: 10px;\n    border-radius: 5px 5px 0 0 ;\n\n    & .comment:not(:first-of-type) {\n        padding: 10px 20px;\n    }\n\n    &--header {\n        padding: 15px;\n        background: #E6EDF4;\n        font-family: sans-serif;\n        font-size: 14px;\n        font-weight: 600;\n        line-height: 20px;\n        letter-spacing: 0em;\n        text-align: left;\n        display: flex;\n        &__bubble {\n            width: 20px;\n        }\n        &__text {\n            flex-grow: 1;\n        }\n        &__close {\n            text-decoration: none;\n        }\n    }\n}\n\n.new-comment {\n    &__field {\n        background-color: $comment-field-background;\n        border: 1px solid $comment-filed-border;\n        border-radius: 25px;\n        font-size: 12px;\n        padding: 4px 15px;\n        width: calc(100% - 30px);\n        height: 22px; // minus the padding size\n\n        &--error {\n            background-color: red;\n        }\n\n        &::placeholder {\n            color: $place-holder;\n        }\n    }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/lib/CommentContainer.scss"],"names":[],"mappings":"AAIA;EACI,uBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,UAAA;EACA,kBAAA;EACA,YAAA;EACA,WAAA;EACA,0BAAA;AAHJ;AAKI;EACI,iBAAA;EACA,0BAAA;AAHR;AAMI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,eAAA;EACA,gBAAA;EACA,iBAAA;EACA,mBAAA;EACA,gBAAA;EACA,aAAA;AAJR;AAKQ;EACI,WAAA;AAHZ;AAKQ;EACI,YAAA;AAHZ;AAKQ;EACI,qBAAA;AAHZ;;AASI;EACI,yBA3CmB;EA4CnB,yBAAA;EACA,mBAAA;EACA,eAAA;EACA,iBAAA;EACA,wBAAA;EACA,YAAA;AANR;AAQQ;EACI,qBAAA;AANZ;AASQ;EACI,cAzDG;AAkDf","sourcesContent":["$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.comment-container {\n    background-color: white;\n    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n    color: black;\n    font-size: 12px;\n    padding: 0;\n    position: absolute;\n    width: 300px;\n    right: 10px;\n    border-radius: 5px 5px 0 0 ;\n\n    & .comment:not(:first-of-type) {\n        margin-left: 10px;\n        border-left-color: #C8D0DD;\n    }\n\n    &--header {\n        padding: 15px;\n        background: #E6EDF4;\n        font-family: sans-serif;\n        font-size: 14px;\n        font-weight: 600;\n        line-height: 20px;\n        letter-spacing: 0em;\n        text-align: left;\n        display: flex;\n        &__bubble {\n            width: 20px;\n        }\n        &__text {\n            flex-grow: 1;\n        }\n        &__close {\n            text-decoration: none;\n        }\n    }\n}\n\n.new-comment {\n    &__field {\n        background-color: $comment-field-background;\n        border: 1px solid $comment-filed-border;\n        border-radius: 25px;\n        font-size: 12px;\n        padding: 4px 15px;\n        width: calc(100% - 30px);\n        height: 22px; // minus the padding size\n\n        &--error {\n            background-color: red;\n        }\n\n        &::placeholder {\n            color: $place-holder;\n        }\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -37455,6 +37730,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.comment {
   flex-wrap: wrap;
   margin-bottom: 5px;
   padding-bottom: 10px;
+  padding-left: 15px;
+  border-left: solid #003E94 3px;
 }
 .comment + .new-comment {
   margin-top: 10px;
@@ -37480,7 +37757,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.comment {
 }
 .comment__text {
   margin-top: 5px;
-}`, "",{"version":3,"sources":["webpack://./src/lib/SingleComment.scss"],"names":[],"mappings":"AAEA;EACE,aAAA;EACA,eAAA;EACA,kBAAA;EACA,oBAAA;AADF;AAGI;EACI,gBAAA;AADR;AAIE;EACE,qBAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AAFJ;AAKE;EACE,cApBgB;EAqBhB,YAAA;EACA,eAAA;EACA,iBAAA;EACA,iBAAA;EACA,gBAAA;AAHJ;AAME;EACI,gBAAA;EACA,kBAAA;EACA,kBAAA;AAJN;AAOE;EACI,eAAA;AALN","sourcesContent":["$author-name-color: #8B9098;\n\n.comment {\n  display: flex;\n  flex-wrap: wrap;\n  margin-bottom: 5px;\n  padding-bottom: 10px;\n\n    & + .new-comment {\n        margin-top: 10px;\n    }\n\n  &__avatar {\n    display: inline-block;\n    width: 32px;\n    height: 32px;\n    flex-grow: 0;\n  }\n\n  &__author {\n    color: $author-name-color;\n    flex-grow: 1;\n    flex-basis: 80%;\n    font-size:larger;\n    font-weight: bold;\n    margin-left: 5px;\n  }\n\n  &__created {\n      flex-basis: 100%;\n      font-size: smaller;\n      font-style: italic;\n  }\n\n  &__text {\n      margin-top: 5px;\n  }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/lib/SingleComment.scss"],"names":[],"mappings":"AAEA;EACE,aAAA;EACA,eAAA;EACA,kBAAA;EACA,oBAAA;EACA,kBAAA;EACA,8BAAA;AADF;AAGI;EACI,gBAAA;AADR;AAIE;EACE,qBAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AAFJ;AAKE;EACE,cAtBgB;EAuBhB,YAAA;EACA,eAAA;EACA,iBAAA;EACA,iBAAA;EACA,gBAAA;AAHJ;AAME;EACI,gBAAA;EACA,kBAAA;EACA,kBAAA;AAJN;AAOE;EACI,eAAA;AALN","sourcesContent":["$author-name-color: #8B9098;\n\n.comment {\n  display: flex;\n  flex-wrap: wrap;\n  margin-bottom: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  border-left: solid #003E94 3px;\n\n    & + .new-comment {\n        margin-top: 10px;\n    }\n\n  &__avatar {\n    display: inline-block;\n    width: 32px;\n    height: 32px;\n    flex-grow: 0;\n  }\n\n  &__author {\n    color: $author-name-color;\n    flex-grow: 1;\n    flex-basis: 80%;\n    font-size:larger;\n    font-weight: bold;\n    margin-left: 5px;\n  }\n\n  &__created {\n      flex-basis: 100%;\n      font-size: smaller;\n      font-style: italic;\n  }\n\n  &__text {\n      margin-top: 5px;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -37511,9 +37788,6 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, `.thread {
   margin: 15px;
 }
-.thread .comment:not(:first-of-type) {
-  padding: 10px 20px;
-}
 
 .new-comment__field {
   background-color: #F4F6F8;
@@ -37529,7 +37803,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.thread {
 }
 .new-comment__field::placeholder {
   color: #A6AAB0;
-}`, "",{"version":3,"sources":["webpack://./src/lib/Thread.scss"],"names":[],"mappings":"AAIA;EACI,YAAA;AAHJ;AAII;EACI,kBAAA;AAFR;;AAOI;EACI,yBAZmB;EAanB,yBAAA;EACA,mBAAA;EACA,eAAA;EACA,iBAAA;EACA,wBAAA;EACA,YAAA;AAJR;AAMQ;EACI,qBAAA;AAJZ;AAOQ;EACI,cA1BG;AAqBf","sourcesContent":["$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.thread {\n    margin: 15px;\n    & .comment:not(:first-of-type) {\n        padding: 10px 20px;\n    }\n}\n\n.new-comment {\n    &__field {\n        background-color: $comment-field-background;\n        border: 1px solid $comment-filed-border;\n        border-radius: 25px;\n        font-size: 12px;\n        padding: 4px 15px;\n        width: calc(100% - 30px);\n        height: 22px; // minus the padding size\n\n        &--error {\n            background-color: red;\n        }\n\n        &::placeholder {\n            color: $place-holder;\n        }\n    }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/lib/Thread.scss"],"names":[],"mappings":"AAIA;EACI,YAAA;AAHJ;;AAQI;EACI,yBAVmB;EAWnB,yBAAA;EACA,mBAAA;EACA,eAAA;EACA,iBAAA;EACA,wBAAA;EACA,YAAA;AALR;AAOQ;EACI,qBAAA;AALZ;AAQQ;EACI,cAxBG;AAkBf","sourcesContent":["$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.thread {\n    margin: 15px;\n\n}\n\n.new-comment {\n    &__field {\n        background-color: $comment-field-background;\n        border: 1px solid $comment-filed-border;\n        border-radius: 25px;\n        font-size: 12px;\n        padding: 4px 15px;\n        width: calc(100% - 30px);\n        height: 22px; // minus the padding size\n\n        &--error {\n            background-color: red;\n        }\n\n        &::placeholder {\n            color: $place-holder;\n        }\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -37571,6 +37845,125 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.user-form {
   top: 50%;
   left: 50%;
 }`, "",{"version":3,"sources":["webpack://./src/lib/UserForm.scss"],"names":[],"mappings":"AAAA;EACE,uBAAA;EACA,mBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,kBAAA;EACA,YAAA;EACA,YAAA;EACA,mBAAA;EACA,QAAA;EACA,SAAA;AACF","sourcesContent":[".user-form {\n  background-color: white;\n  border-radius: 10px;\n  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n  color: black;\n  font-size: 20px;\n  padding: 10px;\n  position: absolute;\n  width: 300px;\n  z-index: 100;\n  margin-left: -150px;\n  top: 50%;\n  left: 50%;\n}\n"],"sourceRoot":""}]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/lib/modal.scss":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/lib/modal.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.modal-dialog {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.modal__header {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+.modal__backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+.modal__box {
+  background-color: #fff;
+  border-radius: 5px;
+  width: calc(100% - 20px);
+  max-width: 325px;
+  z-index: 10;
+  padding: 30px;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2509803922);
+}
+.modal__close {
+  border: none;
+  cursor: pointer;
+  height: 24px;
+  width: 24px;
+  background-color: #F1F3F3;
+  border-radius: 8px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  padding: 0;
+  margin: 0;
+}
+.modal__close svg {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+.modal__content {
+  margin-top: 30px;
+}
+.modal__content p {
+  margin: 0 auto;
+}
+.modal__content-label {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #292B2E;
+}
+.modal__content-label:not(:first-of-type) {
+  margin-top: 5px;
+}
+.modal__field {
+  display: block;
+  border: 1px solid #C1C4C8;
+  height: 15px;
+  padding: 12px 15px;
+  border-radius: 5px;
+}
+.modal__button {
+  display: block;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-top: 30px;
+}
+.modal__button--primary {
+  background-color: #005AE1;
+  color: #fff;
+  font-weight: 600;
+}
+.modal__button--secondary {
+  background-color: #fff;
+  color: #005AE1;
+  border: 1px solid #005AE1;
+}`, "",{"version":3,"sources":["webpack://./src/lib/modal.scss"],"names":[],"mappings":"AACI;EACI,cAAA;EACA,kBAAA;EACA,QAAA;EACA,SAAA;EACA,gCAAA;AAAR;AAGI;EACI,kBAAA;EACA,eAAA;EACA,gBAAA;AADR;AAII;EACI,oCAAA;EACA,eAAA;EACA,YAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;AAFR;AAKI;EACI,sBAAA;EACA,kBAAA;EACA,wBAAA;EACA,gBAAA;EACA,WAAA;EACA,aAAA;EACA,gBAAA;EACA,cAAA;EACA,kBAAA;EACA,wDAAA;AAHR;AAMI;EACI,YAAA;EACA,eAAA;EACA,YAAA;EACA,WAAA;EACA,yBAAA;EACA,kBAAA;EACA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,UAAA;EACA,SAAA;AAJR;AAMQ;EACI,kBAAA;EACA,QAAA;EACA,SAAA;AAJZ;AAQI;EACI,gBAAA;AANR;AAQQ;EACI,cAAA;AANZ;AAUI;EACI,cAAA;EACA,eAAA;EACA,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,cAAA;AARR;AAWQ;EACI,eAAA;AATZ;AAaI;EACI,cAAA;EACA,yBAAA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;AAXR;AAcI;EACI,cAAA;EACA,kBAAA;EACA,kBAAA;EACA,YAAA;EACA,eAAA;EACA,gBAAA;AAZR;AAcQ;EACI,yBAAA;EACA,WAAA;EACA,gBAAA;AAZZ;AAeQ;EACI,sBAAA;EACA,cAAA;EACA,yBAAA;AAbZ","sourcesContent":[".modal {\n    &-dialog {\n        display: block;\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        transform: translate(-50%, -50%);\n    }\n\n    &__header {\n        margin: 0 0 15px 0;\n        font-size: 18px;\n        font-weight: 500;\n    }\n\n    &__backdrop {\n        background-color: rgb(0 0 0 / 40%);\n        position: fixed;\n        width: 100vw;\n        height: 100vh;\n        top: 0;\n        left: 0;\n    }\n\n    &__box {\n        background-color: #fff;\n        border-radius: 5px;\n        width: calc(100% - 20px);\n        max-width: 325px;\n        z-index: 10;\n        padding: 30px;\n        overflow: hidden;\n        margin: 0 auto;\n        position: relative;\n        box-shadow: 0px 3px 10px 0px #00000040;\n    }\n\n    &__close {\n        border: none;\n        cursor: pointer;\n        height: 24px;\n        width: 24px;\n        background-color: #F1F3F3;\n        border-radius: 8px;\n        position: absolute;\n        right: 15px;\n        top: 15px;\n        padding: 0;\n        margin: 0;\n\n        svg {\n            position: absolute;\n            top: 5px;\n            left: 5px;\n        }\n    }\n\n    &__content {\n        margin-top: 30px;\n\n        p {\n            margin: 0 auto;\n        }\n    }\n\n    &__content-label {\n        display: block;\n        font-size: 14px;\n        line-height: 20px;\n        margin-bottom: 5px;\n        font-weight: 500;\n        color: #292B2E;\n\n\n        &:not(:first-of-type) {\n            margin-top: 5px;\n        }\n    }\n\n    &__field {\n        display: block;\n        border: 1px solid #C1C4C8;\n        height: 15px;\n        padding: 12px 15px;\n        border-radius: 5px;\n    }\n\n    &__button {\n        display: block;\n        padding: 10px 15px;\n        border-radius: 5px;\n        border: none;\n        cursor: pointer;\n        margin-top: 30px;\n\n        &--primary {\n            background-color: #005AE1;\n            color: #fff;\n            font-weight: 600;\n        }\n\n        &--secondary {\n            background-color: #fff;\n            color: #005AE1;\n            border: 1px solid #005AE1;\n\n        }\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -38177,6 +38570,61 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
        /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_UserForm_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_UserForm_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_UserForm_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+
+
+/***/ }),
+
+/***/ "./src/lib/modal.scss":
+/*!****************************!*\
+  !*** ./src/lib/modal.scss ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_modal_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!../../node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./modal.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/lib/modal.scss");
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),
