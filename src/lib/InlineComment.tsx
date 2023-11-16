@@ -68,13 +68,18 @@ export function InlineComment(
                 highlighter={highlighter}
                 activeSelection={activeSelection}
                 comments={comments}
-                postComment={(text) => postComment(selectionId || '', text )} />
+                postComment={(text) => postComment(selectionId || '', text )}
+                closeCommentThread={closeCommentThread} />
             </React.StrictMode>
         )
       })
     })
-
   };
+
+  const closeCommentThread = () => {
+    selectionId = ''
+    refresh()
+  }
 
   highlighter.on(Highlighter.event.CLICK, ({id}) => {
     selectionId = id;

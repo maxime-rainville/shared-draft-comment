@@ -1,0 +1,61 @@
+$place-holder: #A6AAB0;
+$comment-field-background: #F4F6F8;
+$comment-filed-border: #C8D0DD;
+
+.comment-container {
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    color: black;
+    font-size: 12px;
+    padding: 0;
+    position: absolute;
+    width: 300px;
+    z-index: 101;
+    right: 10px;
+    border-radius: 5px 5px 0 0 ;
+
+    & .comment:not(:first-of-type) {
+        padding: 10px 20px;
+    }
+
+    &--header {
+        padding: 15px;
+        background: #E6EDF4;
+        font-family: sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: 0em;
+        text-align: left;
+        display: flex;
+        &__bubble {
+            width: 20px;
+        }
+        &__text {
+            flex-grow: 1;
+        }
+        &__close {
+            text-decoration: none;
+        }
+    }
+}
+
+.new-comment {
+    &__field {
+        background-color: $comment-field-background;
+        border: 1px solid $comment-filed-border;
+        border-radius: 25px;
+        font-size: 12px;
+        padding: 4px 15px;
+        width: calc(100% - 30px);
+        height: 22px; // minus the padding size
+
+        &--error {
+            background-color: red;
+        }
+
+        &::placeholder {
+            color: $place-holder;
+        }
+    }
+}
