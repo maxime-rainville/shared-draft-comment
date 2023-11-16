@@ -3,16 +3,7 @@ $comment-field-background: #F4F6F8;
 $comment-filed-border: #C8D0DD;
 
 .thread {
-    background-color: white;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-    color: black;
-    font-size: 12px;
-    padding: 15px;
-    position: absolute;
-    width: 300px;
-    z-index: 100;
-    right: 10px;
-
+    margin: 15px;
     & .comment:not(:first-of-type) {
         padding: 10px 20px;
     }

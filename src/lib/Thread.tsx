@@ -38,7 +38,7 @@ export default function Thread({offset, comments, onNewComment}: ThreadProps) {
     }
 
     return (
-        <div style={{position: 'absolute', top: offset}} className='thread'>
+        <div className='thread'>
             {comments.map((user) => <SingleComment key={user.id} {...user} />)}
             <div className="new-comment">
                 <input className={`new-comment__field ${emptyComment ? 'new-comment__field--error' : ''}`} placeholder="Reply" onKeyDown={validateKeyAndContent} value={newComment} onChange={event => setNewComment(event.target.value)}></input>
