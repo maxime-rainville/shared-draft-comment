@@ -3,7 +3,7 @@ import {reduxBootstrap} from './reduxBootstrap';
 import {apolloBootstrap} from './apolloBootstrap';
 import React from 'react';
 import {render} from 'react-dom';
-import Modal from "./lib/Modal";
+import InfoModal from "./lib/Modal";
 
 declare global {
   var sharedDraftComment: any;
@@ -19,8 +19,6 @@ window.addEventListener('load', function () {
   }
 })
 
-const bodyDom = document.getElementsByTagName('body');
 const modalContainer =  document.createElement('div');
-
-render(React.createElement(Modal),modalContainer);
-bodyDom[0].appendChild(modalContainer);
+render(React.createElement(InfoModal),modalContainer);
+document.body.appendChild(modalContainer);
