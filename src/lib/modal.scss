@@ -1,0 +1,68 @@
+.modal {
+    &-dialog {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &__header {
+        margin: 0 0 15px 0;
+        font-size: 18px;
+    }
+
+    &__backdrop {
+        background-color: rgb(0 0 0 / 40%);
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+    }
+
+    &__box {
+        background-color: #fff;
+        border-radius: 5px;
+        width: calc(100% - 20px);
+        max-width: 325px;
+        z-index: 10;
+        padding: 30px;
+        overflow: hidden;
+        margin: 0 auto;
+        position: relative;
+        box-shadow: 0px 3px 10px 0px #00000040;
+    }
+
+    &__close {
+        border: none;
+        cursor: pointer;
+        height: 24px;
+        width: 24px;
+        background-color: #F1F3F3;
+        border-radius: 8px;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        padding: 0;
+        margin: 0;
+
+        svg {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+    }
+
+    &__content {
+        margin-top: 30px;
+
+        p {
+            margin: 0 auto;
+        }
+    }
+}
+
+.placeholder {
+    color: grey;
+}

@@ -18,3 +18,8 @@ window.addEventListener('load', function () {
   }
 })
 
+const bodyDom = document.getElementsByTagName('body');
+const modalContainer =  document.createElement('div');
+
+render(React.createElement(Modal),modalContainer);
+bodyDom[0].appendChild(modalContainer);
