@@ -1,8 +1,9 @@
 import './index.css';
-import store, {actions} from './Store';
-import { InlineComment } from './lib/InlineComment';
-import { reduxBootstrap } from './reduxBootstrap';
-import { apolloBootstrap } from './apolloBootstrap';
+import {reduxBootstrap} from './reduxBootstrap';
+import {apolloBootstrap} from './apolloBootstrap';
+import React from 'react';
+import {render} from 'react-dom';
+import Modal from "./lib/Modal";
 
 declare global {
   var sharedDraftComment: any;
