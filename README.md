@@ -1,6 +1,20 @@
-# Getting Started with Create React App
+# Silverstripe CMS Comments on shared draft
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a Silverstripe CMS module that adds the capability to leave comments on shared draft directly in the front end of your website.
+
+## Warning
+
+This is an experimental module. Use at your own risk.
+
+## What does it do?
+
+The [silverstripe/sharedraftcontent](https://github.com/silverstripe/silverstripe-sharedraftcontent) allows content authors to create special links to draft content. Content author can then choose to share those draft links with their stakeholders so they can preview the content.
+
+However, any feedback on the draft content then has to be collected in side channels like email message or Google Doc.
+
+This module extends the capability of the shared draft content module so people looking at a preview link can leave comment directly in the front end. Other users looking at the draft can view their comments and leave replies as well.
+
+
 
 ## Available Scripts
 
