@@ -14,6 +14,11 @@ However, any feedback on the draft content then has to be collected in side chan
 
 This module extends the capability of the shared draft content module so people looking at a preview link can leave comment directly in the front end. Other users looking at the draft can view their comments and leave replies as well.
 
+![Comment thread](https://github.com/maxime-rainville/shared-draft-comment/assets/1168676/722dac95-bdbb-44ba-85ff-1b666136db56)
+
+
+https://github.com/maxime-rainville/shared-draft-comment/assets/1168676/63b94392-020f-4d98-a014-1b90da4dbefd
+
 
 
 ## Available Scripts
