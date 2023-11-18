@@ -19,7 +19,47 @@ This module extends the capability of the shared draft content module so people 
 
 https://github.com/maxime-rainville/shared-draft-comment/assets/1168676/63b94392-020f-4d98-a014-1b90da4dbefd
 
+## How does it work?
 
+### Backend
+
+4 DataObjects are tracked:
+- `Selection` which represent a specific sample of text on a specific page.
+- `DomMeta` which define the start or the end of a selection. Each selection has a `startMeta` and a `endMeta`.
+- `Comment` which represent a comment left on a specific selection. All comments attached to a selection are displayed together as a comment thread.
+- `Commenter` which represent a person who posted one or more comments. Commenters don't have any credentials and no attempt is made to validate their name. This is done to remove any barrier before posting a comment.
+
+The data can be retrieve and updated via a GraphQL endpoint at `/shared-draft-comment/graphql`.
+
+### Frontend
+
+The front end is divided into two main parts:
+- the inline commenting library
+- the data store part.
+
+### Inline commenting library
+
+The files stored under the `src/lib` are responsible for:
+- displaying existing existing selections
+- providing an interface to create new selections
+- displaying comments
+- recording new comments.
+
+The inline commenting library is designed to be "store agnostic". Basically it doesn't care where its initial data is coming from and where newly created data goes. When the inline library get initialised, it expects a bunch of handlers it will then called to retrieve or update data.
+
+This part was designed so it could be split off as its own library later on.
+
+[web-highlighter](https://github.com/alienzhou/web-highlighter) is used to control the highlighting of text selection.
+
+The UI is rendered with React.
+
+### Data store
+
+The logic to control the exchange of data with the backend via the GraphQL api is stored in `/src/apolloBootstrap.ts` and `/src/apollo`.
+
+This is also responsible for providing an interface to record the commenter's details.
+
+Basically, all the GraphQL queries and mutation are wrap in handlers that return promises. Those handlers are then uses to bootstrap the inline commenting library.
 
 ## Available Scripts
 
