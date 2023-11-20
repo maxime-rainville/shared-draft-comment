@@ -33,11 +33,14 @@ The data can be retrieve and updated via a GraphQL endpoint at `/shared-draft-co
 
 ### Frontend
 
-The front end is divided into two main parts:
+The front end is divided into three main parts:
 - the inline commenting library
-- the data store part.
+- the Apollo Silverstripe CMS GraphQL data store
+- the Redux test data store.
 
-### Inline commenting library
+All the front end logic is written in TypeScript.
+
+#### Inline commenting library
 
 The files stored under the `src/lib` are responsible for:
 - displaying existing existing selections
@@ -53,19 +56,33 @@ This part was designed so it could be split off as its own library later on.
 
 The UI is rendered with React.
 
-### Data store
+While commenter data is attached to each comment, the inline commenting library doesn't manage that data or give you the means to update that data. It is the responsibility of the data store to keep track of who the current user is and to make sure that any new comment are attached to that user. This is done to avoid mandating any specific approach to managing the identity of commenters.
 
-The logic to control the exchange of data with the backend via the GraphQL api is stored in `/src/apolloBootstrap.ts` and `/src/apollo`.
+#### Apollo Silverstripe CMS GraphQL data store
+
+The logic to control the exchange of data with the Silverstripe CMS backend via GraphQL is stored in `/src/apolloBootstrap.ts` and `/src/apollo`.
 
 This is also responsible for providing an interface to record the commenter's details.
 
-Basically, all the GraphQL queries and mutation are wrap in handlers that return promises. Those handlers are then uses to bootstrap the inline commenting library.
+Basically, all the GraphQL queries and mutation are wrapped in handlers that return promises. Those handlers are then uses to bootstrap the inline commenting library.
 
-## Available Scripts
+#### Redux test data store
 
-In the project directory, you can run:
+A simple test Redux store is included in `/src/reduxBootstrap.ts` and `/src/Store`. It basically does the same thing as the apollo store, except the data is read for a redux state and the updates are managed via redux action.
+
+This is only included to help test and update the inline commenting library. All changes are lost when you refresh the page. 
+
+## Development 
+
+### `npm run build`
+
+To run the full Silverstripe CMS JS client, run `npm run build`. Performance optimisations have been disabled for now.
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm start`
+
+If you are just working on the inline commenting library, you can execute just that part with `npm start`.
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -77,26 +94,6 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Learn More
 
