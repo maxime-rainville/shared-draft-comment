@@ -1,0 +1,6 @@
+whoami:
+  type: CommentAuthor
+  resolver:
+    - MaximeRainville\SharedDraftComment\WhoAmIResolver
+    - resolve
+

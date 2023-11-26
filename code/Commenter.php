@@ -3,6 +3,7 @@
 namespace MaximeRainville\SharedDraftComment;
 
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Security\Member;
 
 class Commenter extends DataObject
 {
@@ -16,9 +17,7 @@ class Commenter extends DataObject
      * @var array
      */
     private static $db = [
-        'FirstName' => 'Varchar',
-        'Surname' => 'Varchar',
-        'HexCode' => 'Varchar',
+        'Name' => 'Varchar',
     ];
 
     /**

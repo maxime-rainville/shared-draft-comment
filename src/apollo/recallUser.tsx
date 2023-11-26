@@ -32,8 +32,6 @@ export function recallUser(client: ApolloClient<NormalizedCacheObject>): Promise
         return Promise.resolve(commenter);
     }
 
-    console.dir('ask for user')
-
     return askForUser().then(user => (
         client.mutate({
             mutation: postCommenterMutation,
@@ -41,7 +39,6 @@ export function recallUser(client: ApolloClient<NormalizedCacheObject>): Promise
         })
     )).then(results => {
         const commenter = results.data.createCommenter
-        console.dir(results)
         window.sessionStorage.setItem('commenter', JSON.stringify(commenter))
         return commenter;
     })

@@ -65,14 +65,14 @@ const reducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createReducer)(
       content: action.payload.content,
       id: Math.random().toString(),
       created: new Date(),
-      commenter: state.activeUser
+      author: state.activeUser
     }];
   }).addCase(recallComment, (state, action) => {
     const {
       comment,
       userId
     } = action.payload;
-    comment.commenter = state.users.find(u => u.id === userId) || undefined;
+    comment.author = state.users.find(u => u.id === userId) || undefined;
     state.comments = [...state.comments, comment];
   }).addCase(addUser, (state, {
     payload: {
@@ -182,11 +182,9 @@ mutation postComment($comment: CreateCommentInput!) {
     id
     created
     content
-    commenter {
-      id
-      firstName
-      surname
-      hexCode
+    author {
+      name
+      email
     }
     selectionID
   }
@@ -230,8 +228,7 @@ const postCommenterMutation = (0,_apollo_client__WEBPACK_IMPORTED_MODULE_0__.gql
 mutation postCommenterMutation($commenter: CreateCommenterInput!) {
   createCommenter(input: $commenter) {
     id
-    firstName
-    surname
+    name
   }
 }
 `;
@@ -371,12 +368,9 @@ query getComments($selectionID: ID) {
     id
     content
     created
-    commenter {
-      id
-      firstName
-      surname
-      hexCode
-
+    author {
+      name
+      avatar
     }
   }
 }
@@ -432,6 +426,48 @@ query getSelections($pageID: ID) {
             parentIndex
         }
         text
+    }
+}
+`;
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
+/***/ "./src/apollo/queries/whoamiQuery.ts":
+/*!*******************************************!*\
+  !*** ./src/apollo/queries/whoamiQuery.ts ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   whoamiQuery: () => (/* binding */ whoamiQuery)
+/* harmony export */ });
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @apollo/client */ "./node_modules/graphql-tag/lib/index.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+
+const whoamiQuery = (0,_apollo_client__WEBPACK_IMPORTED_MODULE_0__.gql)`
+query {
+    whoami {
+        name
+        avatar
     }
 }
 `;
@@ -510,7 +546,6 @@ function recallUser(client) {
     const commenter = JSON.parse(commenterJSON);
     return Promise.resolve(commenter);
   }
-  console.dir('ask for user');
   return askForUser().then(user => client.mutate({
     mutation: _mutations_postCommenterMutation__WEBPACK_IMPORTED_MODULE_3__.postCommenterMutation,
     variables: {
@@ -518,7 +553,6 @@ function recallUser(client) {
     }
   })).then(results => {
     const commenter = results.data.createCommenter;
-    console.dir(results);
     window.sessionStorage.setItem('commenter', JSON.stringify(commenter));
     return commenter;
   });
@@ -552,8 +586,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   apolloBootstrap: () => (/* binding */ apolloBootstrap)
 /* harmony export */ });
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/core/ApolloClient.js");
-/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/cache/inmemory/inMemoryCache.js");
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/core/ApolloClient.js");
+/* harmony import */ var _apollo_client__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @apollo/client */ "./node_modules/@apollo/client/cache/inmemory/inMemoryCache.js");
 /* harmony import */ var _lib_InlineComment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/InlineComment */ "./src/lib/InlineComment.tsx");
 /* harmony import */ var _apollo_queries_getSelectionsQuery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./apollo/queries/getSelectionsQuery */ "./src/apollo/queries/getSelectionsQuery.ts");
 /* harmony import */ var _apollo_mutations_postDomMetaMutation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apollo/mutations/postDomMetaMutation */ "./src/apollo/mutations/postDomMetaMutation.ts");
@@ -561,6 +595,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./apollo/recallUser */ "./src/apollo/recallUser.tsx");
 /* harmony import */ var _apollo_mutations_postCommentMutation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./apollo/mutations/postCommentMutation */ "./src/apollo/mutations/postCommentMutation.ts");
 /* harmony import */ var _apollo_mutations_postSelectionMutation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./apollo/mutations/postSelectionMutation */ "./src/apollo/mutations/postSelectionMutation.ts");
+/* harmony import */ var _apollo_queries_whoamiQuery__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./apollo/queries/whoamiQuery */ "./src/apollo/queries/whoamiQuery.ts");
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
@@ -572,11 +607,12 @@ __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/r
 
 
 
+
 async function apolloBootstrap(pageID) {
   let refreshInlineComment;
-  const client = new _apollo_client__WEBPACK_IMPORTED_MODULE_7__.ApolloClient({
+  const client = new _apollo_client__WEBPACK_IMPORTED_MODULE_8__.ApolloClient({
     uri: 'shared-draft-comment/graphql',
-    cache: new _apollo_client__WEBPACK_IMPORTED_MODULE_8__.InMemoryCache(),
+    cache: new _apollo_client__WEBPACK_IMPORTED_MODULE_9__.InMemoryCache(),
     defaultOptions: {
       watchQuery: {
         fetchPolicy: 'no-cache',
@@ -589,6 +625,7 @@ async function apolloBootstrap(pageID) {
     }
   });
   let user;
+  let isCMSUser = false;
   const getSelections = () => client.query({
     query: _apollo_queries_getSelectionsQuery__WEBPACK_IMPORTED_MODULE_1__.getSelectionsQuery,
     variables: {
@@ -622,6 +659,40 @@ async function apolloBootstrap(pageID) {
     var _results$data;
     return (_results$data = results.data) === null || _results$data === void 0 ? void 0 : _results$data.createSelection;
   }));
+  client.query({
+    query: _apollo_queries_whoamiQuery__WEBPACK_IMPORTED_MODULE_7__.whoamiQuery
+  }).then(({
+    data: {
+      whoami
+    }
+  }) => {
+    if (whoami) {
+      user = whoami;
+      isCMSUser = true;
+    }
+  });
+  const getUser = () => {
+    if (user) {
+      return Promise.resolve(user);
+    }
+    return (0,_apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__.recallUser)(client).then(newUser => {
+      user = newUser;
+      return user;
+    });
+  };
+  const getCurrentUser = () => client.query({
+    query: _apollo_queries_whoamiQuery__WEBPACK_IMPORTED_MODULE_7__.whoamiQuery
+  }).then(({
+    data: {
+      whoami
+    }
+  }) => {
+    if (whoami) {
+      user = whoami;
+      isCMSUser = true;
+    }
+    return user;
+  });
   const getComments = selectionID => client.query({
     query: _apollo_queries_getCommentsQuery__WEBPACK_IMPORTED_MODULE_3__.getCommentsQuery,
     variables: {
@@ -636,15 +707,13 @@ async function apolloBootstrap(pageID) {
     created: new Date(comment.created)
   })));
   const postComment = (selectionID, content) => {
-    return (0,_apollo_recallUser__WEBPACK_IMPORTED_MODULE_4__.recallUser)(client).then(newUser => {
-      user = newUser;
-    }).then(() => client.mutate({
+    return getUser().then(user => client.mutate({
       mutation: _apollo_mutations_postCommentMutation__WEBPACK_IMPORTED_MODULE_5__.postCommentMutation,
       variables: {
         comment: {
           selectionID,
           content,
-          commenterID: user.id
+          commenterID: isCMSUser ? undefined : user.id
         }
       }
     })).then(refreshInlineComment);
@@ -653,7 +722,7 @@ async function apolloBootstrap(pageID) {
   // Start up InlineComment anh link it to our redux store
   const body = document.querySelector('article');
   if (body) {
-    refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_0__.InlineComment)(getSelections, getComments, postSelection, postComment, body);
+    refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_0__.InlineComment)(getSelections, getComments, postSelection, postComment, getCurrentUser, body);
   }
 }
 
@@ -710,6 +779,92 @@ window.addEventListener('load', function () {
 const modalContainer = document.createElement('div');
 (0,react_dom__WEBPACK_IMPORTED_MODULE_4__.render)( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_lib_Modal__WEBPACK_IMPORTED_MODULE_5__["default"]), modalContainer);
 document.body.appendChild(modalContainer);
+
+const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
+const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
+	$ReactRefreshModuleId$
+);
+
+function $ReactRefreshModuleRuntime$(exports) {
+	if (false) {}
+}
+
+if (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {
+	$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);
+} else {
+	$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);
+}
+
+/***/ }),
+
+/***/ "./src/lib/Avatar.tsx":
+/*!****************************!*\
+  !*** ./src/lib/Avatar.tsx ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Avatar)
+/* harmony export */ });
+/* harmony import */ var _Avatar_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Avatar.scss */ "./src/lib/Avatar.scss");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
+__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
+
+var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/Avatar.tsx";
+
+
+
+function Avatar({
+  name,
+  avatar,
+  className
+}) {
+  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()('avatar', className),
+    children: avatar ? /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("img", {
+      className: "avatar__image",
+      src: avatar,
+      alt: name
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 15,
+      columnNumber: 17
+    }, this) : /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("svg", {
+      xmlns: "http://www.w3.org/2000/svg",
+      height: "26px",
+      viewBox: "0 0 512 512",
+      children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("style", {
+        children: 'svg{fill:#43536d}'
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 17,
+        columnNumber: 21
+      }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("path", {
+        d: "M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 18,
+        columnNumber: 21
+      }, this)]
+    }, void 0, true, {
+      fileName: _jsxFileName,
+      lineNumber: 16,
+      columnNumber: 17
+    }, this)
+  }, void 0, false, {
+    fileName: _jsxFileName,
+    lineNumber: 13,
+    columnNumber: 9
+  }, this);
+}
+_c = Avatar;
+var _c;
+__webpack_require__.$Refresh$.register(_c, "Avatar");
 
 const $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;
 const $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(
@@ -823,7 +978,8 @@ function CommentContainer({
   activeSelection,
   comments,
   postComment,
-  closeCommentThread
+  closeCommentThread,
+  currentUser
 }) {
   if (activeSelection && comments) {
     const domElements = highlighter.getDoms(activeSelection.id);
@@ -838,20 +994,21 @@ function CommentContainer({
         closeCommentThread: closeCommentThread
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 24,
+        lineNumber: 26,
         columnNumber: 17
       }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)(_Thread__WEBPACK_IMPORTED_MODULE_1__["default"], {
         offset: offset,
         comments: comments,
-        onNewComment: postComment
+        onNewComment: postComment,
+        currentUser: currentUser
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 25,
+        lineNumber: 27,
         columnNumber: 17
       }, this)]
     }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 23,
+      lineNumber: 25,
       columnNumber: 13
     }, this);
   }
@@ -1056,7 +1213,7 @@ function clearBubble() {
     bubble.remove();
   }
 }
-function InlineComment(getSelections, getComments, registerSelection, postComment, root) {
+function InlineComment(getSelections, getComments, registerSelection, postComment, getCurrentUser, root) {
   const highlighter = new (web_highlighter__WEBPACK_IMPORTED_MODULE_2___default())();
   let selectionId = '';
   let refresh;
@@ -1079,31 +1236,34 @@ function InlineComment(getSelections, getComments, registerSelection, postCommen
   document.body.appendChild(reactDiv);
   const reactRoot = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(reactDiv);
   refresh = () => {
-    getSelections().then(selections => {
-      const activeSelection = selections.find(({
-        id
-      }) => id === selectionId);
-      selections.forEach(({
-        id
-      }) => id === (activeSelection === null || activeSelection === void 0 ? void 0 : activeSelection.id) ? highlighter.addClass('highlighter-active', id) : highlighter.removeClass('highlighter-active', id));
-      getComments(selectionId || '').then(comments => {
-        reactRoot.render( /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxDEV)((react__WEBPACK_IMPORTED_MODULE_0___default().StrictMode), {
-          children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxDEV)(_CommentContainer__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            highlighter: highlighter,
-            activeSelection: activeSelection,
-            comments: comments,
-            postComment: text => postComment(selectionId || '', text),
-            closeCommentThread: closeCommentThread
+    getCurrentUser().then(currentUser => {
+      getSelections().then(selections => {
+        const activeSelection = selections.find(({
+          id
+        }) => id === selectionId);
+        selections.forEach(({
+          id
+        }) => id === (activeSelection === null || activeSelection === void 0 ? void 0 : activeSelection.id) ? highlighter.addClass('highlighter-active', id) : highlighter.removeClass('highlighter-active', id));
+        getComments(selectionId || '').then(comments => {
+          reactRoot.render( /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxDEV)((react__WEBPACK_IMPORTED_MODULE_0___default().StrictMode), {
+            children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxDEV)(_CommentContainer__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              highlighter: highlighter,
+              activeSelection: activeSelection,
+              comments: comments,
+              postComment: text => postComment(selectionId || '', text),
+              closeCommentThread: closeCommentThread,
+              currentUser: currentUser
+            }, void 0, false, {
+              fileName: _jsxFileName,
+              lineNumber: 71,
+              columnNumber: 17
+            }, this)
           }, void 0, false, {
             fileName: _jsxFileName,
-            lineNumber: 67,
-            columnNumber: 13
-          }, this)
-        }, void 0, false, {
-          fileName: _jsxFileName,
-          lineNumber: 66,
-          columnNumber: 13
-        }, this));
+            lineNumber: 70,
+            columnNumber: 17
+          }, this));
+        });
       });
     });
   };
@@ -1141,12 +1301,12 @@ function InlineComment(getSelections, getComments, registerSelection, postCommen
           }
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 107,
+          lineNumber: 113,
           columnNumber: 11
         }, this)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 106,
+        lineNumber: 112,
         columnNumber: 9
       }, this));
     }
@@ -1344,9 +1504,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ SingleComment)
 /* harmony export */ });
 /* harmony import */ var _SingleComment_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SingleComment.scss */ "./src/lib/SingleComment.scss");
-/* harmony import */ var javascript_time_ago__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! javascript-time-ago */ "./node_modules/javascript-time-ago/modules/TimeAgo.js");
-/* harmony import */ var javascript_time_ago_locale_en__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! javascript-time-ago/locale/en */ "./node_modules/javascript-time-ago/locale/en.json.js");
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* harmony import */ var javascript_time_ago__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! javascript-time-ago */ "./node_modules/javascript-time-ago/modules/TimeAgo.js");
+/* harmony import */ var javascript_time_ago_locale_en__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! javascript-time-ago/locale/en */ "./node_modules/javascript-time-ago/locale/en.json.js");
+/* harmony import */ var _Avatar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Avatar */ "./src/lib/Avatar.tsx");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
@@ -1355,65 +1516,43 @@ var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-
 
 
 
-javascript_time_ago__WEBPACK_IMPORTED_MODULE_2__["default"].addDefaultLocale(javascript_time_ago_locale_en__WEBPACK_IMPORTED_MODULE_3__["default"]);
-const timeAgo = new javascript_time_ago__WEBPACK_IMPORTED_MODULE_2__["default"]('en-US');
+
+javascript_time_ago__WEBPACK_IMPORTED_MODULE_3__["default"].addDefaultLocale(javascript_time_ago_locale_en__WEBPACK_IMPORTED_MODULE_4__["default"]);
+const timeAgo = new javascript_time_ago__WEBPACK_IMPORTED_MODULE_3__["default"]('en-US');
 function SingleComment({
   content,
   created,
-  commenter
+  author
 }) {
-  const name = commenter ? `${commenter.firstName} ${commenter.surname}` : 'Anonymous';
-  console.dir(created);
-  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
+  const name = author ? author.name : 'Anonymous';
+  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
     className: "comment",
-    children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
-      className: "comment__avatar",
-      children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("svg", {
-        xmlns: "http://www.w3.org/2000/svg",
-        height: "26px",
-        viewBox: "0 0 512 512",
-        children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("style", {
-          children: 'svg{fill:#43536d}'
-        }, void 0, false, {
-          fileName: _jsxFileName,
-          lineNumber: 18,
-          columnNumber: 17
-        }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("path", {
-          d: "M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
-        }, void 0, false, {
-          fileName: _jsxFileName,
-          lineNumber: 19,
-          columnNumber: 17
-        }, this)]
-      }, void 0, true, {
-        fileName: _jsxFileName,
-        lineNumber: 17,
-        columnNumber: 13
-      }, this)
+    children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)(_Avatar__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      ...author
     }, void 0, false, {
       fileName: _jsxFileName,
       lineNumber: 16,
       columnNumber: 13
-    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
+    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
       className: "comment__author",
       children: name
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 22,
+      lineNumber: 17,
       columnNumber: 13
-    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
+    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
       className: "comment__created",
       children: timeAgo.format(created)
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 23,
+      lineNumber: 18,
       columnNumber: 13
-    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxDEV)("div", {
+    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
       className: "comment__text",
       children: content
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 24,
+      lineNumber: 19,
       columnNumber: 13
     }, this)]
   }, void 0, true, {
@@ -1458,7 +1597,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Thread_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Thread.scss */ "./src/lib/Thread.scss");
 /* harmony import */ var _SingleComment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SingleComment */ "./src/lib/SingleComment.tsx");
-/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
+/* harmony import */ var _Avatar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Avatar */ "./src/lib/Avatar.tsx");
+/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-dev-runtime */ "./node_modules/react/jsx-dev-runtime.js");
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
@@ -1468,10 +1608,12 @@ var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-
 
 
 
+
 function Thread({
   offset,
   comments,
-  onNewComment
+  onNewComment,
+  currentUser
 }) {
   _s();
   const [newComment, setNewComment] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
@@ -1491,17 +1633,24 @@ function Thread({
     setNewComment('');
     onNewComment(newComment);
   };
-  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+  return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("div", {
     className: "thread",
-    children: [comments.map(user => /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)(_SingleComment__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    children: [comments.map(user => /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)(_SingleComment__WEBPACK_IMPORTED_MODULE_2__["default"], {
       ...user
     }, user.id, false, {
       fileName: _jsxFileName,
-      lineNumber: 42,
+      lineNumber: 45,
       columnNumber: 37
-    }, this)), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+    }, this)), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("div", {
       className: "new-comment",
-      children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("input", {
+      children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)(_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        ...currentUser,
+        className: "new-comment__avatar"
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 47,
+        columnNumber: 17
+      }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("input", {
         className: `new-comment__field ${emptyComment ? 'new-comment__field--error' : ''}`,
         placeholder: "Reply",
         onKeyDown: validateKeyAndContent,
@@ -1509,17 +1658,17 @@ function Thread({
         onChange: event => setNewComment(event.target.value)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 44,
+        lineNumber: 48,
         columnNumber: 17
-      }, this)
-    }, void 0, false, {
+      }, this)]
+    }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 43,
+      lineNumber: 46,
       columnNumber: 13
     }, this)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 41,
+    lineNumber: 44,
     columnNumber: 9
   }, this);
 }
@@ -1576,8 +1725,7 @@ function UserForm({
   onSubmit
 }) {
   _s();
-  const [firstName, setFirstName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
-  const [surname, setSurname] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)(_Modal__WEBPACK_IMPORTED_MODULE_2__.Modal, {
     children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("div", {
       className: "modal__container",
@@ -1586,74 +1734,56 @@ function UserForm({
         children: "Tell us your name"
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 18,
+        lineNumber: 16,
         columnNumber: 17
       }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("div", {
         className: "modal__content",
         children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("label", {
           className: "modal__content-label",
-          children: "First name"
+          children: "Name"
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 20,
+          lineNumber: 18,
           columnNumber: 21
         }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("input", {
           className: "modal__field",
           type: "text",
-          name: "firstName",
-          value: firstName,
-          onChange: event => setFirstName(event.target.value)
+          name: "name",
+          value: name,
+          onChange: event => setName(event.target.value)
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 21,
-          columnNumber: 21
-        }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("label", {
-          className: "modal__content-label",
-          children: "Surname"
-        }, void 0, false, {
-          fileName: _jsxFileName,
-          lineNumber: 22,
-          columnNumber: 21
-        }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("input", {
-          className: "modal__field",
-          type: "text",
-          name: "surname",
-          value: surname,
-          onChange: event => setSurname(event.target.value)
-        }, void 0, false, {
-          fileName: _jsxFileName,
-          lineNumber: 23,
+          lineNumber: 19,
           columnNumber: 21
         }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("button", {
           className: "modal__button modal__button--primary",
           onClick: () => onSubmit({
             id: '',
-            firstName,
-            surname
+            name
           }),
           children: "Start"
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 25,
+          lineNumber: 20,
           columnNumber: 21
         }, this)]
       }, void 0, true, {
         fileName: _jsxFileName,
-        lineNumber: 19,
+        lineNumber: 17,
         columnNumber: 17
       }, this)]
     }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 17,
+      lineNumber: 15,
       columnNumber: 13
     }, this)
   }, void 0, false, {
     fileName: _jsxFileName,
-    lineNumber: 16,
+    lineNumber: 14,
     columnNumber: 9
   }, this);
 }
-_s(UserForm, "iaa3NfJBCK0WhuC/AwVBYlRo+24=");
+_s(UserForm, "/PAWDgWx7+Y6BmsFMUKcdrcX5eM=");
 _c = UserForm;
 var _c;
 __webpack_require__.$Refresh$.register(_c, "UserForm");
@@ -1698,8 +1828,7 @@ function reduxBootstrap() {
   _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.addUser({
     user: {
       id: 'previous',
-      firstName: 'John',
-      surname: 'Doe',
+      name: 'John Doe',
       email: 'john.doe@example.com',
       colour: '#ff0000'
     }
@@ -1707,8 +1836,7 @@ function reduxBootstrap() {
   _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.addUser({
     user: {
       id: 'active',
-      firstName: 'Maxime',
-      surname: 'Rainville',
+      name: 'Maxime Rainville',
       email: 'maxime.rainville@example.com',
       colour: '#00ff00'
     },
@@ -1747,7 +1875,7 @@ function reduxBootstrap() {
     }, (selectionId, content) => _Store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch(_Store__WEBPACK_IMPORTED_MODULE_0__.actions.Selection.newComment({
       selectionId,
       content
-    })), body);
+    })), () => Promise.resolve(_Store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().Selection.activeUser), body);
     _Store__WEBPACK_IMPORTED_MODULE_0__["default"].subscribe(refreshInlineComment);
   }
 }
@@ -4415,6 +4543,67 @@ var autoBatchEnhancer = function (options) {
 // src/index.ts
 (0,immer__WEBPACK_IMPORTED_MODULE_2__.enableES5)();
 
+
+/***/ }),
+
+/***/ "./node_modules/classnames/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/classnames/index.js ***!
+  \******************************************/
+/***/ ((module, exports) => {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+  'use strict';
+
+  var hasOwn = {}.hasOwnProperty;
+  var nativeCodeString = '[native code]';
+  function classNames() {
+    var classes = [];
+    for (var i = 0; i < arguments.length; i++) {
+      var arg = arguments[i];
+      if (!arg) continue;
+      var argType = typeof arg;
+      if (argType === 'string' || argType === 'number') {
+        classes.push(arg);
+      } else if (Array.isArray(arg)) {
+        if (arg.length) {
+          var inner = classNames.apply(null, arg);
+          if (inner) {
+            classes.push(inner);
+          }
+        }
+      } else if (argType === 'object') {
+        if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
+          classes.push(arg.toString());
+          continue;
+        }
+        for (var key in arg) {
+          if (hasOwn.call(arg, key) && arg[key]) {
+            classes.push(key);
+          }
+        }
+      }
+    }
+    return classes.join(' ');
+  }
+  if ( true && module.exports) {
+    classNames.default = classNames;
+    module.exports = classNames;
+  } else if (true) {
+    // register as 'classnames', consistent with npm package name
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+      return classNames;
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+})();
 
 /***/ }),
 
@@ -37577,6 +37766,44 @@ ___CSS_LOADER_EXPORT___.locals = {};
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/lib/Avatar.scss":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/lib/Avatar.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.avatar {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  flex-grow: 0;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}`, "",{"version":3,"sources":["webpack://./src/lib/Avatar.scss"],"names":[],"mappings":"AAEA;EACI,qBAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AADJ;AAGI;EACI,WAAA;EACA,YAAA;EACA,kBAAA;AADR","sourcesContent":["$author-name-color: #8B9098;\n\n.avatar {\n    display: inline-block;\n    width: 32px;\n    height: 32px;\n    flex-grow: 0;\n\n    img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n    }\n}\n"],"sourceRoot":""}]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/lib/Bubble.scss":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/lib/Bubble.scss ***!
@@ -37681,23 +37908,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.comment-container {
 }
 .comment-container--header__close {
   text-decoration: none;
-}
-
-.new-comment__field {
-  background-color: #F4F6F8;
-  border: 1px solid #C8D0DD;
-  border-radius: 25px;
-  font-size: 12px;
-  padding: 4px 15px;
-  width: calc(100% - 30px);
-  height: 22px;
-}
-.new-comment__field--error {
-  background-color: red;
-}
-.new-comment__field::placeholder {
-  color: #A6AAB0;
-}`, "",{"version":3,"sources":["webpack://./src/lib/CommentContainer.scss"],"names":[],"mappings":"AAIA;EACI,uBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,UAAA;EACA,kBAAA;EACA,YAAA;EACA,WAAA;EACA,0BAAA;AAHJ;AAKI;EACI,iBAAA;EACA,0BAAA;AAHR;AAMI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,eAAA;EACA,gBAAA;EACA,iBAAA;EACA,mBAAA;EACA,gBAAA;EACA,aAAA;AAJR;AAKQ;EACI,WAAA;AAHZ;AAKQ;EACI,YAAA;AAHZ;AAKQ;EACI,qBAAA;AAHZ;;AASI;EACI,yBA3CmB;EA4CnB,yBAAA;EACA,mBAAA;EACA,eAAA;EACA,iBAAA;EACA,wBAAA;EACA,YAAA;AANR;AAQQ;EACI,qBAAA;AANZ;AASQ;EACI,cAzDG;AAkDf","sourcesContent":["$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.comment-container {\n    background-color: white;\n    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n    color: black;\n    font-size: 12px;\n    padding: 0;\n    position: absolute;\n    width: 300px;\n    right: 10px;\n    border-radius: 5px 5px 0 0 ;\n\n    & .comment:not(:first-of-type) {\n        margin-left: 10px;\n        border-left-color: #C8D0DD;\n    }\n\n    &--header {\n        padding: 15px;\n        background: #E6EDF4;\n        font-family: sans-serif;\n        font-size: 14px;\n        font-weight: 600;\n        line-height: 20px;\n        letter-spacing: 0em;\n        text-align: left;\n        display: flex;\n        &__bubble {\n            width: 20px;\n        }\n        &__text {\n            flex-grow: 1;\n        }\n        &__close {\n            text-decoration: none;\n        }\n    }\n}\n\n.new-comment {\n    &__field {\n        background-color: $comment-field-background;\n        border: 1px solid $comment-filed-border;\n        border-radius: 25px;\n        font-size: 12px;\n        padding: 4px 15px;\n        width: calc(100% - 30px);\n        height: 22px; // minus the padding size\n\n        &--error {\n            background-color: red;\n        }\n\n        &::placeholder {\n            color: $place-holder;\n        }\n    }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/lib/CommentContainer.scss"],"names":[],"mappings":"AAIA;EACI,uBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,UAAA;EACA,kBAAA;EACA,YAAA;EACA,WAAA;EACA,0BAAA;AAHJ;AAKI;EACI,iBAAA;EACA,0BAAA;AAHR;AAMI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,eAAA;EACA,gBAAA;EACA,iBAAA;EACA,mBAAA;EACA,gBAAA;EACA,aAAA;AAJR;AAKQ;EACI,WAAA;AAHZ;AAKQ;EACI,YAAA;AAHZ;AAKQ;EACI,qBAAA;AAHZ","sourcesContent":["$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.comment-container {\n    background-color: white;\n    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n    color: black;\n    font-size: 12px;\n    padding: 0;\n    position: absolute;\n    width: 300px;\n    right: 10px;\n    border-radius: 5px 5px 0 0 ;\n\n    & .comment:not(:first-of-type) {\n        margin-left: 10px;\n        border-left-color: #C8D0DD;\n    }\n\n    &--header {\n        padding: 15px;\n        background: #E6EDF4;\n        font-family: sans-serif;\n        font-size: 14px;\n        font-weight: 600;\n        line-height: 20px;\n        letter-spacing: 0em;\n        text-align: left;\n        display: flex;\n        &__bubble {\n            width: 20px;\n        }\n        &__text {\n            flex-grow: 1;\n        }\n        &__close {\n            text-decoration: none;\n        }\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -37789,12 +38000,15 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.thread {
   margin: 15px;
 }
 
+.new-comment {
+  position: relative;
+}
 .new-comment__field {
   background-color: #F4F6F8;
   border: 1px solid #C8D0DD;
   border-radius: 25px;
   font-size: 12px;
-  padding: 4px 15px;
+  padding: 4px 15px 4px 35px;
   width: calc(100% - 30px);
   height: 22px;
 }
@@ -37803,7 +38017,15 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.thread {
 }
 .new-comment__field::placeholder {
   color: #A6AAB0;
-}`, "",{"version":3,"sources":["webpack://./src/lib/Thread.scss"],"names":[],"mappings":"AAIA;EACI,YAAA;AAHJ;;AAQI;EACI,yBAVmB;EAWnB,yBAAA;EACA,mBAAA;EACA,eAAA;EACA,iBAAA;EACA,wBAAA;EACA,YAAA;AALR;AAOQ;EACI,qBAAA;AALZ;AAQQ;EACI,cAxBG;AAkBf","sourcesContent":["$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.thread {\n    margin: 15px;\n\n}\n\n.new-comment {\n    &__field {\n        background-color: $comment-field-background;\n        border: 1px solid $comment-filed-border;\n        border-radius: 25px;\n        font-size: 12px;\n        padding: 4px 15px;\n        width: calc(100% - 30px);\n        height: 22px; // minus the padding size\n\n        &--error {\n            background-color: red;\n        }\n\n        &::placeholder {\n            color: $place-holder;\n        }\n    }\n}\n"],"sourceRoot":""}]);
+}
+.new-comment__avatar.avatar {
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 26px;
+  height: 26px;
+  flex-grow: 0;
+}`, "",{"version":3,"sources":["webpack://./src/lib/Thread.scss"],"names":[],"mappings":"AAIA;EACI,YAAA;AAHJ;;AAOA;EACI,kBAAA;AAJJ;AAMI;EACI,yBAZmB;EAanB,yBAAA;EACA,mBAAA;EACA,eAAA;EACA,0BAAA;EACA,wBAAA;EACA,YAAA;AAJR;AAMQ;EACI,qBAAA;AAJZ;AAOQ;EACI,cA1BG;AAqBf;AASI;EACI,kBAAA;EACA,QAAA;EACA,SAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AAPR","sourcesContent":["$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.thread {\n    margin: 15px;\n\n}\n\n.new-comment {\n    position: relative;\n\n    &__field {\n        background-color: $comment-field-background;\n        border: 1px solid $comment-filed-border;\n        border-radius: 25px;\n        font-size: 12px;\n        padding: 4px 15px 4px 35px;\n        width: calc(100% - 30px);\n        height: 22px; // minus the padding size\n\n        &--error {\n            background-color: red;\n        }\n\n        &::placeholder {\n            color: $place-holder;\n        }\n    }\n\n    &__avatar.avatar {\n        position: absolute;\n        top: 3px;\n        left: 4px;\n        width: 26px;\n        height: 26px;\n        flex-grow: 0;\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -38295,6 +38517,61 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
        /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_5_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_5_use_2_node_modules_source_map_loader_dist_cjs_js_index_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_5_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_5_use_2_node_modules_source_map_loader_dist_cjs_js_index_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_5_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_5_use_2_node_modules_source_map_loader_dist_cjs_js_index_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+
+
+/***/ }),
+
+/***/ "./src/lib/Avatar.scss":
+/*!*****************************!*\
+  !*** ./src/lib/Avatar.scss ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_Avatar_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!../../node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./Avatar.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[1].oneOf[7].use[3]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[7].use[4]!./src/lib/Avatar.scss");
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_Avatar_scss__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_Avatar_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_Avatar_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_2_node_modules_resolve_url_loader_index_js_ruleSet_1_rules_1_oneOf_7_use_3_node_modules_sass_loader_dist_cjs_js_ruleSet_1_rules_1_oneOf_7_use_4_Avatar_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),

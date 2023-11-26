@@ -6,12 +6,9 @@ query getComments($selectionID: ID) {
     id
     content
     created
-    commenter {
-      id
-      firstName
-      surname
-      hexCode
-
+    author {
+      name
+      avatar
     }
   }
 }

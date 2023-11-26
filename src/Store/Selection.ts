@@ -58,12 +58,12 @@ const reducer = createReducer(initial, (builder) => {
           content: action.payload.content,
           id: Math.random().toString(),
           created: new Date(),
-          commenter: state.activeUser,
+          author: state.activeUser,
         }]
       })
       .addCase(recallComment, (state, action) => {
         const {comment, userId} = action.payload
-        comment.commenter = state.users.find(u => u.id === userId) || undefined
+        comment.author = state.users.find(u => u.id === userId) || undefined
 
 
         state.comments = [...state.comments, comment]

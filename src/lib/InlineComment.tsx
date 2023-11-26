@@ -5,6 +5,7 @@ import CommentContainer from './CommentContainer';
 import { InlineSelection } from './InlineSelection';
 import Bubble from './Bubble';
 import { Comment } from './Comment';
+import { User } from './User';
 
 function clearBubble() {
   let bubble = document.querySelector('.bubble-wrapper');
@@ -16,6 +17,7 @@ export function InlineComment(
   getComments: (selectionId?: string) => Promise<Comment[]>,
   registerSelection: (selection: InlineSelection) => Promise<InlineSelection>,
   postComment: (selectionId: string, text: string) => void,
+  getCurrentUser: () => Promise<User | null>,
   root: HTMLElement,
 ) {
 
@@ -52,27 +54,31 @@ export function InlineComment(
 
   const reactRoot = ReactDOM.createRoot(reactDiv);
   refresh = () => {
-    getSelections().then(selections => {
-      const activeSelection = selections.find(({id}) => id === selectionId)
+    getCurrentUser().then(currentUser => {
 
-      selections.forEach(({id}) =>
-        id === activeSelection?.id ?
-        highlighter.addClass('highlighter-active', id) :
-        highlighter.removeClass('highlighter-active', id)
-      )
+        getSelections().then(selections => {
+        const activeSelection = selections.find(({id}) => id === selectionId)
 
-      getComments(selectionId || '').then(comments => {
-        reactRoot.render(
-            <React.StrictMode>
-            <CommentContainer
-                highlighter={highlighter}
-                activeSelection={activeSelection}
-                comments={comments}
-                postComment={(text) => postComment(selectionId || '', text )}
-                closeCommentThread={closeCommentThread} />
-            </React.StrictMode>
+        selections.forEach(({id}) =>
+            id === activeSelection?.id ?
+            highlighter.addClass('highlighter-active', id) :
+            highlighter.removeClass('highlighter-active', id)
         )
-      })
+
+        getComments(selectionId || '').then(comments => {
+            reactRoot.render(
+                <React.StrictMode>
+                <CommentContainer
+                    highlighter={highlighter}
+                    activeSelection={activeSelection}
+                    comments={comments}
+                    postComment={(text) => postComment(selectionId || '', text )}
+                    closeCommentThread={closeCommentThread}
+                    currentUser={currentUser} />
+                </React.StrictMode>
+            )
+        })
+        })
     })
   };
 

@@ -5,5 +5,5 @@ created: Date
 id: string
 content: string
 selectionId: string
-commenter?: User
+author?: User
 }

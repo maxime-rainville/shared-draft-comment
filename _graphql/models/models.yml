@@ -4,7 +4,10 @@ MaximeRainville\SharedDraftComment\Selection:
     '*': true
 
 MaximeRainville\SharedDraftComment\Comment:
-  fields: '*'
+  fields:
+    '*': true
+    author:
+      type: CommentAuthor
   operations: '*'
 
 MaximeRainville\SharedDraftComment\Commenter:

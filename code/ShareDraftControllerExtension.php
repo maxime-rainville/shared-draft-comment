@@ -2,7 +2,6 @@
 
 namespace MaximeRainville\SharedDraftComment;
 
-use PharIo\Manifest\Requirement;
 use SilverStripe\Core\Extension;
 use SilverStripe\View\Requirements;
 

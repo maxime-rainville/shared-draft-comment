@@ -6,11 +6,11 @@ import { InlineSelection } from './lib/InlineSelection';
 export function reduxBootstrap() {
     // Hydrate our redux store with some data
     store.dispatch(actions.Selection.addUser(
-    {user: {id: 'previous', firstName: 'John', surname: 'Doe', email: 'john.doe@example.com', colour: '#ff0000'}}
+    {user: {id: 'previous', name: 'John Doe', email: 'john.doe@example.com', colour: '#ff0000'}}
     ));
 
     store.dispatch(actions.Selection.addUser(
-    {user: {id: 'active', firstName: 'Maxime', surname: 'Rainville', email: 'maxime.rainville@example.com', colour: '#00ff00'}, active: true}
+    {user: {id: 'active', name: 'Maxime Rainville', email: 'maxime.rainville@example.com', colour: '#00ff00'}, active: true}
     ));
 
     store.dispatch(actions.Selection.register(
@@ -55,6 +55,7 @@ export function reduxBootstrap() {
                 return Promise.resolve(selection)
             },
             (selectionId: string, content: string) => store.dispatch(actions.Selection.newComment({selectionId, content})),
+            () => Promise.resolve(store.getState().Selection.activeUser),
             body
         );
 

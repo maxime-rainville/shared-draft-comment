@@ -6,6 +6,22 @@ This is a Silverstripe CMS module that adds the capability to leave comments on 
 
 This is an experimental module. Use at your own risk.
 
+## Team
+- JS and PHP development
+  - @aria5305
+  - @maxime-rainville
+- UX and UI
+  - Oscar Urrutia
+- User research and strategy
+  - Erin Charter
+- Other contributions
+  - Claire Kirby
+  - @SimulatedPanda
+  - Maira Florez
+  - @matthew-dyson
+  - Sandra De Villiers
+  - @tamatifkaa
+
 ## What does it do?
 
 The [silverstripe/sharedraftcontent](https://github.com/silverstripe/silverstripe-sharedraftcontent) allows content authors to create special links to draft content. Content author can then choose to share those draft links with their stakeholders so they can preview the content.

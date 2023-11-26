@@ -39,23 +39,3 @@ $comment-filed-border: #C8D0DD;
         }
     }
 }
-
-.new-comment {
-    &__field {
-        background-color: $comment-field-background;
-        border: 1px solid $comment-filed-border;
-        border-radius: 25px;
-        font-size: 12px;
-        padding: 4px 15px;
-        width: calc(100% - 30px);
-        height: 22px; // minus the padding size
-
-        &--error {
-            background-color: red;
-        }
-
-        &::placeholder {
-            color: $place-holder;
-        }
-    }
-}

@@ -6,11 +6,9 @@ mutation postComment($comment: CreateCommentInput!) {
     id
     created
     content
-    commenter {
-      id
-      firstName
-      surname
-      hexCode
+    author {
+      name
+      email
     }
     selectionID
   }
