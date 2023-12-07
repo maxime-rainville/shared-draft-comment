@@ -10,11 +10,12 @@ interface Props {
 }
 
 export default function CommentContainerHeader({closeCommentThread}: Props) {
+    const css = 'shared-draft-comment-comment-container--header'
     return (
-        <div className='comment-container--header'>
-            <div className='comment-container--header__bubble'>💬</div>
-            <div className='comment-container--header__text'>Comments</div>
-            <a href="#" className='comment-container--header__close' onClick={(event) => {
+        <div className={css}>
+            <div className={`${css}__bubble`}>💬</div>
+            <div className={`${css}__text`}>Comments</div>
+            <a href="#" className={`${css}__close`} onClick={(event) => {
                 event.preventDefault();
                 closeCommentThread();
             }}>❌</a>

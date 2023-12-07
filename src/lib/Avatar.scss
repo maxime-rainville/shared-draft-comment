@@ -1,6 +1,7 @@
+@use 'variables' as v;
 $author-name-color: #8B9098;
 
-.avatar {
+.#{v.$namespace}-avatar {
     display: inline-block;
     width: 32px;
     height: 32px;

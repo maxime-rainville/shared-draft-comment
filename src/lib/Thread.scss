@@ -1,13 +1,15 @@
+@use 'variables' as v;
+
 $place-holder: #A6AAB0;
 $comment-field-background: #F4F6F8;
 $comment-filed-border: #C8D0DD;
 
-.thread {
+.#{v.$namespace}-thread {
     margin: 15px;
 
 }
 
-.new-comment {
+.#{v.$namespace}-new-comment {
     position: relative;
 
     &__field {
@@ -28,7 +30,7 @@ $comment-filed-border: #C8D0DD;
         }
     }
 
-    &__avatar.avatar {
+    &__avatar.#{v.$namespace}-avatar {
         position: absolute;
         top: 3px;
         left: 4px;

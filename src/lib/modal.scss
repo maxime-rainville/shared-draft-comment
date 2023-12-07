@@ -1,4 +1,6 @@
-.modal {
+@use 'variables' as v;
+
+.#{v.$namespace}-modal {
     &-dialog {
         display: block;
         position: absolute;
@@ -47,6 +49,8 @@
         top: 15px;
         padding: 0;
         margin: 0;
+        background: none;
+        min-width: 0;
 
         svg {
             position: absolute;
@@ -77,12 +81,14 @@
         }
     }
 
-    &__field {
+    &__field,
+    &__field[type="text"] {
         display: block;
         border: 1px solid #C1C4C8;
         height: 15px;
         padding: 12px 15px;
         border-radius: 5px;
+        min-width: none;
     }
 
     &__button {

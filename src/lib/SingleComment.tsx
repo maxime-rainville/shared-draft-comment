@@ -9,14 +9,14 @@ const timeAgo = new TimeAgo('en-US')
 
 
 export default function SingleComment({content, created, author}: Comment) {
-
+    const css = 'shared-draft-comment-comment';
     const name = author ? author.name : 'Anonymous';
     return (
-        <div className="comment">
+        <div className={css}>
             <Avatar {...author} />
-            <div className="comment__author">{name}</div>
-            <div className="comment__created">{timeAgo.format(created)}</div>
-            <div className="comment__text">{content}</div>
+            <div className={`${css}__author`}>{name}</div>
+            <div className={`${css}__created`}>{timeAgo.format(created)}</div>
+            <div className={`${css}__text`}>{content}</div>
         </div>
     )
 }

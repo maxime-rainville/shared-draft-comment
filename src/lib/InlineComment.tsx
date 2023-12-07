@@ -8,7 +8,7 @@ import { Comment } from './Comment';
 import { User } from './User';
 
 function clearBubble() {
-  let bubble = document.querySelector('.bubble-wrapper');
+  let bubble = document.querySelector('.shared-draft-comment-bubble-wrapper');
   if (bubble !== null) {bubble.remove();}
 }
 
@@ -105,7 +105,7 @@ export function InlineComment(
       // debugger;
       let rect = selection.getRangeAt(0).getBoundingClientRect();
       const control = document.createElement('div');
-      control.className = 'bubble-wrapper';
+      control.className = 'shared-draft-comment-bubble-wrapper';
       document.body.appendChild(control);
       const bubbleRoot = ReactDOM.createRoot(control);
       bubbleRoot.render(

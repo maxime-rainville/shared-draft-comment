@@ -1,3 +1,5 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+(function (process,global,setImmediate){(function (){
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -509,7 +511,7 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
-var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/apollo/recallUser.tsx";
+var _jsxFileName = "/home/max/Projects/sscom/vendor/maxime-rainville/shared-draft-comment/src/apollo/recallUser.tsx";
 
 
 
@@ -608,10 +610,10 @@ __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/r
 
 
 
-async function apolloBootstrap(pageID) {
+async function apolloBootstrap(pageID, graphqlUrl, selector = 'body') {
   let refreshInlineComment;
   const client = new _apollo_client__WEBPACK_IMPORTED_MODULE_8__.ApolloClient({
-    uri: 'shared-draft-comment/graphql',
+    uri: graphqlUrl,
     cache: new _apollo_client__WEBPACK_IMPORTED_MODULE_9__.InMemoryCache(),
     defaultOptions: {
       watchQuery: {
@@ -720,7 +722,7 @@ async function apolloBootstrap(pageID) {
   };
 
   // Start up InlineComment anh link it to our redux store
-  const body = document.querySelector('article');
+  const body = document.querySelector(selector);
   if (body) {
     refreshInlineComment = (0,_lib_InlineComment__WEBPACK_IMPORTED_MODULE_0__.InlineComment)(getSelections, getComments, postSelection, postComment, getCurrentUser, body);
   }
@@ -769,11 +771,14 @@ __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/r
 
 window.addEventListener('load', function () {
   if (window.sharedDraftComment === undefined) {
-    console.log('No sharedDraftComment object found. Using reduxBootstrap');
     (0,_reduxBootstrap__WEBPACK_IMPORTED_MODULE_1__.reduxBootstrap)();
   } else {
-    console.log('Apollo magic here');
-    (0,_apolloBootstrap__WEBPACK_IMPORTED_MODULE_2__.apolloBootstrap)(window.sharedDraftComment.pageID);
+    const {
+      pageID,
+      graphqlUrl,
+      selector
+    } = window.sharedDraftComment;
+    (0,_apolloBootstrap__WEBPACK_IMPORTED_MODULE_2__.apolloBootstrap)(pageID, graphqlUrl, selector);
   }
 });
 const modalContainer = document.createElement('div');
@@ -815,7 +820,7 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
-var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/Avatar.tsx";
+var _jsxFileName = "/home/max/Projects/sscom/vendor/maxime-rainville/shared-draft-comment/src/lib/Avatar.tsx";
 
 
 
@@ -825,9 +830,9 @@ function Avatar({
   className
 }) {
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()('avatar', className),
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()('shared-draft-comment-avatar', className),
     children: avatar ? /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("img", {
-      className: "avatar__image",
+      className: "shared-draft-comment-avatar__image",
       src: avatar,
       alt: name
     }, void 0, false, {
@@ -901,7 +906,7 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
-var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/Bubble.tsx";
+var _jsxFileName = "/home/max/Projects/sscom/vendor/maxime-rainville/shared-draft-comment/src/lib/Bubble.tsx";
 
 
 
@@ -967,7 +972,7 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
-var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/CommentContainer.tsx";
+var _jsxFileName = "/home/max/Projects/sscom/vendor/maxime-rainville/shared-draft-comment/src/lib/CommentContainer.tsx";
 
 
 
@@ -986,7 +991,7 @@ function CommentContainer({
     const el = domElements[0];
     const offset = window.pageYOffset + el.getBoundingClientRect().top;
     return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("div", {
-      className: "comment-container",
+      className: "shared-draft-comment-comment-container",
       style: {
         top: offset
       },
@@ -1053,32 +1058,33 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
-var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/CommentContainerHeader.tsx";
+var _jsxFileName = "/home/max/Projects/sscom/vendor/maxime-rainville/shared-draft-comment/src/lib/CommentContainerHeader.tsx";
 
 
 
 function CommentContainerHeader({
   closeCommentThread
 }) {
+  const css = 'shared-draft-comment-comment-container--header';
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
-    className: "comment-container--header",
+    className: css,
     children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
-      className: "comment-container--header__bubble",
+      className: `${css}__bubble`,
       children: "\uD83D\uDCAC"
-    }, void 0, false, {
-      fileName: _jsxFileName,
-      lineNumber: 15,
-      columnNumber: 13
-    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
-      className: "comment-container--header__text",
-      children: "Comments"
     }, void 0, false, {
       fileName: _jsxFileName,
       lineNumber: 16,
       columnNumber: 13
+    }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
+      className: `${css}__text`,
+      children: "Comments"
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 17,
+      columnNumber: 13
     }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("a", {
       href: "#",
-      className: "comment-container--header__close",
+      className: `${css}__close`,
       onClick: event => {
         event.preventDefault();
         closeCommentThread();
@@ -1086,12 +1092,12 @@ function CommentContainerHeader({
       children: "\u274C"
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 17,
+      lineNumber: 18,
       columnNumber: 13
     }, this)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 14,
+    lineNumber: 15,
     columnNumber: 9
   }, this);
 }
@@ -1131,7 +1137,7 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
-var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/Cross.tsx";
+var _jsxFileName = "/home/max/Projects/sscom/vendor/maxime-rainville/shared-draft-comment/src/lib/Cross.tsx";
 
 const Cross = () => {
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)("svg", {
@@ -1200,7 +1206,7 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
-var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/InlineComment.tsx";
+var _jsxFileName = "/home/max/Projects/sscom/vendor/maxime-rainville/shared-draft-comment/src/lib/InlineComment.tsx";
 
 
 
@@ -1208,7 +1214,7 @@ var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-
 
 
 function clearBubble() {
-  let bubble = document.querySelector('.bubble-wrapper');
+  let bubble = document.querySelector('.shared-draft-comment-bubble-wrapper');
   if (bubble !== null) {
     bubble.remove();
   }
@@ -1288,7 +1294,7 @@ function InlineComment(getSelections, getComments, registerSelection, postCommen
       // debugger;
       let rect = selection.getRangeAt(0).getBoundingClientRect();
       const control = document.createElement('div');
-      control.className = 'bubble-wrapper';
+      control.className = 'shared-draft-comment-bubble-wrapper';
       document.body.appendChild(control);
       const bubbleRoot = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(control);
       bubbleRoot.render( /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxDEV)((react__WEBPACK_IMPORTED_MODULE_0___default().StrictMode), {
@@ -1354,47 +1360,49 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
-var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/Modal.tsx",
+var _jsxFileName = "/home/max/Projects/sscom/vendor/maxime-rainville/shared-draft-comment/src/lib/Modal.tsx",
   _s = __webpack_require__.$Refresh$.signature();
 
 
 
 
 const Modal = props => {
+  const css = 'shared-draft-comment-modal';
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
-    className: "modal",
+    className: css,
     children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
-      className: "modal__backdrop"
-    }, void 0, false, {
-      fileName: _jsxFileName,
-      lineNumber: 8,
-      columnNumber: 13
-    }, undefined), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
-      className: "modal-dialog",
-      "aria-modal": "true",
-      role: "alertdialog",
-      children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
-        className: "modal__box",
-        children: props.children
-      }, void 0, false, {
-        fileName: _jsxFileName,
-        lineNumber: 10,
-        columnNumber: 17
-      }, undefined)
+      className: `${css}__backdrop`
     }, void 0, false, {
       fileName: _jsxFileName,
       lineNumber: 9,
       columnNumber: 13
+    }, undefined), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+      className: `${css}-dialog`,
+      "aria-modal": "true",
+      role: "alertdialog",
+      children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
+        className: `${css}__box`,
+        children: props.children
+      }, void 0, false, {
+        fileName: _jsxFileName,
+        lineNumber: 11,
+        columnNumber: 17
+      }, undefined)
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 10,
+      columnNumber: 13
     }, undefined)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 7,
+    lineNumber: 8,
     columnNumber: 9
   }, undefined);
 };
 _c = Modal;
 const InfoModal = () => {
   _s();
+  const css = 'shared-draft-comment-modal';
   const [showModal, setShowModal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const closeModal = () => {
     localStorage.setItem('shared-draft-modal-interaction', 'true');
@@ -1414,57 +1422,57 @@ const InfoModal = () => {
     children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
       "aria-label": "Close this modal",
       type: "button",
-      className: "modal__close",
+      className: `${css}__close`,
       onClick: closeModal,
       children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)(_Cross__WEBPACK_IMPORTED_MODULE_2__["default"], {}, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 47,
+        lineNumber: 50,
         columnNumber: 17
       }, undefined)
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 41,
+      lineNumber: 44,
       columnNumber: 13
     }, undefined), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
-      className: "modal__container",
+      className: `${css}__container`,
       children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("h2", {
-        className: "modal__header",
+        className: `${css}__header`,
         children: "How to comment"
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 50,
+        lineNumber: 53,
         columnNumber: 17
       }, undefined), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("div", {
-        className: "modal__content",
+        className: `${css}__content`,
         children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("p", {
-          className: "modal__body-text",
+          className: `${css}__body-text`,
           children: "Click on the speech bubble icon to open the comments panel and highlight the text you want to comment "
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 52,
+          lineNumber: 55,
           columnNumber: 21
         }, undefined)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 51,
+        lineNumber: 54,
         columnNumber: 17
       }, undefined)]
     }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 49,
+      lineNumber: 52,
       columnNumber: 13
     }, undefined), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxDEV)("button", {
       onClick: closeModal,
-      className: "modal__button modal__button--secondary",
+      className: `${css}__button ${css}__button--secondary`,
       children: "Continue"
     }, void 0, false, {
       fileName: _jsxFileName,
-      lineNumber: 56,
+      lineNumber: 59,
       columnNumber: 13
     }, undefined)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 40,
+    lineNumber: 43,
     columnNumber: 9
   }, undefined);
 };
@@ -1511,7 +1519,7 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
-var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/SingleComment.tsx";
+var _jsxFileName = "/home/max/Projects/sscom/vendor/maxime-rainville/shared-draft-comment/src/lib/SingleComment.tsx";
 
 
 
@@ -1524,9 +1532,10 @@ function SingleComment({
   created,
   author
 }) {
+  const css = 'shared-draft-comment-comment';
   const name = author ? author.name : 'Anonymous';
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
-    className: "comment",
+    className: css,
     children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)(_Avatar__WEBPACK_IMPORTED_MODULE_1__["default"], {
       ...author
     }, void 0, false, {
@@ -1534,21 +1543,21 @@ function SingleComment({
       lineNumber: 16,
       columnNumber: 13
     }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
-      className: "comment__author",
+      className: `${css}__author`,
       children: name
     }, void 0, false, {
       fileName: _jsxFileName,
       lineNumber: 17,
       columnNumber: 13
     }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
-      className: "comment__created",
+      className: `${css}__created`,
       children: timeAgo.format(created)
     }, void 0, false, {
       fileName: _jsxFileName,
       lineNumber: 18,
       columnNumber: 13
     }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("div", {
-      className: "comment__text",
+      className: `${css}__text`,
       children: content
     }, void 0, false, {
       fileName: _jsxFileName,
@@ -1602,7 +1611,7 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
-var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/Thread.tsx",
+var _jsxFileName = "/home/max/Projects/sscom/vendor/maxime-rainville/shared-draft-comment/src/lib/Thread.tsx",
   _s = __webpack_require__.$Refresh$.signature();
 
 
@@ -1633,42 +1642,43 @@ function Thread({
     setNewComment('');
     onNewComment(newComment);
   };
+  const css = 'shared-draft-comment-new-comment';
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("div", {
-    className: "thread",
+    className: "shared-draft-comment-thread",
     children: [comments.map(user => /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)(_SingleComment__WEBPACK_IMPORTED_MODULE_2__["default"], {
       ...user
     }, user.id, false, {
       fileName: _jsxFileName,
-      lineNumber: 45,
+      lineNumber: 46,
       columnNumber: 37
     }, this)), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("div", {
-      className: "new-comment",
+      className: css,
       children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)(_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
         ...currentUser,
-        className: "new-comment__avatar"
+        className: `${css}__avatar`
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 47,
+        lineNumber: 48,
         columnNumber: 17
       }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("input", {
-        className: `new-comment__field ${emptyComment ? 'new-comment__field--error' : ''}`,
+        className: `${css}__field ${emptyComment ? `${css}__field--error` : ''}`,
         placeholder: "Reply",
         onKeyDown: validateKeyAndContent,
         value: newComment,
         onChange: event => setNewComment(event.target.value)
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 48,
+        lineNumber: 49,
         columnNumber: 17
       }, this)]
     }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 46,
+      lineNumber: 47,
       columnNumber: 13
     }, this)]
   }, void 0, true, {
     fileName: _jsxFileName,
-    lineNumber: 44,
+    lineNumber: 45,
     columnNumber: 9
   }, this);
 }
@@ -1714,7 +1724,7 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ "./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js");
 __webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ "./node_modules/react-refresh/runtime.js");
 
-var _jsxFileName = "/home/max/Projects/cms5x-comment-shared-draft/vendor/maxime-rainville/shared-draft-comment/src/lib/UserForm.tsx",
+var _jsxFileName = "/home/max/Projects/sscom/vendor/maxime-rainville/shared-draft-comment/src/lib/UserForm.tsx",
   _s = __webpack_require__.$Refresh$.signature();
 
 
@@ -1726,37 +1736,38 @@ function UserForm({
 }) {
   _s();
   const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const css = 'shared-draft-comment-modal';
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)(_Modal__WEBPACK_IMPORTED_MODULE_2__.Modal, {
     children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("div", {
-      className: "modal__container",
+      className: `${css}__container`,
       children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("h2", {
-        className: "modal__header",
+        className: `${css}__header`,
         children: "Tell us your name"
       }, void 0, false, {
         fileName: _jsxFileName,
-        lineNumber: 16,
+        lineNumber: 17,
         columnNumber: 17
       }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("div", {
-        className: "modal__content",
+        className: `${css}__content`,
         children: [/*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("label", {
-          className: "modal__content-label",
+          className: `${css}__content-label`,
           children: "Name"
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 18,
+          lineNumber: 19,
           columnNumber: 21
         }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("input", {
-          className: "modal__field",
+          className: `${css}__field`,
           type: "text",
           name: "name",
           value: name,
           onChange: event => setName(event.target.value)
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 19,
+          lineNumber: 20,
           columnNumber: 21
         }, this), /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxDEV)("button", {
-          className: "modal__button modal__button--primary",
+          className: `${css}__button ${css}__button--primary`,
           onClick: () => onSubmit({
             id: '',
             name
@@ -1764,22 +1775,22 @@ function UserForm({
           children: "Start"
         }, void 0, false, {
           fileName: _jsxFileName,
-          lineNumber: 20,
+          lineNumber: 21,
           columnNumber: 21
         }, this)]
       }, void 0, true, {
         fileName: _jsxFileName,
-        lineNumber: 17,
+        lineNumber: 18,
         columnNumber: 17
       }, this)]
     }, void 0, true, {
       fileName: _jsxFileName,
-      lineNumber: 15,
+      lineNumber: 16,
       columnNumber: 13
     }, this)
   }, void 0, false, {
     fileName: _jsxFileName,
-    lineNumber: 14,
+    lineNumber: 15,
     columnNumber: 9
   }, this);
 }
@@ -37786,17 +37797,17 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.avatar {
+___CSS_LOADER_EXPORT___.push([module.id, `.shared-draft-comment-avatar {
   display: inline-block;
   width: 32px;
   height: 32px;
   flex-grow: 0;
 }
-.avatar img {
+.shared-draft-comment-avatar img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-}`, "",{"version":3,"sources":["webpack://./src/lib/Avatar.scss"],"names":[],"mappings":"AAEA;EACI,qBAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AADJ;AAGI;EACI,WAAA;EACA,YAAA;EACA,kBAAA;AADR","sourcesContent":["$author-name-color: #8B9098;\n\n.avatar {\n    display: inline-block;\n    width: 32px;\n    height: 32px;\n    flex-grow: 0;\n\n    img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n    }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/lib/Avatar.scss"],"names":[],"mappings":"AAGA;EACI,qBAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AAFJ;AAII;EACI,WAAA;EACA,YAAA;EACA,kBAAA;AAFR","sourcesContent":["@use 'variables' as v;\n$author-name-color: #8B9098;\n\n.#{v.$namespace}-avatar {\n    display: inline-block;\n    width: 32px;\n    height: 32px;\n    flex-grow: 0;\n\n    img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -37824,7 +37835,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.bubble {
+___CSS_LOADER_EXPORT___.push([module.id, `.shared-draft-comment-bubble {
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2509803922);
   left: 0;
   top: 0;
@@ -37835,7 +37846,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.bubble {
   z-index: 100;
   /* (B2) BOTTOM "CALLOUT TAIL" */
 }
-.bubble:after {
+.shared-draft-comment-bubble:after {
   content: "";
   border: 10px solid transparent;
   position: absolute;
@@ -37846,7 +37857,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.bubble {
   bottom: -10px;
   left: 50%;
   margin-left: -10px;
-}`, "",{"version":3,"sources":["webpack://./src/lib/Bubble.scss"],"names":[],"mappings":"AAAA;EACE,wDAAA;EACA,OAAA;EAAS,MAAA;EACT,aAAA;EACA,kBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;EAEA,+BAAA;AACF;AAAE;EACE,WAAA;EAEA,8BAAA;EACA,kBAAA;EACA,yBAAA;EACA,yBAAA;EACA,gBAAA;EAEA,8BAAA;EACA,aAAA;EAAe,SAAA;EACf,kBAAA;AACJ","sourcesContent":[".bubble {\n  box-shadow: 0px 3px 10px 0px #00000040;\n  left: 0; top: 0;\n  padding: 10px;\n  position: absolute;\n  width: 140px;\n  text-align: center;\n  z-index: 100;\n\n  /* (B2) BOTTOM \"CALLOUT TAIL\" */\n  &:after {\n    content: \"\";\n\n    border: 10px solid transparent;\n    position: absolute;\n    /* (B2-1) DOWN TRIANGLE */\n    border-top-color: #005AE1;\n    border-bottom: 0;\n\n    /* (B2-2) POSITION AT BOTTOM */\n    bottom: -10px; left: 50%;\n    margin-left: -10px;\n  }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/lib/Bubble.scss"],"names":[],"mappings":"AAEA;EACE,wDAAA;EACA,OAAA;EAAS,MAAA;EACT,aAAA;EACA,kBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;EAEA,+BAAA;AADF;AAEE;EACE,WAAA;EAEA,8BAAA;EACA,kBAAA;EACA,yBAAA;EACA,yBAAA;EACA,gBAAA;EAEA,8BAAA;EACA,aAAA;EAAe,SAAA;EACf,kBAAA;AADJ","sourcesContent":["@use 'variables' as v;\n\n.#{v.$namespace}-bubble {\n  box-shadow: 0px 3px 10px 0px #00000040;\n  left: 0; top: 0;\n  padding: 10px;\n  position: absolute;\n  width: 140px;\n  text-align: center;\n  z-index: 100;\n\n  /* (B2) BOTTOM \"CALLOUT TAIL\" */\n  &:after {\n    content: \"\";\n\n    border: 10px solid transparent;\n    position: absolute;\n    /* (B2-1) DOWN TRIANGLE */\n    border-top-color: #005AE1;\n    border-bottom: 0;\n\n    /* (B2-2) POSITION AT BOTTOM */\n    bottom: -10px; left: 50%;\n    margin-left: -10px;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -37874,7 +37885,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.comment-container {
+___CSS_LOADER_EXPORT___.push([module.id, `.shared-draft-comment-comment-container {
   background-color: white;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   color: black;
@@ -37885,11 +37896,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.comment-container {
   right: 10px;
   border-radius: 5px 5px 0 0;
 }
-.comment-container .comment:not(:first-of-type) {
+.shared-draft-comment-comment-container .comment:not(:first-of-type) {
   margin-left: 10px;
   border-left-color: #C8D0DD;
 }
-.comment-container--header {
+.shared-draft-comment-comment-container--header {
   padding: 15px;
   background: #E6EDF4;
   font-family: sans-serif;
@@ -37900,15 +37911,15 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.comment-container {
   text-align: left;
   display: flex;
 }
-.comment-container--header__bubble {
+.shared-draft-comment-comment-container--header__bubble {
   width: 20px;
 }
-.comment-container--header__text {
+.shared-draft-comment-comment-container--header__text {
   flex-grow: 1;
 }
-.comment-container--header__close {
+.shared-draft-comment-comment-container--header__close {
   text-decoration: none;
-}`, "",{"version":3,"sources":["webpack://./src/lib/CommentContainer.scss"],"names":[],"mappings":"AAIA;EACI,uBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,UAAA;EACA,kBAAA;EACA,YAAA;EACA,WAAA;EACA,0BAAA;AAHJ;AAKI;EACI,iBAAA;EACA,0BAAA;AAHR;AAMI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,eAAA;EACA,gBAAA;EACA,iBAAA;EACA,mBAAA;EACA,gBAAA;EACA,aAAA;AAJR;AAKQ;EACI,WAAA;AAHZ;AAKQ;EACI,YAAA;AAHZ;AAKQ;EACI,qBAAA;AAHZ","sourcesContent":["$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.comment-container {\n    background-color: white;\n    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n    color: black;\n    font-size: 12px;\n    padding: 0;\n    position: absolute;\n    width: 300px;\n    right: 10px;\n    border-radius: 5px 5px 0 0 ;\n\n    & .comment:not(:first-of-type) {\n        margin-left: 10px;\n        border-left-color: #C8D0DD;\n    }\n\n    &--header {\n        padding: 15px;\n        background: #E6EDF4;\n        font-family: sans-serif;\n        font-size: 14px;\n        font-weight: 600;\n        line-height: 20px;\n        letter-spacing: 0em;\n        text-align: left;\n        display: flex;\n        &__bubble {\n            width: 20px;\n        }\n        &__text {\n            flex-grow: 1;\n        }\n        &__close {\n            text-decoration: none;\n        }\n    }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/lib/CommentContainer.scss"],"names":[],"mappings":"AAMA;EACI,uBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,UAAA;EACA,kBAAA;EACA,YAAA;EACA,WAAA;EACA,0BAAA;AALJ;AAOI;EACI,iBAAA;EACA,0BAAA;AALR;AAQI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,eAAA;EACA,gBAAA;EACA,iBAAA;EACA,mBAAA;EACA,gBAAA;EACA,aAAA;AANR;AAOQ;EACI,WAAA;AALZ;AAOQ;EACI,YAAA;AALZ;AAOQ;EACI,qBAAA;AALZ","sourcesContent":["@use 'variables' as v;\n\n$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.#{v.$namespace}-comment-container {\n    background-color: white;\n    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n    color: black;\n    font-size: 12px;\n    padding: 0;\n    position: absolute;\n    width: 300px;\n    right: 10px;\n    border-radius: 5px 5px 0 0 ;\n\n    & .comment:not(:first-of-type) {\n        margin-left: 10px;\n        border-left-color: #C8D0DD;\n    }\n\n    &--header {\n        padding: 15px;\n        background: #E6EDF4;\n        font-family: sans-serif;\n        font-size: 14px;\n        font-weight: 600;\n        line-height: 20px;\n        letter-spacing: 0em;\n        text-align: left;\n        display: flex;\n        &__bubble {\n            width: 20px;\n        }\n        &__text {\n            flex-grow: 1;\n        }\n        &__close {\n            text-decoration: none;\n        }\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -37936,7 +37947,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.comment {
+___CSS_LOADER_EXPORT___.push([module.id, `.shared-draft-comment-comment {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 5px;
@@ -37944,16 +37955,16 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.comment {
   padding-left: 15px;
   border-left: solid #003E94 3px;
 }
-.comment + .new-comment {
+.shared-draft-comment-comment + .new-comment {
   margin-top: 10px;
 }
-.comment__avatar {
+.shared-draft-comment-comment__avatar {
   display: inline-block;
   width: 32px;
   height: 32px;
   flex-grow: 0;
 }
-.comment__author {
+.shared-draft-comment-comment__author {
   color: #8B9098;
   flex-grow: 1;
   flex-basis: 80%;
@@ -37961,14 +37972,14 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.comment {
   font-weight: bold;
   margin-left: 5px;
 }
-.comment__created {
+.shared-draft-comment-comment__created {
   flex-basis: 100%;
   font-size: smaller;
   font-style: italic;
 }
-.comment__text {
+.shared-draft-comment-comment__text {
   margin-top: 5px;
-}`, "",{"version":3,"sources":["webpack://./src/lib/SingleComment.scss"],"names":[],"mappings":"AAEA;EACE,aAAA;EACA,eAAA;EACA,kBAAA;EACA,oBAAA;EACA,kBAAA;EACA,8BAAA;AADF;AAGI;EACI,gBAAA;AADR;AAIE;EACE,qBAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AAFJ;AAKE;EACE,cAtBgB;EAuBhB,YAAA;EACA,eAAA;EACA,iBAAA;EACA,iBAAA;EACA,gBAAA;AAHJ;AAME;EACI,gBAAA;EACA,kBAAA;EACA,kBAAA;AAJN;AAOE;EACI,eAAA;AALN","sourcesContent":["$author-name-color: #8B9098;\n\n.comment {\n  display: flex;\n  flex-wrap: wrap;\n  margin-bottom: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  border-left: solid #003E94 3px;\n\n    & + .new-comment {\n        margin-top: 10px;\n    }\n\n  &__avatar {\n    display: inline-block;\n    width: 32px;\n    height: 32px;\n    flex-grow: 0;\n  }\n\n  &__author {\n    color: $author-name-color;\n    flex-grow: 1;\n    flex-basis: 80%;\n    font-size:larger;\n    font-weight: bold;\n    margin-left: 5px;\n  }\n\n  &__created {\n      flex-basis: 100%;\n      font-size: smaller;\n      font-style: italic;\n  }\n\n  &__text {\n      margin-top: 5px;\n  }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/lib/SingleComment.scss"],"names":[],"mappings":"AAIA;EACE,aAAA;EACA,eAAA;EACA,kBAAA;EACA,oBAAA;EACA,kBAAA;EACA,8BAAA;AAHF;AAKI;EACI,gBAAA;AAHR;AAME;EACE,qBAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AAJJ;AAOE;EACE,cAtBgB;EAuBhB,YAAA;EACA,eAAA;EACA,iBAAA;EACA,iBAAA;EACA,gBAAA;AALJ;AAQE;EACI,gBAAA;EACA,kBAAA;EACA,kBAAA;AANN;AASE;EACI,eAAA;AAPN","sourcesContent":["@use 'variables' as v;\n\n$author-name-color: #8B9098;\n\n.#{v.$namespace}-comment {\n  display: flex;\n  flex-wrap: wrap;\n  margin-bottom: 5px;\n  padding-bottom: 10px;\n  padding-left: 15px;\n  border-left: solid #003E94 3px;\n\n    & + .new-comment {\n        margin-top: 10px;\n    }\n\n  &__avatar {\n    display: inline-block;\n    width: 32px;\n    height: 32px;\n    flex-grow: 0;\n  }\n\n  &__author {\n    color: $author-name-color;\n    flex-grow: 1;\n    flex-basis: 80%;\n    font-size:larger;\n    font-weight: bold;\n    margin-left: 5px;\n  }\n\n  &__created {\n      flex-basis: 100%;\n      font-size: smaller;\n      font-style: italic;\n  }\n\n  &__text {\n      margin-top: 5px;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -37996,14 +38007,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.thread {
+___CSS_LOADER_EXPORT___.push([module.id, `.shared-draft-comment-thread {
   margin: 15px;
 }
 
-.new-comment {
+.shared-draft-comment-new-comment {
   position: relative;
 }
-.new-comment__field {
+.shared-draft-comment-new-comment__field {
   background-color: #F4F6F8;
   border: 1px solid #C8D0DD;
   border-radius: 25px;
@@ -38012,20 +38023,20 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.thread {
   width: calc(100% - 30px);
   height: 22px;
 }
-.new-comment__field--error {
+.shared-draft-comment-new-comment__field--error {
   background-color: red;
 }
-.new-comment__field::placeholder {
+.shared-draft-comment-new-comment__field::placeholder {
   color: #A6AAB0;
 }
-.new-comment__avatar.avatar {
+.shared-draft-comment-new-comment__avatar.shared-draft-comment-avatar {
   position: absolute;
   top: 3px;
   left: 4px;
   width: 26px;
   height: 26px;
   flex-grow: 0;
-}`, "",{"version":3,"sources":["webpack://./src/lib/Thread.scss"],"names":[],"mappings":"AAIA;EACI,YAAA;AAHJ;;AAOA;EACI,kBAAA;AAJJ;AAMI;EACI,yBAZmB;EAanB,yBAAA;EACA,mBAAA;EACA,eAAA;EACA,0BAAA;EACA,wBAAA;EACA,YAAA;AAJR;AAMQ;EACI,qBAAA;AAJZ;AAOQ;EACI,cA1BG;AAqBf;AASI;EACI,kBAAA;EACA,QAAA;EACA,SAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AAPR","sourcesContent":["$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.thread {\n    margin: 15px;\n\n}\n\n.new-comment {\n    position: relative;\n\n    &__field {\n        background-color: $comment-field-background;\n        border: 1px solid $comment-filed-border;\n        border-radius: 25px;\n        font-size: 12px;\n        padding: 4px 15px 4px 35px;\n        width: calc(100% - 30px);\n        height: 22px; // minus the padding size\n\n        &--error {\n            background-color: red;\n        }\n\n        &::placeholder {\n            color: $place-holder;\n        }\n    }\n\n    &__avatar.avatar {\n        position: absolute;\n        top: 3px;\n        left: 4px;\n        width: 26px;\n        height: 26px;\n        flex-grow: 0;\n    }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/lib/Thread.scss"],"names":[],"mappings":"AAMA;EACI,YAAA;AALJ;;AASA;EACI,kBAAA;AANJ;AAQI;EACI,yBAZmB;EAanB,yBAAA;EACA,mBAAA;EACA,eAAA;EACA,0BAAA;EACA,wBAAA;EACA,YAAA;AANR;AAQQ;EACI,qBAAA;AANZ;AASQ;EACI,cA1BG;AAmBf;AAWI;EACI,kBAAA;EACA,QAAA;EACA,SAAA;EACA,WAAA;EACA,YAAA;EACA,YAAA;AATR","sourcesContent":["@use 'variables' as v;\n\n$place-holder: #A6AAB0;\n$comment-field-background: #F4F6F8;\n$comment-filed-border: #C8D0DD;\n\n.#{v.$namespace}-thread {\n    margin: 15px;\n\n}\n\n.#{v.$namespace}-new-comment {\n    position: relative;\n\n    &__field {\n        background-color: $comment-field-background;\n        border: 1px solid $comment-filed-border;\n        border-radius: 25px;\n        font-size: 12px;\n        padding: 4px 15px 4px 35px;\n        width: calc(100% - 30px);\n        height: 22px; // minus the padding size\n\n        &--error {\n            background-color: red;\n        }\n\n        &::placeholder {\n            color: $place-holder;\n        }\n    }\n\n    &__avatar.#{v.$namespace}-avatar {\n        position: absolute;\n        top: 3px;\n        left: 4px;\n        width: 26px;\n        height: 26px;\n        flex-grow: 0;\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -38053,7 +38064,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.user-form {
+___CSS_LOADER_EXPORT___.push([module.id, `.shared-draft-comment-user-form {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
@@ -38066,7 +38077,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.user-form {
   margin-left: -150px;
   top: 50%;
   left: 50%;
-}`, "",{"version":3,"sources":["webpack://./src/lib/UserForm.scss"],"names":[],"mappings":"AAAA;EACE,uBAAA;EACA,mBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,kBAAA;EACA,YAAA;EACA,YAAA;EACA,mBAAA;EACA,QAAA;EACA,SAAA;AACF","sourcesContent":[".user-form {\n  background-color: white;\n  border-radius: 10px;\n  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n  color: black;\n  font-size: 20px;\n  padding: 10px;\n  position: absolute;\n  width: 300px;\n  z-index: 100;\n  margin-left: -150px;\n  top: 50%;\n  left: 50%;\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/lib/UserForm.scss"],"names":[],"mappings":"AAEA;EACE,uBAAA;EACA,mBAAA;EACA,yCAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,kBAAA;EACA,YAAA;EACA,YAAA;EACA,mBAAA;EACA,QAAA;EACA,SAAA;AADF","sourcesContent":["@use 'variables' as v;\n\n.#{v.$namespace}-user-form {\n  background-color: white;\n  border-radius: 10px;\n  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);\n  color: black;\n  font-size: 20px;\n  padding: 10px;\n  position: absolute;\n  width: 300px;\n  z-index: 100;\n  margin-left: -150px;\n  top: 50%;\n  left: 50%;\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -38094,19 +38105,19 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.modal-dialog {
+___CSS_LOADER_EXPORT___.push([module.id, `.shared-draft-comment-modal-dialog {
   display: block;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.modal__header {
+.shared-draft-comment-modal__header {
   margin: 0 0 15px 0;
   font-size: 18px;
   font-weight: 500;
 }
-.modal__backdrop {
+.shared-draft-comment-modal__backdrop {
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
   width: 100vw;
@@ -38114,7 +38125,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.modal-dialog {
   top: 0;
   left: 0;
 }
-.modal__box {
+.shared-draft-comment-modal__box {
   background-color: #fff;
   border-radius: 5px;
   width: calc(100% - 20px);
@@ -38126,7 +38137,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.modal-dialog {
   position: relative;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2509803922);
 }
-.modal__close {
+.shared-draft-comment-modal__close {
   border: none;
   cursor: pointer;
   height: 24px;
@@ -38138,19 +38149,21 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.modal-dialog {
   top: 15px;
   padding: 0;
   margin: 0;
+  background: none;
+  min-width: 0;
 }
-.modal__close svg {
+.shared-draft-comment-modal__close svg {
   position: absolute;
   top: 5px;
   left: 5px;
 }
-.modal__content {
+.shared-draft-comment-modal__content {
   margin-top: 30px;
 }
-.modal__content p {
+.shared-draft-comment-modal__content p {
   margin: 0 auto;
 }
-.modal__content-label {
+.shared-draft-comment-modal__content-label {
   display: block;
   font-size: 14px;
   line-height: 20px;
@@ -38158,17 +38171,18 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.modal-dialog {
   font-weight: 500;
   color: #292B2E;
 }
-.modal__content-label:not(:first-of-type) {
+.shared-draft-comment-modal__content-label:not(:first-of-type) {
   margin-top: 5px;
 }
-.modal__field {
+.shared-draft-comment-modal__field, .shared-draft-comment-modal__field[type=text] {
   display: block;
   border: 1px solid #C1C4C8;
   height: 15px;
   padding: 12px 15px;
   border-radius: 5px;
+  min-width: none;
 }
-.modal__button {
+.shared-draft-comment-modal__button {
   display: block;
   padding: 10px 15px;
   border-radius: 5px;
@@ -38176,16 +38190,16 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.modal-dialog {
   cursor: pointer;
   margin-top: 30px;
 }
-.modal__button--primary {
+.shared-draft-comment-modal__button--primary {
   background-color: #005AE1;
   color: #fff;
   font-weight: 600;
 }
-.modal__button--secondary {
+.shared-draft-comment-modal__button--secondary {
   background-color: #fff;
   color: #005AE1;
   border: 1px solid #005AE1;
-}`, "",{"version":3,"sources":["webpack://./src/lib/modal.scss"],"names":[],"mappings":"AACI;EACI,cAAA;EACA,kBAAA;EACA,QAAA;EACA,SAAA;EACA,gCAAA;AAAR;AAGI;EACI,kBAAA;EACA,eAAA;EACA,gBAAA;AADR;AAII;EACI,oCAAA;EACA,eAAA;EACA,YAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;AAFR;AAKI;EACI,sBAAA;EACA,kBAAA;EACA,wBAAA;EACA,gBAAA;EACA,WAAA;EACA,aAAA;EACA,gBAAA;EACA,cAAA;EACA,kBAAA;EACA,wDAAA;AAHR;AAMI;EACI,YAAA;EACA,eAAA;EACA,YAAA;EACA,WAAA;EACA,yBAAA;EACA,kBAAA;EACA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,UAAA;EACA,SAAA;AAJR;AAMQ;EACI,kBAAA;EACA,QAAA;EACA,SAAA;AAJZ;AAQI;EACI,gBAAA;AANR;AAQQ;EACI,cAAA;AANZ;AAUI;EACI,cAAA;EACA,eAAA;EACA,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,cAAA;AARR;AAWQ;EACI,eAAA;AATZ;AAaI;EACI,cAAA;EACA,yBAAA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;AAXR;AAcI;EACI,cAAA;EACA,kBAAA;EACA,kBAAA;EACA,YAAA;EACA,eAAA;EACA,gBAAA;AAZR;AAcQ;EACI,yBAAA;EACA,WAAA;EACA,gBAAA;AAZZ;AAeQ;EACI,sBAAA;EACA,cAAA;EACA,yBAAA;AAbZ","sourcesContent":[".modal {\n    &-dialog {\n        display: block;\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        transform: translate(-50%, -50%);\n    }\n\n    &__header {\n        margin: 0 0 15px 0;\n        font-size: 18px;\n        font-weight: 500;\n    }\n\n    &__backdrop {\n        background-color: rgb(0 0 0 / 40%);\n        position: fixed;\n        width: 100vw;\n        height: 100vh;\n        top: 0;\n        left: 0;\n    }\n\n    &__box {\n        background-color: #fff;\n        border-radius: 5px;\n        width: calc(100% - 20px);\n        max-width: 325px;\n        z-index: 10;\n        padding: 30px;\n        overflow: hidden;\n        margin: 0 auto;\n        position: relative;\n        box-shadow: 0px 3px 10px 0px #00000040;\n    }\n\n    &__close {\n        border: none;\n        cursor: pointer;\n        height: 24px;\n        width: 24px;\n        background-color: #F1F3F3;\n        border-radius: 8px;\n        position: absolute;\n        right: 15px;\n        top: 15px;\n        padding: 0;\n        margin: 0;\n\n        svg {\n            position: absolute;\n            top: 5px;\n            left: 5px;\n        }\n    }\n\n    &__content {\n        margin-top: 30px;\n\n        p {\n            margin: 0 auto;\n        }\n    }\n\n    &__content-label {\n        display: block;\n        font-size: 14px;\n        line-height: 20px;\n        margin-bottom: 5px;\n        font-weight: 500;\n        color: #292B2E;\n\n\n        &:not(:first-of-type) {\n            margin-top: 5px;\n        }\n    }\n\n    &__field {\n        display: block;\n        border: 1px solid #C1C4C8;\n        height: 15px;\n        padding: 12px 15px;\n        border-radius: 5px;\n    }\n\n    &__button {\n        display: block;\n        padding: 10px 15px;\n        border-radius: 5px;\n        border: none;\n        cursor: pointer;\n        margin-top: 30px;\n\n        &--primary {\n            background-color: #005AE1;\n            color: #fff;\n            font-weight: 600;\n        }\n\n        &--secondary {\n            background-color: #fff;\n            color: #005AE1;\n            border: 1px solid #005AE1;\n\n        }\n    }\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/lib/modal.scss"],"names":[],"mappings":"AAGI;EACI,cAAA;EACA,kBAAA;EACA,QAAA;EACA,SAAA;EACA,gCAAA;AAFR;AAKI;EACI,kBAAA;EACA,eAAA;EACA,gBAAA;AAHR;AAMI;EACI,oCAAA;EACA,eAAA;EACA,YAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;AAJR;AAOI;EACI,sBAAA;EACA,kBAAA;EACA,wBAAA;EACA,gBAAA;EACA,WAAA;EACA,aAAA;EACA,gBAAA;EACA,cAAA;EACA,kBAAA;EACA,wDAAA;AALR;AAQI;EACI,YAAA;EACA,eAAA;EACA,YAAA;EACA,WAAA;EACA,yBAAA;EACA,kBAAA;EACA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,UAAA;EACA,SAAA;EACA,gBAAA;EACA,YAAA;AANR;AAQQ;EACI,kBAAA;EACA,QAAA;EACA,SAAA;AANZ;AAUI;EACI,gBAAA;AARR;AAUQ;EACI,cAAA;AARZ;AAYI;EACI,cAAA;EACA,eAAA;EACA,iBAAA;EACA,kBAAA;EACA,gBAAA;EACA,cAAA;AAVR;AAaQ;EACI,eAAA;AAXZ;AAeI;EAEI,cAAA;EACA,yBAAA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;EACA,eAAA;AAdR;AAiBI;EACI,cAAA;EACA,kBAAA;EACA,kBAAA;EACA,YAAA;EACA,eAAA;EACA,gBAAA;AAfR;AAiBQ;EACI,yBAAA;EACA,WAAA;EACA,gBAAA;AAfZ;AAkBQ;EACI,sBAAA;EACA,cAAA;EACA,yBAAA;AAhBZ","sourcesContent":["@use 'variables' as v;\n\n.#{v.$namespace}-modal {\n    &-dialog {\n        display: block;\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        transform: translate(-50%, -50%);\n    }\n\n    &__header {\n        margin: 0 0 15px 0;\n        font-size: 18px;\n        font-weight: 500;\n    }\n\n    &__backdrop {\n        background-color: rgb(0 0 0 / 40%);\n        position: fixed;\n        width: 100vw;\n        height: 100vh;\n        top: 0;\n        left: 0;\n    }\n\n    &__box {\n        background-color: #fff;\n        border-radius: 5px;\n        width: calc(100% - 20px);\n        max-width: 325px;\n        z-index: 10;\n        padding: 30px;\n        overflow: hidden;\n        margin: 0 auto;\n        position: relative;\n        box-shadow: 0px 3px 10px 0px #00000040;\n    }\n\n    &__close {\n        border: none;\n        cursor: pointer;\n        height: 24px;\n        width: 24px;\n        background-color: #F1F3F3;\n        border-radius: 8px;\n        position: absolute;\n        right: 15px;\n        top: 15px;\n        padding: 0;\n        margin: 0;\n        background: none;\n        min-width: 0;\n\n        svg {\n            position: absolute;\n            top: 5px;\n            left: 5px;\n        }\n    }\n\n    &__content {\n        margin-top: 30px;\n\n        p {\n            margin: 0 auto;\n        }\n    }\n\n    &__content-label {\n        display: block;\n        font-size: 14px;\n        line-height: 20px;\n        margin-bottom: 5px;\n        font-weight: 500;\n        color: #292B2E;\n\n\n        &:not(:first-of-type) {\n            margin-top: 5px;\n        }\n    }\n\n    &__field,\n    &__field[type=\"text\"] {\n        display: block;\n        border: 1px solid #C1C4C8;\n        height: 15px;\n        padding: 12px 15px;\n        border-radius: 5px;\n        min-width: none;\n    }\n\n    &__button {\n        display: block;\n        padding: 10px 15px;\n        border-radius: 5px;\n        border: none;\n        cursor: pointer;\n        margin-top: 30px;\n\n        &--primary {\n            background-color: #005AE1;\n            color: #fff;\n            font-weight: 600;\n        }\n\n        &--secondary {\n            background-color: #fff;\n            color: #005AE1;\n            border: 1px solid #005AE1;\n\n        }\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -60796,4 +60810,271 @@ if (hasSymbols()) {
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundle.js.map
+
+}).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("timers").setImmediate)
+},{"_process":2,"timers":3}],2:[function(require,module,exports){
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}],3:[function(require,module,exports){
+(function (setImmediate,clearImmediate){(function (){
+var nextTick = require('process/browser.js').nextTick;
+var apply = Function.prototype.apply;
+var slice = Array.prototype.slice;
+var immediateIds = {};
+var nextImmediateId = 0;
+
+// DOM APIs, for completeness
+
+exports.setTimeout = function() {
+  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+};
+exports.setInterval = function() {
+  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+};
+exports.clearTimeout =
+exports.clearInterval = function(timeout) { timeout.close(); };
+
+function Timeout(id, clearFn) {
+  this._id = id;
+  this._clearFn = clearFn;
+}
+Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+Timeout.prototype.close = function() {
+  this._clearFn.call(window, this._id);
+};
+
+// Does not start the time, just sets up the members needed.
+exports.enroll = function(item, msecs) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = msecs;
+};
+
+exports.unenroll = function(item) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = -1;
+};
+
+exports._unrefActive = exports.active = function(item) {
+  clearTimeout(item._idleTimeoutId);
+
+  var msecs = item._idleTimeout;
+  if (msecs >= 0) {
+    item._idleTimeoutId = setTimeout(function onTimeout() {
+      if (item._onTimeout)
+        item._onTimeout();
+    }, msecs);
+  }
+};
+
+// That's not how node.js implements it but the exposed api is the same.
+exports.setImmediate = typeof setImmediate === "function" ? setImmediate : function(fn) {
+  var id = nextImmediateId++;
+  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
+
+  immediateIds[id] = true;
+
+  nextTick(function onNextTick() {
+    if (immediateIds[id]) {
+      // fn.call() is faster so we optimize for the common use-case
+      // @see http://jsperf.com/call-apply-segu
+      if (args) {
+        fn.apply(null, args);
+      } else {
+        fn.call(null);
+      }
+      // Prevent ids from leaking
+      exports.clearImmediate(id);
+    }
+  });
+
+  return id;
+};
+
+exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
+  delete immediateIds[id];
+};
+}).call(this)}).call(this,require("timers").setImmediate,require("timers").clearImmediate)
+},{"process/browser.js":2,"timers":3}]},{},[1]);

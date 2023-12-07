@@ -1,6 +1,8 @@
+@use 'variables' as v;
+
 $author-name-color: #8B9098;
 
-.comment {
+.#{v.$namespace}-comment {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 5px;

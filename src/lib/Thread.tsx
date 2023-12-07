@@ -40,12 +40,13 @@ export default function Thread({offset, comments, onNewComment, currentUser}: Th
         onNewComment(newComment);
     }
 
+    const css = 'shared-draft-comment-new-comment';
     return (
-        <div className='thread'>
+        <div className='shared-draft-comment-thread'>
             {comments.map((user) => <SingleComment key={user.id} {...user} />)}
-            <div className="new-comment">
-                <Avatar {...currentUser} className='new-comment__avatar' />
-                <input className={`new-comment__field ${emptyComment ? 'new-comment__field--error' : ''}`} placeholder="Reply" onKeyDown={validateKeyAndContent} value={newComment} onChange={event => setNewComment(event.target.value)}></input>
+            <div className={css}>
+                <Avatar {...currentUser} className={`${css}__avatar`} />
+                <input className={`${css}__field ${emptyComment ? `${css}__field--error` : ''}`} placeholder="Reply" onKeyDown={validateKeyAndContent} value={newComment} onChange={event => setNewComment(event.target.value)}></input>
             </div>
         </div>
     )

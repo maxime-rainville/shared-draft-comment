@@ -9,13 +9,16 @@ import { postCommentMutation } from './apollo/mutations/postCommentMutation';
 import { postSelectionMutation } from './apollo/mutations/postSelectionMutation';
 import { User } from './lib/User';
 import { whoamiQuery } from './apollo/queries/whoamiQuery';
-import md5 from 'md5';
 
-export async function  apolloBootstrap(pageID: number) {
+export async function  apolloBootstrap(
+    pageID: number,
+    graphqlUrl: string,
+    selector: string = 'body'
+) {
     let refreshInlineComment: () => void;
 
     const client = new ApolloClient({
-        uri: 'shared-draft-comment/graphql',
+        uri: graphqlUrl,
         cache: new InMemoryCache(),
         defaultOptions: {
             watchQuery: {
@@ -105,7 +108,7 @@ export async function  apolloBootstrap(pageID: number) {
     }
 
     // Start up InlineComment anh link it to our redux store
-    const body = document.querySelector('article')
+    const body: HTMLElement | null = document.querySelector(selector)
     if (body) {
         refreshInlineComment = InlineComment(
             getSelections,

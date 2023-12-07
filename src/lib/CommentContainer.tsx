@@ -22,7 +22,7 @@ export default function CommentContainer({highlighter, activeSelection, comments
         const el = domElements[0];
         const offset = window.pageYOffset + el.getBoundingClientRect().top;
         return (
-            <div className='comment-container' style={{top: offset}}>
+            <div className='shared-draft-comment-comment-container' style={{top: offset}}>
                 <CommentContainerHeader closeCommentThread={closeCommentThread} />
                 <Thread offset={offset} comments={comments} onNewComment={postComment} currentUser={currentUser}/>
             </div>

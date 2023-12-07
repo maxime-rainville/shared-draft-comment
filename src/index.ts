@@ -11,11 +11,10 @@ declare global {
 
 window.addEventListener('load', function () {
   if (window.sharedDraftComment === undefined) {
-    console.log('No sharedDraftComment object found. Using reduxBootstrap');
     reduxBootstrap();
   } else {
-    console.log('Apollo magic here');
-    apolloBootstrap(window.sharedDraftComment.pageID);
+    const {pageID, graphqlUrl, selector} = window.sharedDraftComment;
+    apolloBootstrap(pageID, graphqlUrl, selector);
   }
 })
 

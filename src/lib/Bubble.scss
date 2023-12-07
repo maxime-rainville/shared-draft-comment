@@ -1,4 +1,6 @@
-.bubble {
+@use 'variables' as v;
+
+.#{v.$namespace}-bubble {
   box-shadow: 0px 3px 10px 0px #00000040;
   left: 0; top: 0;
   padding: 10px;
