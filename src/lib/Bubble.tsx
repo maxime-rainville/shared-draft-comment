@@ -12,10 +12,11 @@ function Bubble({top, left, onClick}: BubbleProps) {
       top: `calc(${top}px - 75px)`,
       left: `calc(${left}px - 70px)`
     }
+    const css = 'shared-draft-comment'
     return (
         <button
           style={style}
-          className="bubble modal__button modal__button--primary"
+          className={`${css}-bubble ${css}-modal__button ${css}-modal__button--primary`}
           onClick={onClick}>
             Add comment
         </button>

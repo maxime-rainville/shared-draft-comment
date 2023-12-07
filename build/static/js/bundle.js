@@ -919,14 +919,15 @@ function Bubble({
     top: `calc(${top}px - 75px)`,
     left: `calc(${left}px - 70px)`
   };
+  const css = 'shared-draft-comment';
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxDEV)("button", {
     style: style,
-    className: "bubble modal__button modal__button--primary",
+    className: `${css}-bubble ${css}-modal__button ${css}-modal__button--primary`,
     onClick: onClick,
     children: "Add comment"
   }, void 0, false, {
     fileName: _jsxFileName,
-    lineNumber: 16,
+    lineNumber: 17,
     columnNumber: 9
   }, this);
 }
